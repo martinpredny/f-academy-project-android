@@ -166,6 +166,7 @@ dependencies {
     implementation(Dependencies.Compose.ui_tooling)
     implementation(Dependencies.Compose.activity)
     implementation(Dependencies.Compose.constraintLayout)
+    implementation(Dependencies.Compose.material3)
 
     // MVVM
     implementation(Dependencies.Taste.mvvmCrInteractors)
