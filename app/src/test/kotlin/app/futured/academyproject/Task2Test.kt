@@ -1,6 +1,7 @@
 package app.futured.academyproject
 
 import app.futured.academyproject.data.NetworkClient
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
@@ -16,11 +17,19 @@ class Task2Test {
 
     @Test
     fun sendReturnsZero() = runTest {
-        // TODO spustit networkClient.send() a zkontrolovat vysledek
+        launch {
+            networkClient.send().collect { result ->
+                assert(result == 0)
+            }
+        }
     }
 
     @Test
     fun sendAndReturnErrorThrowsError() = runTest {
-        // TODO spustit networkClient).sendAndReturnError() a zkontrolovat vysledek
+        launch {
+            networkClient.sendAndReturnError().collect { result ->
+                assert(result is Exception)
+            }
+        }
     }
 }
