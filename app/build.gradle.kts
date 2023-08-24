@@ -6,6 +6,8 @@ plugins {
     kotlin("kapt")
     kotlin("plugin.serialization") version Versions.kotlin
     id("dagger.hilt.android.plugin")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android.apply {
@@ -154,6 +156,9 @@ dependencies {
     implementation(Dependencies.Support.activityKtx)
     implementation(Dependencies.Support.lifecycleCompiler)
     implementation(Dependencies.Support.preference)
+    implementation("com.google.firebase:firebase-auth-ktx:21.1.0")
+    implementation("com.google.firebase:firebase-crashlytics-ktx:18.4.0")
+    implementation("com.google.firebase:firebase-analytics-ktx:21.3.0")
     coreLibraryDesugaring(Dependencies.Support.desugarLibs)
 
     // Compose
