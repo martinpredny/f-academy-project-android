@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "237931221360",
+    "project_id": "visit-brno-f0f7f",
+    "storage_bucket": "visit-brno-f0f7f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237931221360:android:0fac4a9aaca259dd45ffb5",
+        "android_client_info": {
+          "package_name": "app.futured.academyproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237931221360-b7apni0v59f29ihp6j8c2d38rsl8mo97.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFFtb-HwEwcHZZ1WN6dgsGCE-oiYn6k0k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237931221360-b7apni0v59f29ihp6j8c2d38rsl8mo97.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
