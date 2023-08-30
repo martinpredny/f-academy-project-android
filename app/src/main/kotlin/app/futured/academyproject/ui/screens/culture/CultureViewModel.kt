@@ -1,4 +1,4 @@
-package app.futured.academyproject.ui.screens.home
+package app.futured.academyproject.ui.screens.culture
 
 import app.futured.academyproject.domain.GetCulturalPlacesUseCase
 import app.futured.academyproject.tools.arch.BaseViewModel
@@ -7,10 +7,10 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    override val viewState: HomeViewState,
+class CultureViewModel @Inject constructor(
+    override val viewState: CultureViewState,
     private val getCulturalPlacesUseCase: GetCulturalPlacesUseCase,
-) : BaseViewModel<HomeViewState>(), Home.Actions {
+) : BaseViewModel<CultureViewState>(), Culture.Actions {
 
     init {
         loadCulturalPlaces()

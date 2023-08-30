@@ -1,12 +1,12 @@
 package app.futured.academyproject.tools.serialization
 
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 /**
  * Custom serializer for ZonedDateTime properties. The serialization is using ISO-8601 [2021-01-13T13:17:32+00:00] format.

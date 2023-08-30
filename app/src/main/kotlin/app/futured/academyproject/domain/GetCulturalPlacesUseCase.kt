@@ -21,6 +21,7 @@ class GetCulturalPlacesUseCase @Inject constructor(
                     name = item.properties.name,
                     type = item.properties.type,
                     note = item.properties.note,
+                    image1Url = item.properties.image1Url
                 ),
             )
         }
