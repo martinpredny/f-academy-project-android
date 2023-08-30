@@ -1,4 +1,4 @@
-package app.futured.academyproject.ui.screens.home
+package app.futured.academyproject.ui.screens.culture
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -11,7 +11,7 @@ import kotlinx.collections.immutable.persistentListOf
 import javax.inject.Inject
 
 @ViewModelScoped
-class HomeViewState @Inject constructor() : ViewState {
+class CultureViewState @Inject constructor() : ViewState {
 
     var places: PersistentList<Place> by mutableStateOf(persistentListOf())
 

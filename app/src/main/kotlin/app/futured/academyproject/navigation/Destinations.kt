@@ -20,7 +20,9 @@ sealed class Destination(
     val arguments: List<NamedNavArgument> = emptyList(),
     val deepLinks: List<NavDeepLink> = emptyList(),
 ) {
-    object Home : Destination(route = "home")
+    object Culture : Destination(route = "Culture")
+    object Tourism : Destination(route = "Tourism")
+    object Events : Destination(route = "Events")
     object Detail : Destination(
         route = "detail/{$PLACE_ID}",
         arguments = listOf(
