@@ -64,7 +64,7 @@ fun MainScreen(
             TopAppBar(scrollBehavior)
         },
         content = {
-            NavGraph(navController, navigation)
+            NavGraph(navController, navigation, it)
         },
         bottomBar = {
             BottomNavigationBar(items = items, navigation = navigation)

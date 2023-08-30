@@ -3,6 +3,7 @@ package app.futured.academyproject.ui.screens.culture
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -33,6 +34,7 @@ import kotlinx.collections.immutable.persistentListOf
 @Composable
 fun CultureScreen(
     navigation: NavigationDestinations,
+    paddings: PaddingValues,
     viewModel: CultureViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
@@ -46,6 +48,7 @@ fun CultureScreen(
             viewModel,
             viewState.places,
             viewState.error,
+            paddings
         )
     }
 }
@@ -66,6 +69,7 @@ object Culture {
         actions: Actions,
         places: PersistentList<Place>,
         error: Throwable?,
+        paddings: PaddingValues,
         modifier: Modifier = Modifier,
     ) {
         when {
@@ -80,7 +84,7 @@ object Culture {
             places.isNotEmpty() -> {
                 LazyColumn(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    //contentPadding = innerPadding,
+                    contentPadding = paddings,
                     verticalArrangement = Arrangement.spacedBy(Grid.d1),
                     modifier = Modifier
                         .fillMaxSize(),
@@ -173,6 +177,7 @@ private fun CultureContentPreview(@PreviewParameter(PlacesProvider::class) place
             Culture.PreviewActions,
             places,
             error = null,
+            paddings = PaddingValues()
         )
     }
 }
@@ -185,6 +190,7 @@ private fun CultureContentWithErrorPreview() {
             Culture.PreviewActions,
             places = persistentListOf(),
             error = IllegalStateException("Test"),
+            paddings = PaddingValues()
         )
     }
 }
@@ -197,6 +203,7 @@ private fun CultureContentWithLoadingPreview() {
             Culture.PreviewActions,
             places = persistentListOf(),
             error = null,
+            paddings = PaddingValues()
         )
     }
 }
