@@ -4,9 +4,10 @@ import androidx.navigation.NavController
 
 interface NavigationDestinations {
     fun popBackStack()
-    fun navigateToDetailScreen(placeId: Int)
     fun navigateToCulture()
+    fun navigateToCultureDetailScreen(placeId: Int)
     fun navigateToTourism()
+    fun navigateToTourismDetailScreen(placeId: Int)
     fun navigateToEvents()
     fun getNavController(): NavController
 }
@@ -20,15 +21,20 @@ class NavigationDestinationsImpl(private val navController: NavController) : Nav
         navController.popBackStack()
     }
 
-    override fun navigateToDetailScreen(placeId: Int) =
-        navController.navigate(Destination.Detail.buildRoute(placeId))
-
     override fun navigateToCulture() {
         navController.navigate("Culture")
     }
 
+    override fun navigateToCultureDetailScreen(placeId: Int) =
+        navController.navigate(Destination.CultureDetail.buildRoute(placeId))
+
+
     override fun navigateToTourism() {
         navController.navigate("Tourism")
+    }
+
+    override fun navigateToTourismDetailScreen(placeId: Int) {
+        navController.navigate(Destination.TourismDetail.buildRoute(placeId))
     }
 
     override fun navigateToEvents() {

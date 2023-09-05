@@ -22,6 +22,7 @@ fun BottomNavigationBar(
     navigation: NavigationDestinations
 ) {
     var selectedItemIndex by rememberSaveable {
+        //todo: fix remembering previous value
         mutableIntStateOf(0)
     }
 

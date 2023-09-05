@@ -20,10 +20,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.academyproject.data.model.local.TouristPlace
 import app.futured.academyproject.navigation.NavigationDestinations
+import app.futured.academyproject.tools.arch.EventsEffect
+import app.futured.academyproject.tools.arch.onEvent
 import app.futured.academyproject.tools.compose.ScreenPreviews
 import app.futured.academyproject.ui.components.Showcase
 import app.futured.academyproject.ui.components.TouristPlaceCard
-import app.futured.academyproject.ui.screens.culture.Culture
 import app.futured.academyproject.ui.theme.Grid
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
@@ -35,11 +36,11 @@ fun TourismScreen(
     viewModel: TourismViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
-//        EventsEffect {
-//            onEvent<NavigateToDetailEvent> {
-//                navigation.navigateToDetailScreen(placeId = it.placeId)
-//            }
-//        }
+        EventsEffect {
+            onEvent<NavigateToTourismDetailEvent> {
+                navigation.navigateToTourismDetailScreen(placeId = it.placeId)
+            }
+        }
 
         Tourism.Content(
             viewModel,
@@ -54,7 +55,7 @@ object Tourism {
 
     interface Actions {
 
-        fun navigateToDetailScreen(placeId: Int) = Unit
+        fun navigateToTourismDetailScreen(placeId: Int) = Unit
 
         fun tryAgain() = Unit
     }
@@ -89,7 +90,7 @@ object Tourism {
                     items(touristPlaces) { place ->
                         TouristPlaceCard(
                             touristPlace = place,
-                            onClick = actions::navigateToDetailScreen,
+                            onClick = actions::navigateToTourismDetailScreen,
                         )
                     }
                 }

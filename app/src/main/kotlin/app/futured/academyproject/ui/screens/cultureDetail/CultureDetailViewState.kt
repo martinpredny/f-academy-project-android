@@ -1,4 +1,4 @@
-package app.futured.academyproject.ui.screens.detail
+package app.futured.academyproject.ui.screens.cultureDetail
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -11,7 +11,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
 @ViewModelScoped
-class DetailViewState @Inject constructor(
+class CultureDetailViewState @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewState {
 
