@@ -1,5 +1,6 @@
 package app.futured.academyproject.ui.components
 
+import android.util.Log
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,8 +23,12 @@ fun BottomNavigationBar(
     navigation: NavigationDestinations
 ) {
     var selectedItemIndex by rememberSaveable {
-        //todo: fix remembering previous value
-        mutableIntStateOf(0)
+        when(navigation.getNavController().currentDestination?.route) {
+            "Culture" -> mutableIntStateOf(0)
+            "Tourism" -> mutableIntStateOf(1)
+            "Events" -> mutableIntStateOf(2)
+            else -> mutableIntStateOf(0)
+        }
     }
 
     NavigationBar {
