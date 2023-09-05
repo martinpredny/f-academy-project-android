@@ -23,12 +23,14 @@ fun BottomNavigationBar(
     navigation: NavigationDestinations
 ) {
     var selectedItemIndex by rememberSaveable {
-        when(navigation.getNavController().currentDestination?.route) {
-            "Culture" -> mutableIntStateOf(0)
-            "Tourism" -> mutableIntStateOf(1)
-            "Events" -> mutableIntStateOf(2)
-            else -> mutableIntStateOf(0)
-        }
+        mutableIntStateOf(0)
+    }
+
+    selectedItemIndex = when(navigation.getNavController().currentDestination?.route) {
+        "Culture" -> 0
+        "Tourism" -> 1
+        "Events" -> 2
+        else -> 0
     }
 
     NavigationBar {
