@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Properties(
+data class CultureProperties(
     @SerialName("ogc_fid") val ogcFid: Int,
     @SerialName("nazev") val name: String,
     @SerialName("druh") val type: String,

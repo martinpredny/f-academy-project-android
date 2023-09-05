@@ -1,14 +1,14 @@
 package app.futured.academyproject.tools.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import app.futured.academyproject.data.model.local.Place
+import app.futured.academyproject.data.model.local.CulturalPlace
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 
-class PlacesProvider : PreviewParameterProvider<PersistentList<Place>> {
+class CulturalPlacesProvider : PreviewParameterProvider<PersistentList<CulturalPlace>> {
     override val values = sequenceOf(
         persistentListOf(
-            Place(
+            CulturalPlace(
                 id = 17641,
                 longitude = 16.603794203950443,
                 latitude = 49.207958490102975,
@@ -28,7 +28,7 @@ class PlacesProvider : PreviewParameterProvider<PersistentList<Place>> {
                 openTo = null,
                 image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180659&RECORD_ID=17641&AGENDA_IDENT=GEO_ASSETS",
             ),
-            Place(
+            CulturalPlace(
                 id = 17521,
                 longitude = 16.626557231100332,
                 latitude = 49.18430405492898,
@@ -48,7 +48,7 @@ class PlacesProvider : PreviewParameterProvider<PersistentList<Place>> {
                 openTo = null,
                 image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180660&RECORD_ID=17521&AGENDA_IDENT=GEO_ASSETS",
             ),
-            Place(
+            CulturalPlace(
                 id = 17614,
                 longitude = 16.61044283979547,
                 latitude = 49.19433156375193,
@@ -68,7 +68,7 @@ class PlacesProvider : PreviewParameterProvider<PersistentList<Place>> {
                 openTo = null,
                 image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180661&RECORD_ID=17614&AGENDA_IDENT=GEO_ASSETS",
             ),
-            Place(
+            CulturalPlace(
                 id = 17593,
                 longitude = 16.61421186099769,
                 latitude = 49.19006443464228,
@@ -88,7 +88,7 @@ class PlacesProvider : PreviewParameterProvider<PersistentList<Place>> {
                 openTo = null,
                 image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180662&RECORD_ID=17593&AGENDA_IDENT=GEO_ASSETS",
             ),
-            Place(
+            CulturalPlace(
                 id = 17612,
                 longitude = 16.59703281447062,
                 latitude = 49.20271549206873,
@@ -108,7 +108,7 @@ class PlacesProvider : PreviewParameterProvider<PersistentList<Place>> {
                 openTo = null,
                 image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180663&RECORD_ID=17612&AGENDA_IDENT=GEO_ASSETS",
             ),
-            Place(
+            CulturalPlace(
                 id = 17587,
                 longitude = 16.606131538823046,
                 latitude = 49.19302395826253,
@@ -128,7 +128,7 @@ class PlacesProvider : PreviewParameterProvider<PersistentList<Place>> {
                 openTo = null,
                 image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180664&RECORD_ID=17587&AGENDA_IDENT=GEO_ASSETS",
             ),
-            Place(
+            CulturalPlace(
                 id = 17625,
                 longitude = 16.604157352423787,
                 latitude = 49.196248212267044,
@@ -148,7 +148,7 @@ class PlacesProvider : PreviewParameterProvider<PersistentList<Place>> {
                 openTo = null,
                 image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180657&RECORD_ID=17625&AGENDA_IDENT=GEO_ASSETS",
             ),
-            Place(
+            CulturalPlace(
                 id = 17543,
                 longitude = 16.60890136712314,
                 latitude = 49.19161999883868,
@@ -168,7 +168,7 @@ class PlacesProvider : PreviewParameterProvider<PersistentList<Place>> {
                 openTo = null,
                 image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180655&RECORD_ID=17543&AGENDA_IDENT=GEO_ASSETS",
             ),
-            Place(
+            CulturalPlace(
                 id = 17607,
                 longitude = 16.67820074764902,
                 latitude = 49.18307811891463,
@@ -188,7 +188,7 @@ class PlacesProvider : PreviewParameterProvider<PersistentList<Place>> {
                 openTo = null,
                 image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180666&RECORD_ID=17607&AGENDA_IDENT=GEO_ASSETS",
             ),
-            Place(
+            CulturalPlace(
                 id = 17673,
                 longitude = 16.609463009309913,
                 latitude = 49.196822302097424,
@@ -208,7 +208,7 @@ class PlacesProvider : PreviewParameterProvider<PersistentList<Place>> {
                 openTo = null,
                 image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180668&RECORD_ID=17673&AGENDA_IDENT=GEO_ASSETS",
             ),
-            Place(
+            CulturalPlace(
                 id = 17650,
                 longitude = 16.61935080601079,
                 latitude = 49.1983027976563,
@@ -228,7 +228,7 @@ class PlacesProvider : PreviewParameterProvider<PersistentList<Place>> {
                 openTo = null,
                 image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180670&RECORD_ID=17650&AGENDA_IDENT=GEO_ASSETS",
             ),
-            Place(
+            CulturalPlace(
                 id = 21422,
                 longitude = 16.622567013514846,
                 latitude = 49.19976046906091,
@@ -250,7 +250,7 @@ class PlacesProvider : PreviewParameterProvider<PersistentList<Place>> {
                 openTo = null,
                 image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=189872&RECORD_ID=21422&AGENDA_IDENT=GEO_ASSETS",
             ),
-            Place(
+            CulturalPlace(
                 id = 17558,
                 longitude = 16.60624452646237,
                 latitude = 49.19435798028908,

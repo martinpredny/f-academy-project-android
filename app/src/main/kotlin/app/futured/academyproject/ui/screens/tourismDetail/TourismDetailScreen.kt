@@ -1,4 +1,4 @@
-package app.futured.academyproject.ui.screens.detail
+package app.futured.academyproject.ui.screens.tourismDetail
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import app.futured.academyproject.data.model.local.Place
+import app.futured.academyproject.data.model.local.TouristPlace
 import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
@@ -23,9 +23,9 @@ import app.futured.academyproject.tools.compose.ScreenPreviews
 import app.futured.academyproject.ui.components.Showcase
 
 @Composable
-fun DetailScreen(
+fun TourismDetailScreen(
     navigation: NavigationDestinations,
-    viewModel: DetailViewModel = hiltViewModel(),
+    viewModel: TourismDetailViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
         EventsEffect {
@@ -34,14 +34,14 @@ fun DetailScreen(
             }
         }
 
-        Detail.Content(
+        TourismDetail.Content(
             this,
-            viewState.place,
+            viewState.touristPlace,
         )
     }
 }
 
-object Detail {
+object TourismDetail {
 
     interface Actions {
         fun navigateBack() = Unit
@@ -53,13 +53,13 @@ object Detail {
     @Composable
     fun Content(
         actions: Actions,
-        place: Place?,
+        touristPlace: TouristPlace?,
         modifier: Modifier = Modifier,
     ) {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = "DetailScreen") },
+                    title = { Text(text = "Tourism Detail Screen") },
                     navigationIcon = {
                         IconButton(onClick = { actions.navigateBack() }) {
                             Icon(Icons.Filled.ArrowBack, contentDescription = null)
@@ -69,14 +69,14 @@ object Detail {
             },
             modifier = modifier,
         ) { contentPadding ->
-            place?.let {
+            touristPlace?.let {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
                         .padding(contentPadding)
                         .fillMaxSize(),
                 ) {
-                    Text(text = place.name)
+                    Text(text = touristPlace.name)
                 }
             }
         }
@@ -85,11 +85,11 @@ object Detail {
 
 @ScreenPreviews
 @Composable
-fun DetailContentPreview() {
+fun TourismDetailContentPreview() {
     Showcase {
-        Detail.Content(
-            Detail.PreviewActions,
-            place = null,
+        TourismDetail.Content(
+            TourismDetail.PreviewActions,
+            touristPlace = null,
         )
     }
 }

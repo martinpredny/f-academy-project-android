@@ -23,8 +23,19 @@ sealed class Destination(
     object Culture : Destination(route = "Culture")
     object Tourism : Destination(route = "Tourism")
     object Events : Destination(route = "Events")
-    object Detail : Destination(
-        route = "detail/{$PLACE_ID}",
+    object CultureDetail : Destination(
+        route = "cultureDetail/{$PLACE_ID}",
+        arguments = listOf(
+            navArgument(PLACE_ID) {
+                type = NavType.IntType
+            },
+        ),
+    ) {
+        fun buildRoute(placeId: Int): String = route
+            .withArgument(PLACE_ID, placeId.toString())
+    }
+    object TourismDetail : Destination(
+        route = "tourismDetail/{$PLACE_ID}",
         arguments = listOf(
             navArgument(PLACE_ID) {
                 type = NavType.IntType

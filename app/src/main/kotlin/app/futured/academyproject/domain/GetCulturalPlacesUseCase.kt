@@ -1,27 +1,27 @@
 package app.futured.academyproject.domain
 
-import app.futured.academyproject.data.model.local.Place
+import app.futured.academyproject.data.model.local.CulturalPlace
 import app.futured.academyproject.data.remote.ApiManager
 import app.futured.arkitekt.crusecases.UseCase
 import javax.inject.Inject
 
 class GetCulturalPlacesUseCase @Inject constructor(
     private val apiManager: ApiManager,
-) : UseCase<Unit, List<Place>>() {
+) : UseCase<Unit, List<CulturalPlace>>() {
 
-    override suspend fun build(args: Unit): List<Place> {
+    override suspend fun build(args: Unit): List<CulturalPlace> {
         val places = apiManager.getCulturalPlaces()
-        val placesList = mutableListOf<Place>()
-        for (item in places.features) {
+        val placesList = mutableListOf<CulturalPlace>()
+        for (item in places.cultureFeatures) {
             placesList.add(
-                Place(
-                    id = item.properties.ogcFid,
+                CulturalPlace(
+                    id = item.cultureProperties.ogcFid,
                     longitude = item.geometry?.coordinates?.get(0),
                     latitude = item.geometry?.coordinates?.get(1),
-                    name = item.properties.name,
-                    type = item.properties.type,
-                    note = item.properties.note,
-                    image1Url = item.properties.image1Url
+                    name = item.cultureProperties.name,
+                    type = item.cultureProperties.type,
+                    note = item.cultureProperties.note,
+                    image1Url = item.cultureProperties.image1Url
                 ),
             )
         }
