@@ -1,6 +1,6 @@
 package app.futured.academyproject.data.model.local
 
-data class Place(
+data class CulturalPlace(
     val id: Int,
     val longitude: Double? = null,
     val latitude: Double? = null,

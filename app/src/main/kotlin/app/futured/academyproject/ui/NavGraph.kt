@@ -4,14 +4,13 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import app.futured.academyproject.navigation.Destination
 import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.navigation.composable
 import app.futured.academyproject.ui.screens.culture.CultureScreen
 import app.futured.academyproject.ui.screens.culture.EventsScreen
-import app.futured.academyproject.ui.screens.culture.TourismScreen
 import app.futured.academyproject.ui.screens.detail.DetailScreen
+import app.futured.academyproject.ui.screens.tourism.TourismScreen
 
 @Composable
 fun NavGraph(
@@ -32,7 +31,7 @@ fun NavGraph(
         }
 
         composable(Destination.Tourism) {
-            TourismScreen()
+            TourismScreen(navigation, paddings)
         }
         composable(Destination.Events) {
             EventsScreen()

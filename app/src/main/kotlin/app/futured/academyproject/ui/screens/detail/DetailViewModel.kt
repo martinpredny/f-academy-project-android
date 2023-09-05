@@ -19,7 +19,7 @@ class DetailViewModel @Inject constructor(
     private fun loadPlace() {
         getPlaceUseCase.execute(GetPlaceUseCase.Args(viewState.placeId)) {
             onSuccess {
-                viewState.place = it
+                viewState.culturalPlace = it
             }
             onError {
                 Timber.e(it)

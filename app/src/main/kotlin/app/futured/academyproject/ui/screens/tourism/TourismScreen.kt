@@ -1,4 +1,4 @@
-package app.futured.academyproject.ui.screens.culture
+package app.futured.academyproject.ui.screens.tourism
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,35 +16,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import app.futured.academyproject.data.model.local.CulturalPlace
+import app.futured.academyproject.data.model.local.TouristPlace
 import app.futured.academyproject.navigation.NavigationDestinations
-import app.futured.academyproject.tools.arch.EventsEffect
-import app.futured.academyproject.tools.arch.onEvent
 import app.futured.academyproject.tools.compose.ScreenPreviews
-import app.futured.academyproject.tools.preview.CulturalPlacesProvider
-import app.futured.academyproject.ui.components.CulturalPlaceCard
 import app.futured.academyproject.ui.components.Showcase
+import app.futured.academyproject.ui.components.TouristPlaceCard
+import app.futured.academyproject.ui.screens.culture.Culture
 import app.futured.academyproject.ui.theme.Grid
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 
 @Composable
-fun CultureScreen(
+fun TourismScreen(
     navigation: NavigationDestinations,
     paddings: PaddingValues,
-    viewModel: CultureViewModel = hiltViewModel(),
+    viewModel: TourismViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
-        EventsEffect {
-            onEvent<NavigateToDetailEvent> {
-                navigation.navigateToDetailScreen(placeId = it.placeId)
-            }
-        }
+//        EventsEffect {
+//            onEvent<NavigateToDetailEvent> {
+//                navigation.navigateToDetailScreen(placeId = it.placeId)
+//            }
+//        }
 
-        Culture.Content(
+        Tourism.Content(
             viewModel,
             viewState.places,
             viewState.error,
@@ -53,7 +50,7 @@ fun CultureScreen(
     }
 }
 
-object Culture {
+object Tourism {
 
     interface Actions {
 
@@ -67,7 +64,7 @@ object Culture {
     @Composable
     fun Content(
         actions: Actions,
-        culturalPlaces: PersistentList<CulturalPlace>,
+        touristPlaces: PersistentList<TouristPlace>,
         error: Throwable?,
         paddings: PaddingValues,
         modifier: Modifier = Modifier,
@@ -77,11 +74,11 @@ object Culture {
                 Error(onTryAgain = actions::tryAgain)
             }
 
-            culturalPlaces.isEmpty() -> {
+            touristPlaces.isEmpty() -> {
                 Loading()
             }
 
-            culturalPlaces.isNotEmpty() -> {
+            touristPlaces.isNotEmpty() -> {
                 LazyColumn(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     contentPadding = paddings,
@@ -89,9 +86,9 @@ object Culture {
                     modifier = Modifier
                         .fillMaxSize(),
                 ) {
-                    items(culturalPlaces) { place ->
-                        CulturalPlaceCard(
-                            culturalPlace = place,
+                    items(touristPlaces) { place ->
+                        TouristPlaceCard(
+                            touristPlace = place,
                             onClick = actions::navigateToDetailScreen,
                         )
                     }
@@ -149,36 +146,13 @@ object Culture {
     }
 }
 
-@Composable
-fun EventsScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Events screen")
-    }
-}
-
 @ScreenPreviews
 @Composable
-private fun CultureContentPreview(@PreviewParameter(CulturalPlacesProvider::class) places: PersistentList<CulturalPlace>) {
+private fun TourismContentWithErrorPreview() {
     Showcase {
-        Culture.Content(
-            Culture.PreviewActions,
-            places,
-            error = null,
-            paddings = PaddingValues()
-        )
-    }
-}
-
-@ScreenPreviews
-@Composable
-private fun CultureContentWithErrorPreview() {
-    Showcase {
-        Culture.Content(
-            Culture.PreviewActions,
-            culturalPlaces = persistentListOf(),
+        Tourism.Content(
+            Tourism.PreviewActions,
+            touristPlaces = persistentListOf(),
             error = IllegalStateException("Test"),
             paddings = PaddingValues()
         )
@@ -187,11 +161,11 @@ private fun CultureContentWithErrorPreview() {
 
 @ScreenPreviews
 @Composable
-private fun CultureContentWithLoadingPreview() {
+private fun TourismContentWithLoadingPreview() {
     Showcase {
-        Culture.Content(
-            Culture.PreviewActions,
-            culturalPlaces = persistentListOf(),
+        Tourism.Content(
+            Tourism.PreviewActions,
+            touristPlaces = persistentListOf(),
             error = null,
             paddings = PaddingValues()
         )

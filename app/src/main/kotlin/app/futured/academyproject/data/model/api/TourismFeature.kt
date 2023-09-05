@@ -4,7 +4,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CulturalPlaces(
+data class TourismFeature(
+    @SerialName("id") val id: Int,
     @SerialName("type") val type: String,
-    @SerialName("features") val cultureFeatures: List<CultureFeature>,
+    @SerialName("geometry") val geometry: Geometry? = null,
+    @SerialName("properties") val properties: TourismProperties,
 )
