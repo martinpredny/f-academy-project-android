@@ -51,10 +51,10 @@ fun MainScreen(
     navigation: NavigationDestinations = remember { NavigationDestinationsImpl(navController) },
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-    var showBottomAndTopBar by rememberSaveable { mutableStateOf(true) }
+    var shouldShowBottomAndTopBar by rememberSaveable { mutableStateOf(true) }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
-    showBottomAndTopBar = when (navBackStackEntry?.destination?.route) {
+    shouldShowBottomAndTopBar = when (navBackStackEntry?.destination?.route) {
         "Culture" -> true
         "Tourism" -> true
         "Events" -> true
@@ -73,6 +73,7 @@ fun MainScreen(
         ModalNavigationDrawer(
             modifier = Modifier
                 .windowInsetsPadding(WindowInsets.displayCutout),
+            gesturesEnabled = shouldShowBottomAndTopBar,
             drawerContent = {
                 ModalDrawerSheet {
                     Spacer(modifier = Modifier.height(16.dp))
@@ -108,7 +109,7 @@ fun MainScreen(
             Scaffold(
                 modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                 topBar = {
-                    if (showBottomAndTopBar) {
+                    if (shouldShowBottomAndTopBar) {
                         TopAppBar(scrollBehavior, drawerState, scope)
                     }
                 },
@@ -116,7 +117,7 @@ fun MainScreen(
                     NavGraph(navController, navigation, it)
                 },
                 bottomBar = {
-                    if (showBottomAndTopBar) {
+                    if (shouldShowBottomAndTopBar) {
                         BottomNavigationBar(items = itemsBottomNavBar, navigation = navigation)
                     }
                 },

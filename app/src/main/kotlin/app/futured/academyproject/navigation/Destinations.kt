@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.navArgument
 import app.futured.academyproject.tools.Constants.Args.PLACE_ID
+import app.futured.academyproject.tools.Constants.Args.URL
 
 typealias DestinationArgumentKey = String
 typealias DestinationArgumentValue = String
@@ -24,7 +25,7 @@ sealed class Destination(
     object Tourism : Destination(route = "Tourism")
     object Events : Destination(route = "Events")
     object CultureDetail : Destination(
-        route = "cultureDetail/{$PLACE_ID}",
+        route = "CultureDetail/{$PLACE_ID}",
         arguments = listOf(
             navArgument(PLACE_ID) {
                 type = NavType.IntType
@@ -35,7 +36,7 @@ sealed class Destination(
             .withArgument(PLACE_ID, placeId.toString())
     }
     object TourismDetail : Destination(
-        route = "tourismDetail/{$PLACE_ID}",
+        route = "TourismDetail/{$PLACE_ID}",
         arguments = listOf(
             navArgument(PLACE_ID) {
                 type = NavType.IntType
@@ -44,6 +45,17 @@ sealed class Destination(
     ) {
         fun buildRoute(placeId: Int): String = route
             .withArgument(PLACE_ID, placeId.toString())
+    }
+    object Website : Destination(
+        route = "Website/{$URL}",
+        arguments = listOf(
+            navArgument(URL) {
+                type = NavType.StringType
+            },
+        ),
+    ) {
+        fun buildRoute(url: String): String = route
+            .withArgument(URL, url)
     }
 }
 

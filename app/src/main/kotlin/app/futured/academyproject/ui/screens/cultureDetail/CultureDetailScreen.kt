@@ -1,6 +1,7 @@
 package app.futured.academyproject.ui.screens.cultureDetail
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -45,6 +46,9 @@ fun CultureDetailScreen(
             onEvent<NavigateBackEvent> {
                 navigation.popBackStack()
             }
+            onEvent<NavigateToWebsiteEvent> {
+                navigation.navigateToWebsite(url = it.url)
+            }
         }
 
         CultureDetail.Content(
@@ -58,6 +62,7 @@ object CultureDetail {
 
     interface Actions {
         fun navigateBack() = Unit
+        fun navigateToWebsite(url: String) = Unit
     }
 
     object PreviewActions : Actions
@@ -150,7 +155,10 @@ object CultureDetail {
                         ) {
                             Text(text = "Website:", fontWeight = FontWeight.Bold)
                             Text(
-                                text = culturalPlace.webUrl
+                                text = culturalPlace.webUrl, Modifier
+                                    .clickable {
+                                        actions.navigateToWebsite(culturalPlace.webUrl)
+                                    }
                             )
                         }
                     }

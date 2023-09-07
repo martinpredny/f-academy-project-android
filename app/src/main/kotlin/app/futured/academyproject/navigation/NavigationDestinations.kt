@@ -1,6 +1,8 @@
 package app.futured.academyproject.navigation
 
 import androidx.navigation.NavController
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 interface NavigationDestinations {
     fun popBackStack()
@@ -9,6 +11,7 @@ interface NavigationDestinations {
     fun navigateToTourism()
     fun navigateToTourismDetailScreen(placeId: Int)
     fun navigateToEvents()
+    fun navigateToWebsite(url: String)
     fun getNavController(): NavController
 }
 
@@ -39,6 +42,11 @@ class NavigationDestinationsImpl(private val navController: NavController) : Nav
 
     override fun navigateToEvents() {
         navController.navigate("Events")
+    }
+
+    override fun navigateToWebsite(url: String) {
+        val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.toString())
+        navController.navigate(Destination.Website.buildRoute(encodedUrl))
     }
 
     override fun getNavController(): NavController {

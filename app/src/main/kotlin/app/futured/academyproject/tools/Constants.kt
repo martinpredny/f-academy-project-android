@@ -9,5 +9,6 @@ interface Constants {
 
     object Args {
         const val PLACE_ID = "placeId"
+        const val URL = "url"
     }
 }
