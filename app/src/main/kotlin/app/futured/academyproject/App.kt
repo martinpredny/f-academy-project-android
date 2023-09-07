@@ -26,6 +26,7 @@ class AppActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // draw app content behind the system bars
+        //todo - set as true to not overlay system windows
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {

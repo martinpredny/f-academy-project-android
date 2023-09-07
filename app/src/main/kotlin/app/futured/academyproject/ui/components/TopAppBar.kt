@@ -3,6 +3,7 @@ package app.futured.academyproject.ui.components
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -17,10 +18,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import app.futured.academyproject.R
 import app.futured.academyproject.ui.theme.Grid
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior) {
+fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior, drawerState: DrawerState, scope: CoroutineScope) {
     LargeTopAppBar(
         title = {
             Text(
@@ -30,7 +33,11 @@ fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior) {
             )
         },
         navigationIcon = {
-            IconButton(onClick = { /* doSomething() */ }) {
+            IconButton(onClick = {
+                scope.launch {
+                    drawerState.open()
+                }
+            }) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
                     contentDescription = null,
@@ -38,12 +45,12 @@ fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior) {
             }
         },
         actions = {
-            IconButton(onClick = { /* doSomething() */ }) {
-                Icon(
-                    imageVector = Icons.Filled.Favorite,
-                    contentDescription = null,
-                )
-            }
+//            IconButton(onClick = { /* doSomething() */ }) {
+//                Icon(
+//                    imageVector = Icons.Filled.Favorite,
+//                    contentDescription = null,
+//                )
+//            }
         },
         colors = TopAppBarDefaults.largeTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.background,
