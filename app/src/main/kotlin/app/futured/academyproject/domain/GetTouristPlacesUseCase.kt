@@ -19,9 +19,20 @@ class GetTouristPlacesUseCase @Inject constructor(
                     longitude = item.geometry?.coordinates?.get(0),
                     latitude = item.geometry?.coordinates?.get(1),
                     name = item.properties.name,
-                    image1Url = item.properties.image,
-                    streetNumber = item.properties.addressStreet
-                ),
+                    note = item.properties.text,
+                    webUrl = item.properties.contactWebsite,
+                    program = item.properties.openingHours,
+                    street = item.properties.addressStreet,
+                    streetNumber = item.properties.addressStreetNumber,
+                    email = item.properties.contactEmail,
+                    phone = item.properties.contactPhone,
+                    nameEN = null,
+                    noteEN = null,
+                    accessibilityId = null,
+                    openFrom = null,
+                    openTo = null,
+                    image1Url = item.properties.image
+                )
             )
         }
         return placesList

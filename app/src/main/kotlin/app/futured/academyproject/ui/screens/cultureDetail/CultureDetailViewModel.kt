@@ -30,4 +30,8 @@ class CultureDetailViewModel @Inject constructor(
     override fun navigateBack() {
         sendEvent(NavigateBackEvent)
     }
+
+    override fun navigateToWebsite(url: String) {
+        sendEvent(NavigateToWebsiteEvent(url))
+    }
 }

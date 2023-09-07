@@ -149,16 +149,6 @@ object Culture {
     }
 }
 
-@Composable
-fun EventsScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Events screen")
-    }
-}
-
 @ScreenPreviews
 @Composable
 private fun CultureContentPreview(@PreviewParameter(CulturalPlacesProvider::class) places: PersistentList<CulturalPlace>) {

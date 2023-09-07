@@ -1,6 +1,5 @@
 package app.futured.academyproject.ui.components
 
-import android.util.Log
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api

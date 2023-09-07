@@ -21,7 +21,19 @@ class GetCulturalPlacesUseCase @Inject constructor(
                     name = item.cultureProperties.name,
                     type = item.cultureProperties.type,
                     note = item.cultureProperties.note,
-                    image1Url = item.cultureProperties.image1Url
+                    webUrl = item.cultureProperties.webUrl,
+                    program = item.cultureProperties.program,
+                    street = item.cultureProperties.street,
+                    streetNumber = item.cultureProperties.streetNumber,
+                    email = item.cultureProperties.email,
+                    phone = item.cultureProperties.phone,
+                    nameEN = item.cultureProperties.nameEN,
+                    noteEN = item.cultureProperties.noteEN,
+                    accessibilityId = item.cultureProperties.accessibilityId,
+                    openFrom = item.cultureProperties.openFrom,
+                    openTo = item.cultureProperties.openTo,
+                    image1Url = item.cultureProperties.image1Url,
+                    brnoPass = item.cultureProperties.brnoPass
                 ),
             )
         }
