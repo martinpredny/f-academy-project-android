@@ -59,7 +59,7 @@ object TourismDetail {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = "Tourism Detail Screen") },
+                    title = { Text(text = (touristPlace?.name ?: "Tourist Place Detail")) },
                     navigationIcon = {
                         IconButton(onClick = { actions.navigateBack() }) {
                             Icon(Icons.Filled.ArrowBack, contentDescription = null)
