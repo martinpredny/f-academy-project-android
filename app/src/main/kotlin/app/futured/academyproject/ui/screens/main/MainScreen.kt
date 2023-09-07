@@ -2,9 +2,12 @@ package app.futured.academyproject.ui.screens.main
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -68,6 +71,8 @@ fun MainScreen(
             mutableIntStateOf(0)
         }
         ModalNavigationDrawer(
+            modifier = Modifier
+                .windowInsetsPadding(WindowInsets.displayCutout),
             drawerContent = {
                 ModalDrawerSheet {
                     Spacer(modifier = Modifier.height(16.dp))

@@ -45,12 +45,12 @@ fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior, drawerState: DrawerState,
             }
         },
         actions = {
-            IconButton(onClick = { /* doSomething() */ }) {
-                Icon(
-                    imageVector = Icons.Filled.Favorite,
-                    contentDescription = null,
-                )
-            }
+//            IconButton(onClick = { /* doSomething() */ }) {
+//                Icon(
+//                    imageVector = Icons.Filled.Favorite,
+//                    contentDescription = null,
+//                )
+//            }
         },
         colors = TopAppBarDefaults.largeTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.background,
