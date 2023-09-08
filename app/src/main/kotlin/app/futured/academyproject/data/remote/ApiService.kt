@@ -1,6 +1,7 @@
 package app.futured.academyproject.data.remote
 
 import app.futured.academyproject.data.model.api.CulturalPlaces
+import app.futured.academyproject.data.model.api.Events
 import app.futured.academyproject.data.model.api.TouristPlaces
 import retrofit2.http.GET
 import retrofit2.http.Url
@@ -14,4 +15,9 @@ interface ApiService {
     suspend fun getAllTouristPlaces(
         @Url url: String
     ): TouristPlaces
+
+    @GET
+    suspend fun getAllEvents(
+        @Url url: String
+    ): Events
 }

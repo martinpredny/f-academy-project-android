@@ -11,6 +11,7 @@ interface NavigationDestinations {
     fun navigateToTourism()
     fun navigateToTourismDetailScreen(placeId: Int)
     fun navigateToEvents()
+    fun navigateToEventDetailScreen(eventId: Int)
     fun navigateToWebsite(url: String)
     fun getNavController(): NavController
 }
@@ -42,6 +43,10 @@ class NavigationDestinationsImpl(private val navController: NavController) : Nav
 
     override fun navigateToEvents() {
         navController.navigate("Events")
+    }
+
+    override fun navigateToEventDetailScreen(eventId: Int) {
+        navController.navigate(Destination.EventDetail.buildRoute(eventId))
     }
 
     override fun navigateToWebsite(url: String) {
