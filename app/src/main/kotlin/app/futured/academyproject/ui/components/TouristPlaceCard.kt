@@ -72,7 +72,7 @@ fun TouristPlaceCard(touristPlace: TouristPlace, onClick: (Int) -> Unit, modifie
                 overflow = TextOverflow.Ellipsis,
             )
             Spacer(modifier = Modifier.height(Grid.d1))
-            touristPlace.streetNumber?.let {
+            touristPlace.street?.let {
                 Text(
                     text = it,
                     style = MaterialTheme.typography.bodyMedium,
