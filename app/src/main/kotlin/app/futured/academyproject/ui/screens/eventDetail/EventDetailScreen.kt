@@ -33,6 +33,7 @@ import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
 import app.futured.academyproject.tools.compose.ScreenPreviews
+import app.futured.academyproject.ui.components.RowTitleValue
 import app.futured.academyproject.ui.components.Showcase
 import app.futured.academyproject.ui.theme.Grid
 import coil.compose.rememberAsyncImagePainter
@@ -89,40 +90,18 @@ object EventDetail {
             },
             modifier = modifier,
         ) { contentPadding ->
-            event?.let {
+            event?.let { event ->
                 Column(
                     modifier = Modifier
                         .padding(contentPadding)
                         .verticalScroll(rememberScrollState())
                         .fillMaxSize(),
                 ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(text = "Name:", fontWeight = FontWeight.Bold)
-                        Text(
-                            text = event.name
-                        )
-                    }
                     if(event.category != null) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(text = "Category:", fontWeight = FontWeight.Bold)
-                            Text(
-                                text = event.category
-                            )
-                        }
+                        RowTitleValue(title = "Category:", value = event.category)
                     }
                     if(event.webUrl != null) {
+                        //Todo: make also composable with clickable url
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -140,18 +119,7 @@ object EventDetail {
                         }
                     }
                     if(event.email != null) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(text = "Email:", fontWeight = FontWeight.Bold)
-                            Text(
-                                text = event.email
-                            )
-                        }
+                        RowTitleValue(title = "Email:", value = event.email)
                     }
                     Row(
                         modifier = Modifier

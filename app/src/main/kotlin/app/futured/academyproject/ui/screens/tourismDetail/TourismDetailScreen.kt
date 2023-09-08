@@ -25,13 +25,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.academyproject.data.model.local.TouristPlace
 import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
 import app.futured.academyproject.tools.compose.ScreenPreviews
+import app.futured.academyproject.ui.components.RowTitleValue
 import app.futured.academyproject.ui.components.Showcase
 import app.futured.academyproject.ui.theme.Grid
 import coil.compose.rememberAsyncImagePainter
@@ -84,82 +84,24 @@ object TourismDetail {
             },
             modifier = modifier,
         ) { contentPadding ->
-            touristPlace?.let {
+            touristPlace?.let { touristPlace ->
                 Column(
                     modifier = Modifier
                         .padding(contentPadding)
                         .verticalScroll(rememberScrollState())
                         .fillMaxSize(),
                 ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(text = "Name:", fontWeight = FontWeight.Bold)
-                        Text(
-                            text = touristPlace.name
-                        )
-                    }
                     if(touristPlace.street != null) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(text = "Street:", fontWeight = FontWeight.Bold)
-                            Text(
-                                text = touristPlace.street
-                            )
-                        }
+                        RowTitleValue(title = "Street:", value = touristPlace.street)
                     }
                     if(touristPlace.webUrl != null) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(text = "Website:", fontWeight = FontWeight.Bold)
-                            Text(
-                                text = touristPlace.webUrl
-                            )
-                        }
+                        RowTitleValue(title = "Website:", value = touristPlace.webUrl)
                     }
                     if(touristPlace.email != null) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(text = "Email:", fontWeight = FontWeight.Bold)
-                            Text(
-                                text = touristPlace.email
-                            )
-                        }
+                        RowTitleValue(title = "Email:", value = touristPlace.email)
                     }
                     if(touristPlace.phone != null) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(text = "Phone Number:", fontWeight = FontWeight.Bold)
-                            //Spacer(modifier = Modifier.width(16.dp))
-                            //Todo: fix text alignment
-                            Text(
-                                text = touristPlace.phone
-                            )
-                        }
+                        RowTitleValue(title = "Phone:", value = touristPlace.phone)
                     }
                     Row(
                         modifier = Modifier

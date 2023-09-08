@@ -33,6 +33,7 @@ import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
 import app.futured.academyproject.tools.compose.ScreenPreviews
+import app.futured.academyproject.ui.components.RowTitleValue
 import app.futured.academyproject.ui.components.Showcase
 import app.futured.academyproject.ui.theme.Grid
 import coil.compose.rememberAsyncImagePainter
@@ -89,64 +90,19 @@ object CultureDetail {
             },
             modifier = modifier,
         ) { contentPadding ->
-            culturalPlace?.let {
+            culturalPlace?.let { culturalPlace ->
                 Column(
                     modifier = Modifier
                         .padding(contentPadding)
                         .verticalScroll(rememberScrollState())
                         .fillMaxSize(),
                 ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(text = "Name:", fontWeight = FontWeight.Bold)
-                        Text(
-                            text = culturalPlace.name
-                        )
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(text = "Type:", fontWeight = FontWeight.Bold)
-                        Text(
-                            text = culturalPlace.type
-                        )
-                    }
+                    RowTitleValue(title = "Type", value = culturalPlace.type)
                     if(culturalPlace.street != null) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(text = "Street:", fontWeight = FontWeight.Bold)
-                            Text(
-                                text = culturalPlace.street
-                            )
-                        }
+                        RowTitleValue(title = "Street:", value = culturalPlace.street)
                     }
                     if(culturalPlace.streetNumber != null) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(text = "Street Number:", fontWeight = FontWeight.Bold)
-                            Text(
-                                text = culturalPlace.streetNumber
-                            )
-                        }
+                        RowTitleValue(title = "Street Numver:", value = culturalPlace.streetNumber)
                     }
                     if(culturalPlace.webUrl != null) {
                         Row(
@@ -166,46 +122,13 @@ object CultureDetail {
                         }
                     }
                     if(culturalPlace.email != null) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(text = "Email:", fontWeight = FontWeight.Bold)
-                            Text(
-                                text = culturalPlace.email
-                            )
-                        }
+                        RowTitleValue(title = "Email:", value = culturalPlace.email)
                     }
                     if(culturalPlace.phone != null) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(text = "Phone Number:", fontWeight = FontWeight.Bold)
-                            Text(
-                                text = culturalPlace.phone
-                            )
-                        }
+                        RowTitleValue(title = "Phone:", value = culturalPlace.phone)
                     }
                     if(culturalPlace.brnoPass != null) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(text = "Accepts Brno Pass:", fontWeight = FontWeight.Bold)
-                            Text(
-                                text = acceptsBrnoPass(culturalPlace.brnoPass)
-                            )
-                        }
+                        RowTitleValue(title = "Accepts Brno Pass:", value = acceptsBrnoPass(culturalPlace.brnoPass))
                     }
                     Row(
                         modifier = Modifier
