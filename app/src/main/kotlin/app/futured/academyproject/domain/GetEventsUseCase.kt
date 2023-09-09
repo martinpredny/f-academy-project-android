@@ -21,7 +21,7 @@ class GetEventsUseCase @Inject constructor(
                     name = item.properties.name,
                     webUrl = item.properties.url,
                     email = item.properties.organizerEmail,
-                    image1Url = item.properties.images,
+                    image1Url = item.properties.firstImage,
                     tickets = item.properties.tickets,
                     category = item.properties.categories,
                     text = item.properties.text,

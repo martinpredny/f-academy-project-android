@@ -1,10 +1,19 @@
 <resources>
     <string name="app_name">Visit Brno</string>
 
+    <!-- Error states -->
     <string name="error_connection">Zkontrolujte prosím jestli jste připojeni k internetu. Protože možná nejste.</string>
     <string name="error_parse">Něco se pokazilo. Zkuste to později.</string>
     <string name="error_general_server_error">Něco se pokazilo a ne na vašem přijímači. Zkuste to později.</string>
     <string name="error_unauthorized">Nejste přihlášení a to byste měli.</string>
 
-    <string name="app_map_name">Visit Brno</string>
+    <!-- About screen -->
+    <string name="app_version">Version 1.0</string>
+    <string name="app_description">Discover cultural places, tourist attractions, and events in Brno with the Visit Brno app. App was developed as a part of assignment during the Futured Summer Dev Academy (2023).</string>
+    <string name="contact_developer">Contact Developer:</string>
+    <string name="developer_email">Email: mato.predny@gmail.com</string>
+    <string name="contact_futured">Contact Futured:</string>
+    <string name="futured_email">Email: your@futured.app</string>
+    <string name="futured_website">Website: https://www.futured.app/</string>
+    <string name="app_info">App Info</string>
 </resources>

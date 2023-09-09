@@ -40,6 +40,7 @@ import app.futured.academyproject.navigation.NavigationDestinationsImpl
 import app.futured.academyproject.ui.NavGraph
 import app.futured.academyproject.ui.components.BottomNavigationBar
 import app.futured.academyproject.ui.components.TopAppBar
+import app.futured.academyproject.ui.theme.Grid
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -70,13 +71,22 @@ fun MainScreen(
         var selectedItemIndex by rememberSaveable {
             mutableIntStateOf(0)
         }
+
+        selectedItemIndex = when(navigation.getNavController().currentDestination?.route) {
+            "Culture" -> 0
+            "Tourism" -> 0
+            "Events" -> 0
+            "About" -> 1
+            else -> 0
+        }
+
         ModalNavigationDrawer(
             modifier = Modifier
                 .windowInsetsPadding(WindowInsets.displayCutout),
             gesturesEnabled = shouldShowBottomAndTopBar,
             drawerContent = {
                 ModalDrawerSheet {
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(Grid.d4))
                     itemsDrawer.forEachIndexed { index, item ->
                         NavigationDrawerItem(
                             label = {

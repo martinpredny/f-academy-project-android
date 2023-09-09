@@ -51,7 +51,7 @@ val itemsDrawer = listOf(
         title = "About",
         selectedIcon = Icons.Filled.Info,
         unselectedIcon = Icons.Outlined.Info,
-        route = "Tourism"
+        route = "About"
     ),
     DrawerNavigationItem(
         title = "Log In",
