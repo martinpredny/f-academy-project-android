@@ -68,6 +68,7 @@ sealed class Destination(
         fun buildRoute(url: String): String = route
             .withArgument(URL, url)
     }
+    object About : Destination(route = "About")
 }
 
 /**

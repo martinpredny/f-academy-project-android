@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import app.futured.academyproject.navigation.Destination
 import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.navigation.composable
+import app.futured.academyproject.ui.screens.about.AboutScreen
 import app.futured.academyproject.ui.screens.culture.CultureScreen
 import app.futured.academyproject.ui.screens.cultureDetail.CultureDetailScreen
 import app.futured.academyproject.ui.screens.eventDetail.EventDetailScreen
@@ -51,6 +52,10 @@ fun NavGraph(
 
         composable(Destination.Website) {
             WebsiteScreen(navigation)
+        }
+
+        composable(Destination.About) {
+            AboutScreen(navigation)
         }
     }
 }

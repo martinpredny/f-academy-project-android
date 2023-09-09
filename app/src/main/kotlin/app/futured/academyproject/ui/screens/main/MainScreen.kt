@@ -73,8 +73,9 @@ fun MainScreen(
 
         selectedItemIndex = when(navigation.getNavController().currentDestination?.route) {
             "Culture" -> 0
-            "Tourism" -> 1
-            "Events" -> 2
+            "Tourism" -> 0
+            "Events" -> 0
+            "About" -> 1
             else -> 0
         }
 

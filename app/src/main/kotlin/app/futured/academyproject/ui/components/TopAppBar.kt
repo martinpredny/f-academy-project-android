@@ -26,7 +26,7 @@ fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior, drawerState: DrawerState,
     LargeTopAppBar(
         title = {
             Text(
-                stringResource(R.string.app_map_name),
+                stringResource(R.string.app_name),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )

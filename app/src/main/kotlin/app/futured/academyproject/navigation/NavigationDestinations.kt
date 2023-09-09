@@ -13,6 +13,7 @@ interface NavigationDestinations {
     fun navigateToEvents()
     fun navigateToEventDetailScreen(eventId: Int)
     fun navigateToWebsite(url: String)
+    fun navigateToAbout()
     fun getNavController(): NavController
 }
 
@@ -52,6 +53,10 @@ class NavigationDestinationsImpl(private val navController: NavController) : Nav
     override fun navigateToWebsite(url: String) {
         val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.toString())
         navController.navigate(Destination.Website.buildRoute(encodedUrl))
+    }
+
+    override fun navigateToAbout() {
+        navController.navigate("About")
     }
 
     override fun getNavController(): NavController {
