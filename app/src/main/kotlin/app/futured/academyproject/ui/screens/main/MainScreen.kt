@@ -40,6 +40,7 @@ import app.futured.academyproject.navigation.NavigationDestinationsImpl
 import app.futured.academyproject.ui.NavGraph
 import app.futured.academyproject.ui.components.BottomNavigationBar
 import app.futured.academyproject.ui.components.TopAppBar
+import app.futured.academyproject.ui.theme.Grid
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -85,7 +86,7 @@ fun MainScreen(
             gesturesEnabled = shouldShowBottomAndTopBar,
             drawerContent = {
                 ModalDrawerSheet {
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(Grid.d4))
                     itemsDrawer.forEachIndexed { index, item ->
                         NavigationDrawerItem(
                             label = {
