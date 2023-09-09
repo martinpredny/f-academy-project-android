@@ -70,6 +70,14 @@ fun MainScreen(
         var selectedItemIndex by rememberSaveable {
             mutableIntStateOf(0)
         }
+
+        selectedItemIndex = when(navigation.getNavController().currentDestination?.route) {
+            "Culture" -> 0
+            "Tourism" -> 1
+            "Events" -> 2
+            else -> 0
+        }
+
         ModalNavigationDrawer(
             modifier = Modifier
                 .windowInsetsPadding(WindowInsets.displayCutout),
