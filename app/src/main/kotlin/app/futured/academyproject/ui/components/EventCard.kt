@@ -23,7 +23,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import app.futured.academyproject.data.model.local.TouristPlace
+import app.futured.academyproject.data.model.local.CulturalPlace
+import app.futured.academyproject.data.model.local.Event
 import app.futured.academyproject.tools.preview.CulturalPlacesProvider
 import app.futured.academyproject.ui.theme.Grid
 import coil.compose.rememberAsyncImagePainter
@@ -31,11 +32,11 @@ import coil.request.ImageRequest
 import kotlinx.collections.immutable.PersistentList
 
 @Composable
-fun TouristPlaceCard(touristPlace: TouristPlace, onClick: (Int) -> Unit, modifier: Modifier = Modifier) {
+fun EventCard(event: Event, onClick: (Int) -> Unit, modifier: Modifier = Modifier) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .clickable { onClick(touristPlace.id) }
+            .clickable { onClick(event.id) }
             .padding(vertical = Grid.d2, horizontal = Grid.d4)
             .fillMaxWidth(),
     ) {
@@ -47,7 +48,7 @@ fun TouristPlaceCard(touristPlace: TouristPlace, onClick: (Int) -> Unit, modifie
             Image(
                 painter = rememberAsyncImagePainter(
                     ImageRequest.Builder(LocalContext.current)
-                        .data(touristPlace.image1Url)
+                        .data(event.image1Url)
                         .crossfade(true)
                         .build(),
                 ),
@@ -65,14 +66,14 @@ fun TouristPlaceCard(touristPlace: TouristPlace, onClick: (Int) -> Unit, modifie
                 .padding(vertical = Grid.d2, horizontal = Grid.d4),
         ) {
             Text(
-                text = touristPlace.name,
+                text = event.name,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
             Spacer(modifier = Modifier.height(Grid.d1))
-            touristPlace.street?.let {
+            event.category?.let {
                 Text(
                     text = it,
                     style = MaterialTheme.typography.bodyMedium,
@@ -87,6 +88,6 @@ fun TouristPlaceCard(touristPlace: TouristPlace, onClick: (Int) -> Unit, modifie
 
 @Preview
 @Composable
-private fun TouristPlaceCardPreview(@PreviewParameter(CulturalPlacesProvider::class) touristPlaces: PersistentList<TouristPlace>) = Showcase {
-    TouristPlaceCard(touristPlace = touristPlaces.first(), onClick = {})
+private fun CullturalPlaceCardPreview(@PreviewParameter(CulturalPlacesProvider::class) culturalPlaces: PersistentList<CulturalPlace>) = Showcase {
+    CulturalPlaceCard(culturalPlace = culturalPlaces.first(), onClick = {})
 }

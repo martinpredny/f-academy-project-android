@@ -46,6 +46,17 @@ sealed class Destination(
         fun buildRoute(placeId: Int): String = route
             .withArgument(PLACE_ID, placeId.toString())
     }
+    object EventDetail : Destination(
+        route = "EventDetail/{$PLACE_ID}",
+        arguments = listOf(
+            navArgument(PLACE_ID) {
+                type = NavType.IntType
+            },
+        ),
+    ) {
+        fun buildRoute(placeId: Int): String = route
+            .withArgument(PLACE_ID, placeId.toString())
+    }
     object Website : Destination(
         route = "Website/{$URL}",
         arguments = listOf(

@@ -4,14 +4,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBalance
 import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Login
 import androidx.compose.material.icons.filled.Public
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Tour
 import androidx.compose.material.icons.outlined.AccountBalance
 import androidx.compose.material.icons.outlined.Event
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Login
 import androidx.compose.material.icons.outlined.Public
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.Tour
 import app.futured.academyproject.data.model.local.BottomNavigationItem
 import app.futured.academyproject.data.model.local.DrawerNavigationItem
@@ -54,9 +54,9 @@ val itemsDrawer = listOf(
         route = "Tourism"
     ),
     DrawerNavigationItem(
-        title = "Settings",
-        selectedIcon = Icons.Filled.Settings,
-        unselectedIcon = Icons.Outlined.Settings,
+        title = "Log In",
+        selectedIcon = Icons.Filled.Login,
+        unselectedIcon = Icons.Outlined.Login,
         route = "Events"
     ),
 )

@@ -1,6 +1,7 @@
-package app.futured.academyproject.ui.screens.tourismDetail
+package app.futured.academyproject.ui.screens.eventDetail
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,8 +26,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
-import app.futured.academyproject.data.model.local.TouristPlace
+import app.futured.academyproject.data.model.local.Event
 import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
@@ -38,28 +40,32 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 
 @Composable
-fun TourismDetailScreen(
+fun EventDetailScreen(
     navigation: NavigationDestinations,
-    viewModel: TourismDetailViewModel = hiltViewModel(),
+    viewModel: EventDetailViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
         EventsEffect {
             onEvent<NavigateBackEvent> {
                 navigation.popBackStack()
             }
+            onEvent<NavigateToWebsiteEvent> {
+                navigation.navigateToWebsite(url = it.url)
+            }
         }
 
-        TourismDetail.Content(
+        EventDetail.Content(
             this,
-            viewState.touristPlace,
+            viewState.event,
         )
     }
 }
 
-object TourismDetail {
+object EventDetail {
 
     interface Actions {
         fun navigateBack() = Unit
+        fun navigateToWebsite(url: String) = Unit
     }
 
     object PreviewActions : Actions
@@ -68,13 +74,13 @@ object TourismDetail {
     @Composable
     fun Content(
         actions: Actions,
-        touristPlace: TouristPlace?,
+        event: Event?,
         modifier: Modifier = Modifier,
     ) {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = (touristPlace?.name ?: "Tourist Place Detail")) },
+                    title = { Text(text = (event?.name ?: "Culture Place Detail")) },
                     navigationIcon = {
                         IconButton(onClick = { actions.navigateBack() }) {
                             Icon(Icons.Filled.ArrowBack, contentDescription = null)
@@ -84,24 +90,36 @@ object TourismDetail {
             },
             modifier = modifier,
         ) { contentPadding ->
-            touristPlace?.let { touristPlace ->
+            event?.let { event ->
                 Column(
                     modifier = Modifier
                         .padding(contentPadding)
                         .verticalScroll(rememberScrollState())
                         .fillMaxSize(),
                 ) {
-                    if(touristPlace.street != null) {
-                        RowTitleValue(title = "Street:", value = touristPlace.street)
+                    if(event.category != null) {
+                        RowTitleValue(title = "Category:", value = event.category)
                     }
-                    if(touristPlace.webUrl != null) {
-                        RowTitleValue(title = "Website:", value = touristPlace.webUrl)
+                    if(event.webUrl != null) {
+                        //Todo: make also composable with clickable url
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = Grid.d2, horizontal = Grid.d4),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(text = "Website:", fontWeight = FontWeight.Bold)
+                            Text(
+                                text = event.webUrl, Modifier
+                                    .clickable {
+                                        actions.navigateToWebsite(event.webUrl)
+                                    }
+                            )
+                        }
                     }
-                    if(touristPlace.email != null) {
-                        RowTitleValue(title = "Email:", value = touristPlace.email)
-                    }
-                    if(touristPlace.phone != null) {
-                        RowTitleValue(title = "Phone:", value = touristPlace.phone)
+                    if(event.email != null) {
+                        RowTitleValue(title = "Email:", value = event.email)
                     }
                     Row(
                         modifier = Modifier
@@ -116,7 +134,7 @@ object TourismDetail {
                             Image(
                                 painter = rememberAsyncImagePainter(
                                     ImageRequest.Builder(LocalContext.current)
-                                        .data(touristPlace.image1Url)
+                                        .data(event.image1Url)
                                         .crossfade(true)
                                         .build(),
                                 ),
@@ -135,11 +153,11 @@ object TourismDetail {
 
 @ScreenPreviews
 @Composable
-fun TourismDetailContentPreview() {
+fun CultureDetailContentPreview() {
     Showcase {
-        TourismDetail.Content(
-            TourismDetail.PreviewActions,
-            touristPlace = null,
+        EventDetail.Content(
+            EventDetail.PreviewActions,
+            event = null,
         )
     }
 }

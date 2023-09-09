@@ -9,6 +9,7 @@ import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.navigation.composable
 import app.futured.academyproject.ui.screens.culture.CultureScreen
 import app.futured.academyproject.ui.screens.cultureDetail.CultureDetailScreen
+import app.futured.academyproject.ui.screens.eventDetail.EventDetailScreen
 import app.futured.academyproject.ui.screens.events.EventsScreen
 import app.futured.academyproject.ui.screens.tourism.TourismScreen
 import app.futured.academyproject.ui.screens.tourismDetail.TourismDetailScreen
@@ -41,7 +42,11 @@ fun NavGraph(
         }
 
         composable(Destination.Events) {
-            EventsScreen()
+            EventsScreen(navigation, paddings)
+        }
+
+        composable(Destination.EventDetail) {
+            EventDetailScreen(navigation)
         }
 
         composable(Destination.Website) {
