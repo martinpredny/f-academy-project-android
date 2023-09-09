@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import app.futured.academyproject.R
 import app.futured.academyproject.data.model.local.TouristPlace
 import app.futured.academyproject.tools.preview.CulturalPlacesProvider
 import app.futured.academyproject.ui.theme.Grid
@@ -48,6 +49,8 @@ fun TouristPlaceCard(touristPlace: TouristPlace, onClick: (Int) -> Unit, modifie
                 painter = rememberAsyncImagePainter(
                     ImageRequest.Builder(LocalContext.current)
                         .data(touristPlace.image1Url)
+                        .placeholder(R.drawable.no_image)
+                        .error(R.drawable.no_image)
                         .crossfade(true)
                         .build(),
                 ),

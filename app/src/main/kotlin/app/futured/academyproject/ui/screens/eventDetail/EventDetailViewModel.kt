@@ -9,7 +9,7 @@ import javax.inject.Inject
 @HiltViewModel
 class EventDetailViewModel @Inject constructor(
     override val viewState: EventDetailViewState,
-    private val getEventUseCase: GetEventUseCase,
+    private val getEventUseCase: GetEventUseCase
 ) : BaseViewModel<EventDetailViewState>(), EventDetail.Actions {
 
     init {

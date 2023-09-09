@@ -28,6 +28,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
+import app.futured.academyproject.R
 import app.futured.academyproject.data.model.local.CulturalPlace
 import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.tools.arch.EventsEffect
@@ -143,6 +144,8 @@ object CultureDetail {
                             Image(
                                 painter = rememberAsyncImagePainter(
                                     ImageRequest.Builder(LocalContext.current)
+                                        .placeholder(R.drawable.no_image)
+                                        .error(R.drawable.no_image)
                                         .data(culturalPlace.image1Url)
                                         .crossfade(true)
                                         .build(),

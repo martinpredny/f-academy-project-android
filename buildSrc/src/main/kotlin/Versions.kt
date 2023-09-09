@@ -60,4 +60,7 @@ object Versions {
 
     // lint
     const val composeLint = "1.0.1"
+
+    // room
+    const val room = "2.5.2"
 }

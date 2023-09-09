@@ -1,6 +1,11 @@
 package app.futured.academyproject.data.model.local
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "events")
 data class Event(
+    @PrimaryKey
     val id: Int,
     val longitude: Double? = null,
     val latitude: Double? = null,
