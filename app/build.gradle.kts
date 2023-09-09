@@ -8,6 +8,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("com.google.devtools.ksp") version "1.8.21-1.0.11"
 }
 
 android.apply {
@@ -211,4 +212,9 @@ dependencies {
 
     // Lint
     lintChecks(Dependencies.Lint.composeLint)
+
+    //Room
+    implementation(Dependencies.Room.roomRuntime)
+    ksp(Dependencies.Room.roomCompiler)
+    implementation(Dependencies.Room.roomKtx)
 }

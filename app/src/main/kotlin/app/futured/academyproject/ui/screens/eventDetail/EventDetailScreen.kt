@@ -28,6 +28,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
+import app.futured.academyproject.R
 import app.futured.academyproject.data.model.local.Event
 import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.tools.arch.EventsEffect
@@ -135,6 +136,8 @@ object EventDetail {
                                 painter = rememberAsyncImagePainter(
                                     ImageRequest.Builder(LocalContext.current)
                                         .data(event.image1Url)
+                                        .placeholder(R.drawable.no_image)
+                                        .error(R.drawable.no_image)
                                         .crossfade(true)
                                         .build(),
                                 ),

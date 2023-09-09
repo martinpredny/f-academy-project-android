@@ -1,11 +1,14 @@
 package app.futured.academyproject.ui.screens.events
 
 import androidx.lifecycle.viewModelScope
+import app.futured.academyproject.data.persistence.db.event.EventsRepository
 import app.futured.academyproject.data.store.EventsStore
 import app.futured.academyproject.domain.GetEventsUseCase
 import app.futured.academyproject.tools.arch.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -13,7 +16,8 @@ import javax.inject.Inject
 class EventsViewModel @Inject constructor(
     override val viewState: EventsViewState,
     private val getEventsUseCase: GetEventsUseCase,
-    private val eventsPlacesStore: EventsStore
+    private val eventsStore: EventsStore,
+    private val eventsRepository: EventsRepository
 ) : BaseViewModel<EventsViewState>(), Events.Actions {
 
     init {
@@ -26,18 +30,35 @@ class EventsViewModel @Inject constructor(
         getEventsUseCase.execute {
             onSuccess {
                 Timber.d("Events: $it")
+                viewModelScope.launch{
+                    eventsRepository.deleteAll()
+                    eventsRepository.insertEvents(it)
+                }
 
                 viewState.events = viewState.events.run {
                     clear()
                     addAll(it)
                 }
                 viewModelScope.launch {
-                    eventsPlacesStore.setEvents(it)
+                    eventsStore.setEvents(it)
                 }
             }
             onError { error ->
                 Timber.e(error)
-                viewState.error = error
+                viewModelScope.launch {
+                    val cachedEvents = withContext(Dispatchers.IO) {
+                        eventsRepository.getAllEvents()
+                    }
+                    if(cachedEvents.isEmpty()) {
+                        viewState.error = error
+                    } else {
+                        viewState.events = viewState.events.run {
+                            clear()
+                            addAll(cachedEvents)
+                        }
+                        eventsStore.setEvents(cachedEvents)
+                    }
+                }
             }
         }
     }

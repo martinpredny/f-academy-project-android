@@ -1,11 +1,14 @@
 package app.futured.academyproject.ui.screens.culture
 
 import androidx.lifecycle.viewModelScope
+import app.futured.academyproject.data.persistence.db.culture.CulturalPlacesRepository
 import app.futured.academyproject.data.store.CulturalPlacesStore
 import app.futured.academyproject.domain.GetCulturalPlacesUseCase
 import app.futured.academyproject.tools.arch.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -13,7 +16,8 @@ import javax.inject.Inject
 class CultureViewModel @Inject constructor(
     override val viewState: CultureViewState,
     private val getCulturalPlacesUseCase: GetCulturalPlacesUseCase,
-    private val culturalPlacesStore: CulturalPlacesStore
+    private val culturalPlacesStore: CulturalPlacesStore,
+    private val culturalPlacesRepository: CulturalPlacesRepository
 ) : BaseViewModel<CultureViewState>(), Culture.Actions {
 
     init {
@@ -26,6 +30,10 @@ class CultureViewModel @Inject constructor(
         getCulturalPlacesUseCase.execute {
             onSuccess {
                 Timber.d("Cultural places: $it")
+                viewModelScope.launch{
+                    culturalPlacesRepository.deleteAll()
+                    culturalPlacesRepository.insertCulturalPlaces(it)
+                }
 
                 viewState.places = viewState.places.run {
                     clear()
@@ -37,7 +45,20 @@ class CultureViewModel @Inject constructor(
             }
             onError { error ->
                 Timber.e(error)
-                viewState.error = error
+                viewModelScope.launch {
+                    val cachedPlaces = withContext(Dispatchers.IO) {
+                        culturalPlacesRepository.getAllCulturalPlaces()
+                    }
+                    if(cachedPlaces.isEmpty()) {
+                        viewState.error = error
+                    } else {
+                        viewState.places = viewState.places.run {
+                            clear()
+                            addAll(cachedPlaces)
+                        }
+                        culturalPlacesStore.setPlaces(cachedPlaces)
+                    }
+                }
             }
         }
     }

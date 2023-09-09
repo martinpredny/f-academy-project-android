@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import app.futured.academyproject.R
 import app.futured.academyproject.data.model.local.TouristPlace
 import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.tools.arch.EventsEffect
@@ -117,6 +118,8 @@ object TourismDetail {
                                 painter = rememberAsyncImagePainter(
                                     ImageRequest.Builder(LocalContext.current)
                                         .data(touristPlace.image1Url)
+                                        .placeholder(R.drawable.no_image)
+                                        .error(R.drawable.no_image)
                                         .crossfade(true)
                                         .build(),
                                 ),

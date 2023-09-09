@@ -1,11 +1,14 @@
 package app.futured.academyproject.ui.screens.tourism
 
 import androidx.lifecycle.viewModelScope
+import app.futured.academyproject.data.persistence.db.tourism.TouristPlacesRepository
 import app.futured.academyproject.data.store.TouristPlacesStore
 import app.futured.academyproject.domain.GetTouristPlacesUseCase
 import app.futured.academyproject.tools.arch.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -13,7 +16,8 @@ import javax.inject.Inject
 class TourismViewModel @Inject constructor(
     override val viewState: TourismViewState,
     private val getTouristPlacesUseCase: GetTouristPlacesUseCase,
-    private val tourismPlacesStore: TouristPlacesStore
+    private val touristPlacesStore: TouristPlacesStore,
+    private val touristPlacesRepository: TouristPlacesRepository
 ) : BaseViewModel<TourismViewState>(), Tourism.Actions {
 
     init {
@@ -26,18 +30,35 @@ class TourismViewModel @Inject constructor(
         getTouristPlacesUseCase.execute {
             onSuccess {
                 Timber.d("Tourism places: $it")
+                viewModelScope.launch {
+                    touristPlacesRepository.deleteAll()
+                    touristPlacesRepository.insertTouristPlaces(it)
+                }
 
                 viewState.places = viewState.places.run {
                     clear()
                     addAll(it)
                 }
                 viewModelScope.launch {
-                    tourismPlacesStore.setPlaces(it)
+                    touristPlacesStore.setPlaces(it)
                 }
             }
             onError { error ->
                 Timber.e(error)
-                viewState.error = error
+                viewModelScope.launch {
+                    val cachedPlaces = withContext(Dispatchers.IO) {
+                        touristPlacesRepository.getAllTouristPlaces()
+                    }
+                    if(cachedPlaces.isEmpty()) {
+                        viewState.error = error
+                    } else {
+                        viewState.places = viewState.places.run {
+                            clear()
+                            addAll(cachedPlaces)
+                        }
+                        touristPlacesStore.setPlaces(cachedPlaces)
+                    }
+                }
             }
         }
     }

@@ -80,4 +80,10 @@ object Dependencies {
     object Lint {
         const val composeLint = "com.slack.lint.compose:compose-lint-checks:${Versions.composeLint}"
     }
+
+    object Room {
+        const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
+        const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
+        const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
+    }
 }
