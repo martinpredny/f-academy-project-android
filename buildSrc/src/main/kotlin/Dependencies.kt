@@ -86,4 +86,9 @@ object Dependencies {
         const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
         const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
     }
+
+    object Maps {
+        const val mapsCompose = "com.google.maps.android:maps-compose:${Versions.mapsCompose}"
+        const val playServicesMaps = "com.google.android.gms:play-services-maps:${Versions.playServicesMaps}"
+    }
 }

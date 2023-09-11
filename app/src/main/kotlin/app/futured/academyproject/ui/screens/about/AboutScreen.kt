@@ -32,7 +32,7 @@ import app.futured.academyproject.ui.theme.Grid
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AboutScreen(
-    navigation: NavigationDestinations,
+    navigation: NavigationDestinations
 ) {
     Scaffold(
         topBar = {

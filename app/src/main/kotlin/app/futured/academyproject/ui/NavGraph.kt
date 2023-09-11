@@ -12,6 +12,7 @@ import app.futured.academyproject.ui.screens.culture.CultureScreen
 import app.futured.academyproject.ui.screens.cultureDetail.CultureDetailScreen
 import app.futured.academyproject.ui.screens.eventDetail.EventDetailScreen
 import app.futured.academyproject.ui.screens.events.EventsScreen
+import app.futured.academyproject.ui.screens.login.LoginScreen
 import app.futured.academyproject.ui.screens.tourism.TourismScreen
 import app.futured.academyproject.ui.screens.tourismDetail.TourismDetailScreen
 import app.futured.academyproject.ui.screens.website.WebsiteScreen
@@ -56,6 +57,10 @@ fun NavGraph(
 
         composable(Destination.About) {
             AboutScreen(navigation)
+        }
+
+        composable(Destination.LogIn) {
+            LoginScreen(navigation)
         }
     }
 }

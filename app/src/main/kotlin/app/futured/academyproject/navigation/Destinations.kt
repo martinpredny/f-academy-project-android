@@ -69,6 +69,7 @@ sealed class Destination(
             .withArgument(URL, url)
     }
     object About : Destination(route = "About")
+    object LogIn : Destination(route = "Login")
 }
 
 /**

@@ -16,4 +16,9 @@
     <string name="futured_email">Email: your@futured.app</string>
     <string name="futured_website">Website: https://www.futured.app/</string>
     <string name="app_info">App Info</string>
+
+    <!-- Login screen -->
+    <string name="log_in">Log In</string>
+    <string name="log_in_info">Work in progress..</string>
+
 </resources>
