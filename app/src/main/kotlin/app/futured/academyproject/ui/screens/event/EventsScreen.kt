@@ -1,4 +1,4 @@
-package app.futured.academyproject.ui.screens.events
+package app.futured.academyproject.ui.screens.event
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

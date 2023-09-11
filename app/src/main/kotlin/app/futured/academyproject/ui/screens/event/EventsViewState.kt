@@ -1,4 +1,4 @@
-package app.futured.academyproject.ui.screens.events
+package app.futured.academyproject.ui.screens.event
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

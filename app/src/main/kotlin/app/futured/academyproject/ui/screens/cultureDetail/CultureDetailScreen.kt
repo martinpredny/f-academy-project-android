@@ -204,8 +204,8 @@ fun InfoTab(culturalPlace: CulturalPlace, actions: CultureDetail.Actions) {
                 Image(
                     painter = rememberAsyncImagePainter(
                         ImageRequest.Builder(LocalContext.current)
-                            .placeholder(R.drawable.no_image)
-                            .error(R.drawable.no_image)
+                            .placeholder(R.drawable.no_image_placeholder)
+                            .error(R.drawable.no_image_placeholder)
                             .data(culturalPlace.image1Url)
                             .crossfade(true)
                             .build(),

@@ -1,4 +1,4 @@
-package app.futured.academyproject.ui.screens.events
+package app.futured.academyproject.ui.screens.event
 
 import androidx.lifecycle.viewModelScope
 import app.futured.academyproject.data.persistence.db.event.EventsRepository

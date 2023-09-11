@@ -50,8 +50,8 @@ fun EventCard(event: Event, onClick: (Int) -> Unit, modifier: Modifier = Modifie
                 painter = rememberAsyncImagePainter(
                     ImageRequest.Builder(LocalContext.current)
                         .data(event.image1Url)
-                        .placeholder(R.drawable.no_image)
-                        .error(R.drawable.no_image)
+                        .placeholder(R.drawable.no_image_placeholder)
+                        .error(R.drawable.no_image_placeholder)
                         .crossfade(true)
                         .build(),
                 ),
