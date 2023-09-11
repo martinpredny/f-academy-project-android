@@ -1,9 +1,11 @@
 package app.futured.academyproject.ui.screens.eventDetail
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,9 +21,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -36,9 +44,16 @@ import app.futured.academyproject.tools.arch.onEvent
 import app.futured.academyproject.tools.compose.ScreenPreviews
 import app.futured.academyproject.ui.components.RowTitleValue
 import app.futured.academyproject.ui.components.Showcase
+import app.futured.academyproject.ui.tabItems
 import app.futured.academyproject.ui.theme.Grid
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
 fun EventDetailScreen(
@@ -92,65 +107,121 @@ object EventDetail {
             modifier = modifier,
         ) { contentPadding ->
             event?.let { event ->
-                Column(
-                    modifier = Modifier
-                        .padding(contentPadding)
-                        .verticalScroll(rememberScrollState())
-                        .fillMaxSize(),
-                ) {
-                    if(event.category != null) {
-                        RowTitleValue(title = "Category:", value = event.category)
-                    }
-                    if(event.webUrl != null) {
-                        //Todo: make also composable with clickable url
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(text = "Website:", fontWeight = FontWeight.Bold)
-                            Text(
-                                text = event.webUrl, Modifier
-                                    .clickable {
-                                        actions.navigateToWebsite(event.webUrl)
-                                    }
-                            )
-                        }
-                    }
-                    if(event.email != null) {
-                        RowTitleValue(title = "Email:", value = event.email)
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Card(
-                            colors = CardDefaults.cardColors()
-                        ) {
-                            Image(
-                                painter = rememberAsyncImagePainter(
-                                    ImageRequest.Builder(LocalContext.current)
-                                        .data(event.image1Url)
-                                        .placeholder(R.drawable.no_image)
-                                        .error(R.drawable.no_image)
-                                        .crossfade(true)
-                                        .build(),
-                                ),
-                                contentDescription = null,
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier
-                                    .aspectRatio(1f),
-                            )
-                        }
-                    }
-                }
+                TabLayout(event = event, contentPadding = contentPadding, actions = actions)
             }
         }
+    }
+}
+
+@SuppressLint("ComposeModifierMissing")
+@Composable
+fun TabLayout(event: Event, contentPadding: PaddingValues, actions: EventDetail.Actions) {
+    var selectedTabIndex by remember { mutableIntStateOf(0) }
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(contentPadding),
+    ) {
+        TabRow(selectedTabIndex = selectedTabIndex) {
+            tabItems.forEachIndexed { index, tabItem ->
+                Tab(
+                    text = { Text(tabItem.title) },
+                    selected = selectedTabIndex == index,
+                    onClick = { selectedTabIndex = index },
+                    icon = {
+                        Icon(
+                            imageVector = if (index == selectedTabIndex) {
+                                tabItem.selectedIcon
+                            } else {
+                                tabItem.unselectedIcon
+                            },
+                            contentDescription = null,
+                        )
+                    },
+                )
+            }
+        }
+        when (selectedTabIndex) {
+            0 -> InfoTab(event = event, actions = actions)
+            1 -> MapTab(event = event)
+        }
+    }
+}
+
+@Composable
+fun InfoTab(event: Event, actions: EventDetail.Actions) {
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .fillMaxSize(),
+    ) {
+        if(event.category != null) {
+            RowTitleValue(title = "Category:", value = event.category)
+        }
+        if(event.webUrl != null) {
+            //Todo: make also composable with clickable url
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = Grid.d2, horizontal = Grid.d4),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "Website:", fontWeight = FontWeight.Bold)
+                Text(
+                    text = event.webUrl, Modifier
+                        .clickable {
+                            actions.navigateToWebsite(event.webUrl)
+                        }
+                )
+            }
+        }
+        if(event.email != null) {
+            RowTitleValue(title = "Email:", value = event.email)
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = Grid.d2, horizontal = Grid.d4),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Card(
+                colors = CardDefaults.cardColors()
+            ) {
+                Image(
+                    painter = rememberAsyncImagePainter(
+                        ImageRequest.Builder(LocalContext.current)
+                            .data(event.image1Url)
+                            .placeholder(R.drawable.no_image)
+                            .error(R.drawable.no_image)
+                            .crossfade(true)
+                            .build(),
+                    ),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .aspectRatio(1f),
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun MapTab(event: Event) {
+    val eventPosition = LatLng(event.latitude!!, event.longitude!!)
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(eventPosition, 15f)
+    }
+    GoogleMap(
+        modifier = Modifier.fillMaxSize(),
+        cameraPositionState = cameraPositionState
+    ) {
+        Marker(
+            state = MarkerState(position = eventPosition),
+            title = event.name
+        )
     }
 }
 

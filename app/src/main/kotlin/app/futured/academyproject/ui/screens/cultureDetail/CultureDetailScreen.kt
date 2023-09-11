@@ -1,9 +1,11 @@
 package app.futured.academyproject.ui.screens.cultureDetail
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,9 +21,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -36,9 +44,16 @@ import app.futured.academyproject.tools.arch.onEvent
 import app.futured.academyproject.tools.compose.ScreenPreviews
 import app.futured.academyproject.ui.components.RowTitleValue
 import app.futured.academyproject.ui.components.Showcase
+import app.futured.academyproject.ui.tabItems
 import app.futured.academyproject.ui.theme.Grid
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
 fun CultureDetailScreen(
@@ -91,80 +106,140 @@ object CultureDetail {
             },
             modifier = modifier,
         ) { contentPadding ->
-            culturalPlace?.let { culturalPlace ->
-                Column(
+            culturalPlace?.let { place ->
+                TabLayout(culturalPlace = place, contentPadding = contentPadding, actions = actions)
+            }
+
+        }
+    }
+}
+
+@SuppressLint("ComposeModifierMissing")
+@Composable
+fun TabLayout(culturalPlace: CulturalPlace, contentPadding: PaddingValues, actions: CultureDetail.Actions) {
+    var selectedTabIndex by remember { mutableIntStateOf(0) }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(contentPadding),
+    ) {
+        TabRow(selectedTabIndex = selectedTabIndex) {
+            tabItems.forEachIndexed { index, tabItem ->
+                Tab(
+                    text = { Text(tabItem.title) },
+                    selected = selectedTabIndex == index,
+                    onClick = { selectedTabIndex = index },
+                    icon = {
+                        Icon(
+                            imageVector = if (index == selectedTabIndex) {
+                                tabItem.selectedIcon
+                            } else {
+                                tabItem.unselectedIcon
+                            },
+                            contentDescription = null,
+                        )
+                    },
+                )
+            }
+        }
+        when (selectedTabIndex) {
+            0 -> InfoTab(culturalPlace = culturalPlace, actions = actions)
+            1 -> MapTab(culturalPlace = culturalPlace)
+        }
+    }
+}
+
+@Composable
+fun InfoTab(culturalPlace: CulturalPlace, actions: CultureDetail.Actions) {
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .fillMaxSize(),
+    ) {
+        RowTitleValue(title = "Type", value = culturalPlace.type)
+        if (culturalPlace.street != null) {
+            RowTitleValue(title = "Street:", value = culturalPlace.street)
+        }
+        if (culturalPlace.streetNumber != null) {
+            RowTitleValue(title = "Street Number:", value = culturalPlace.streetNumber)
+        }
+        if (culturalPlace.webUrl != null) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = Grid.d2, horizontal = Grid.d4),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                Text(text = "Website:", fontWeight = FontWeight.Bold)
+                Text(
+                    text = culturalPlace.webUrl,
+                    Modifier
+                        .clickable {
+                            actions.navigateToWebsite(culturalPlace.webUrl)
+                        },
+                )
+            }
+        }
+        if (culturalPlace.email != null) {
+            RowTitleValue(title = "Email:", value = culturalPlace.email)
+        }
+        if (culturalPlace.phone != null) {
+            RowTitleValue(title = "Phone:", value = culturalPlace.phone)
+        }
+        if (culturalPlace.brnoPass != null) {
+            RowTitleValue(title = "Accepts Brno Pass:", value = acceptsBrnoPass(culturalPlace.brnoPass))
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = Grid.d2, horizontal = Grid.d4),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            Card(
+                colors = CardDefaults.cardColors(),
+            ) {
+                Image(
+                    painter = rememberAsyncImagePainter(
+                        ImageRequest.Builder(LocalContext.current)
+                            .placeholder(R.drawable.no_image)
+                            .error(R.drawable.no_image)
+                            .data(culturalPlace.image1Url)
+                            .crossfade(true)
+                            .build(),
+                    ),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .padding(contentPadding)
-                        .verticalScroll(rememberScrollState())
-                        .fillMaxSize(),
-                ) {
-                    RowTitleValue(title = "Type", value = culturalPlace.type)
-                    if(culturalPlace.street != null) {
-                        RowTitleValue(title = "Street:", value = culturalPlace.street)
-                    }
-                    if(culturalPlace.streetNumber != null) {
-                        RowTitleValue(title = "Street Numver:", value = culturalPlace.streetNumber)
-                    }
-                    if(culturalPlace.webUrl != null) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(text = "Website:", fontWeight = FontWeight.Bold)
-                            Text(
-                                text = culturalPlace.webUrl, Modifier
-                                    .clickable {
-                                        actions.navigateToWebsite(culturalPlace.webUrl)
-                                    }
-                            )
-                        }
-                    }
-                    if(culturalPlace.email != null) {
-                        RowTitleValue(title = "Email:", value = culturalPlace.email)
-                    }
-                    if(culturalPlace.phone != null) {
-                        RowTitleValue(title = "Phone:", value = culturalPlace.phone)
-                    }
-                    if(culturalPlace.brnoPass != null) {
-                        RowTitleValue(title = "Accepts Brno Pass:", value = acceptsBrnoPass(culturalPlace.brnoPass))
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Card(
-                            colors = CardDefaults.cardColors()
-                        ) {
-                            Image(
-                                painter = rememberAsyncImagePainter(
-                                    ImageRequest.Builder(LocalContext.current)
-                                        .placeholder(R.drawable.no_image)
-                                        .error(R.drawable.no_image)
-                                        .data(culturalPlace.image1Url)
-                                        .crossfade(true)
-                                        .build(),
-                                ),
-                                contentDescription = null,
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier
-                                    .aspectRatio(1f),
-                            )
-                        }
-                    }
-                }
+                        .aspectRatio(1f),
+                )
             }
         }
     }
 }
 
+@Composable
+fun MapTab(culturalPlace: CulturalPlace) {
+    val placePosition = LatLng(culturalPlace.latitude!!, culturalPlace.longitude!!)
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(placePosition, 15f)
+    }
+    GoogleMap(
+        modifier = Modifier.fillMaxSize(),
+        cameraPositionState = cameraPositionState
+    ) {
+        Marker(
+            state = MarkerState(position = placePosition),
+            title = culturalPlace.name,
+            snippet = culturalPlace.street + " " + culturalPlace.streetNumber
+        )
+    }
+}
+
 fun acceptsBrnoPass(accepts: String): String {
-    return if(accepts == "Ano") {
+    return if (accepts == "Ano") {
         "Yes"
     } else {
         "No"

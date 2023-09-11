@@ -37,8 +37,10 @@ import androidx.navigation.compose.rememberNavController
 import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.navigation.NavigationDestinationsImpl
 import app.futured.academyproject.ui.NavGraph
+import app.futured.academyproject.ui.bottomNavBarItems
 import app.futured.academyproject.ui.components.BottomNavigationBar
 import app.futured.academyproject.ui.components.TopAppBar
+import app.futured.academyproject.ui.drawerItems
 import app.futured.academyproject.ui.theme.Grid
 import kotlinx.coroutines.launch
 
@@ -86,7 +88,7 @@ fun MainScreen(
             drawerContent = {
                 ModalDrawerSheet {
                     Spacer(modifier = Modifier.height(Grid.d4))
-                    itemsDrawer.forEachIndexed { index, item ->
+                    drawerItems.forEachIndexed { index, item ->
                         NavigationDrawerItem(
                             label = {
                                 Text(text = item.title)
@@ -127,7 +129,7 @@ fun MainScreen(
                 },
                 bottomBar = {
                     if (shouldShowBottomAndTopBar) {
-                        BottomNavigationBar(items = itemsBottomNavBar, navigation = navigation)
+                        BottomNavigationBar(items = bottomNavBarItems, navigation = navigation)
                     }
                 },
             )

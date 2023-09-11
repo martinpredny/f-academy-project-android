@@ -217,4 +217,8 @@ dependencies {
     implementation(Dependencies.Room.roomRuntime)
     ksp(Dependencies.Room.roomCompiler)
     implementation(Dependencies.Room.roomKtx)
+
+    //Google Maps
+    implementation(Dependencies.Maps.mapsCompose)
+    implementation (Dependencies.Maps.playServicesMaps)
 }

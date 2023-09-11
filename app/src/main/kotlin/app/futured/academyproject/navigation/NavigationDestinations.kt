@@ -8,12 +8,14 @@ interface NavigationDestinations {
     fun popBackStack()
     fun navigateToCulture()
     fun navigateToCultureDetailScreen(placeId: Int)
+    //todo: use these methods
     fun navigateToTourism()
     fun navigateToTourismDetailScreen(placeId: Int)
     fun navigateToEvents()
     fun navigateToEventDetailScreen(eventId: Int)
     fun navigateToWebsite(url: String)
     fun navigateToAbout()
+    fun navigateToLogin()
     fun getNavController(): NavController
 }
 
@@ -57,6 +59,10 @@ class NavigationDestinationsImpl(private val navController: NavController) : Nav
 
     override fun navigateToAbout() {
         navController.navigate("About")
+    }
+
+    override fun navigateToLogin() {
+        navController.navigate("Login")
     }
 
     override fun getNavController(): NavController {

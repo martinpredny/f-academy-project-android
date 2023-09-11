@@ -63,4 +63,8 @@ object Versions {
 
     // room
     const val room = "2.5.2"
+
+    // maps
+    const val mapsCompose = "2.2.0"
+    const val playServicesMaps = "18.1.0"
 }
