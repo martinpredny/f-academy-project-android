@@ -10,8 +10,8 @@ import app.futured.academyproject.navigation.composable
 import app.futured.academyproject.ui.screens.about.AboutScreen
 import app.futured.academyproject.ui.screens.culture.CultureScreen
 import app.futured.academyproject.ui.screens.cultureDetail.CultureDetailScreen
-import app.futured.academyproject.ui.screens.eventDetail.EventDetailScreen
 import app.futured.academyproject.ui.screens.event.EventsScreen
+import app.futured.academyproject.ui.screens.eventDetail.EventDetailScreen
 import app.futured.academyproject.ui.screens.login.LoginScreen
 import app.futured.academyproject.ui.screens.tourism.TourismScreen
 import app.futured.academyproject.ui.screens.tourismDetail.TourismDetailScreen
