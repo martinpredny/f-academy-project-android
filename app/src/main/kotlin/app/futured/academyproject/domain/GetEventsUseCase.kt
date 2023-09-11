@@ -27,7 +27,7 @@ class GetEventsUseCase @Inject constructor(
                     text = item.properties.text,
                     ticketsUrl = item.properties.ticketsUrl,
                     startDate = item.properties.dateFrom,
-                    endDate = item.properties.dateTo
+                    endDate = item.properties.dateTo,
                 ),
             )
         }

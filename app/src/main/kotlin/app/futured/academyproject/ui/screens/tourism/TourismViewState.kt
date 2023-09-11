@@ -12,8 +12,6 @@ import javax.inject.Inject
 
 @ViewModelScoped
 class TourismViewState @Inject constructor() : ViewState {
-
     var places: PersistentList<TouristPlace> by mutableStateOf(persistentListOf())
-
     var error: Throwable? by mutableStateOf(null)
 }

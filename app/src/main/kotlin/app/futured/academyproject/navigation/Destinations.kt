@@ -35,6 +35,7 @@ sealed class Destination(
         fun buildRoute(placeId: Int): String = route
             .withArgument(PLACE_ID, placeId.toString())
     }
+
     object TourismDetail : Destination(
         route = "TourismDetail/{$PLACE_ID}",
         arguments = listOf(
@@ -46,6 +47,7 @@ sealed class Destination(
         fun buildRoute(placeId: Int): String = route
             .withArgument(PLACE_ID, placeId.toString())
     }
+
     object EventDetail : Destination(
         route = "EventDetail/{$PLACE_ID}",
         arguments = listOf(
@@ -57,6 +59,7 @@ sealed class Destination(
         fun buildRoute(placeId: Int): String = route
             .withArgument(PLACE_ID, placeId.toString())
     }
+
     object Website : Destination(
         route = "Website/{$URL}",
         arguments = listOf(
@@ -68,6 +71,7 @@ sealed class Destination(
         fun buildRoute(url: String): String = route
             .withArgument(URL, url)
     }
+
     object About : Destination(route = "About")
     object LogIn : Destination(route = "Login")
 }

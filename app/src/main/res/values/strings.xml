@@ -7,6 +7,33 @@
     <string name="error_general_server_error">Něco se pokazilo a ne na vašem přijímači. Zkuste to později.</string>
     <string name="error_unauthorized">Nejste přihlášení a to byste měli.</string>
 
+    <!-- Menu items -->
+    <string name="culture_title">Culture</string>
+    <string name="tourism_title">Tourism</string>
+    <string name="events_title">Events</string>
+    <string name="discover_title">Discover</string>
+    <string name="about_title">About</string>
+    <string name="log_in_title">Log In</string>
+    <string name="log_in_route">Login</string>
+    <string name="info_title">Info</string>
+    <string name="show_on_map_title">Show On Map</string>
+
+    <!-- Detail screens -->
+    <string name="cultural_place_detail">Cultural Place Detail</string>
+    <string name="tourist_place_detail">Tourist Place Detail</string>
+    <string name="event_detail">Event Detail</string>
+    <string name="name_title">Name:</string>
+    <string name="category_title">Category:</string>
+    <string name="type_title">Type:</string>
+    <string name="street_title">Street:</string>
+    <string name="street_number_title">Street Number:</string>
+    <string name="website_title">Website:</string>
+    <string name="email_title">Email:</string>
+    <string name="phone_title">Phone:</string>
+    <string name="accepts_brno_pass_title">Accepts Brno Pass:</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
     <!-- About screen -->
     <string name="app_version">Version 1.0</string>
     <string name="app_description">Discover cultural places, tourist attractions, and events in Brno with the Visit Brno app. App was developed as a part of assignment during the Futured Summer Dev Academy (2023).</string>

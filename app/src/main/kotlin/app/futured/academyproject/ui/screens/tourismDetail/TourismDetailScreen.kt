@@ -1,6 +1,5 @@
 package app.futured.academyproject.ui.screens.tourismDetail
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,6 +32,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.academyproject.R
 import app.futured.academyproject.data.model.local.TouristPlace
@@ -56,6 +57,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 @Composable
 fun TourismDetailScreen(
     navigation: NavigationDestinations,
+    modifier: Modifier = Modifier,
     viewModel: TourismDetailViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
@@ -68,6 +70,7 @@ fun TourismDetailScreen(
         TourismDetail.Content(
             this,
             viewState.touristPlace,
+            modifier,
         )
     }
 }
@@ -90,7 +93,13 @@ object TourismDetail {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = (touristPlace?.name ?: "Tourist Place Detail")) },
+                    title = {
+                        Text(
+                            text = stringResource(R.string.tourist_place_detail),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    },
                     navigationIcon = {
                         IconButton(onClick = { actions.navigateBack() }) {
                             Icon(Icons.Filled.ArrowBack, contentDescription = null)
@@ -107,13 +116,17 @@ object TourismDetail {
     }
 }
 
-@SuppressLint("ComposeModifierMissing")
 @Composable
-fun TabLayout(touristPlace: TouristPlace, contentPadding: PaddingValues, actions: TourismDetail.Actions) {
+fun TabLayout(
+    touristPlace: TouristPlace,
+    contentPadding: PaddingValues,
+    actions: TourismDetail.Actions,
+    modifier: Modifier = Modifier,
+) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(contentPadding),
     ) {
@@ -144,40 +157,45 @@ fun TabLayout(touristPlace: TouristPlace, contentPadding: PaddingValues, actions
 }
 
 @Composable
-fun InfoTab(touristPlace: TouristPlace, actions: TourismDetail.Actions) {
+fun InfoTab(
+    touristPlace: TouristPlace,
+    actions: TourismDetail.Actions,
+    modifier: Modifier = Modifier
+) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .verticalScroll(rememberScrollState())
             .fillMaxSize(),
     ) {
-        if(touristPlace.street != null) {
-            RowTitleValue(title = "Street:", value = touristPlace.street)
+        RowTitleValue(title = stringResource(R.string.name_title), value = touristPlace.name)
+        if (touristPlace.street != null) {
+            RowTitleValue(title = stringResource(R.string.street_title), value = touristPlace.street)
         }
-        if(touristPlace.webUrl != null) {
-            RowTitleValue(title = "Website:", value = touristPlace.webUrl)
+        if (touristPlace.webUrl != null) {
+            RowTitleValue(title = stringResource(R.string.website_title), value = touristPlace.webUrl)
         }
-        if(touristPlace.email != null) {
-            RowTitleValue(title = "Email:", value = touristPlace.email)
+        if (touristPlace.email != null) {
+            RowTitleValue(title = stringResource(R.string.email_title), value = touristPlace.email)
         }
-        if(touristPlace.phone != null) {
-            RowTitleValue(title = "Phone:", value = touristPlace.phone)
+        if (touristPlace.phone != null) {
+            RowTitleValue(title = stringResource(R.string.phone_title), value = touristPlace.phone)
         }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = Grid.d2, horizontal = Grid.d4),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
         ) {
             Card(
-                colors = CardDefaults.cardColors()
+                colors = CardDefaults.cardColors(),
             ) {
                 Image(
                     painter = rememberAsyncImagePainter(
                         ImageRequest.Builder(LocalContext.current)
                             .data(touristPlace.image1Url)
-                            .placeholder(R.drawable.no_image)
-                            .error(R.drawable.no_image)
+                            .placeholder(R.drawable.no_image_placeholder)
+                            .error(R.drawable.no_image_placeholder)
                             .crossfade(true)
                             .build(),
                     ),
@@ -192,19 +210,22 @@ fun InfoTab(touristPlace: TouristPlace, actions: TourismDetail.Actions) {
 }
 
 @Composable
-fun MapTab(touristPlace: TouristPlace) {
+fun MapTab(
+    touristPlace: TouristPlace,
+    modifier: Modifier = Modifier
+) {
     val placePosition = LatLng(touristPlace.latitude!!, touristPlace.longitude!!)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(placePosition, 15f)
     }
     GoogleMap(
-        modifier = Modifier.fillMaxSize(),
-        cameraPositionState = cameraPositionState
+        modifier = modifier.fillMaxSize(),
+        cameraPositionState = cameraPositionState,
     ) {
         Marker(
             state = MarkerState(position = placePosition),
             title = touristPlace.name,
-            snippet = touristPlace.street
+            snippet = touristPlace.street,
         )
     }
 }

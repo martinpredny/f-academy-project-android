@@ -1,4 +1,4 @@
-package app.futured.academyproject.ui.screens.events
+package app.futured.academyproject.ui.screens.event
 
 import androidx.lifecycle.viewModelScope
 import app.futured.academyproject.data.persistence.db.event.EventsRepository
@@ -17,7 +17,7 @@ class EventsViewModel @Inject constructor(
     override val viewState: EventsViewState,
     private val getEventsUseCase: GetEventsUseCase,
     private val eventsStore: EventsStore,
-    private val eventsRepository: EventsRepository
+    private val eventsRepository: EventsRepository,
 ) : BaseViewModel<EventsViewState>(), Events.Actions {
 
     init {
@@ -30,7 +30,7 @@ class EventsViewModel @Inject constructor(
         getEventsUseCase.execute {
             onSuccess {
                 Timber.d("Events: $it")
-                viewModelScope.launch{
+                viewModelScope.launch {
                     eventsRepository.deleteAll()
                     eventsRepository.insertEvents(it)
                 }
@@ -49,7 +49,7 @@ class EventsViewModel @Inject constructor(
                     val cachedEvents = withContext(Dispatchers.IO) {
                         eventsRepository.getAllEvents()
                     }
-                    if(cachedEvents.isEmpty()) {
+                    if (cachedEvents.isEmpty()) {
                         viewState.error = error
                     } else {
                         viewState.events = viewState.events.run {

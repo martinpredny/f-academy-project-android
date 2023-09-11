@@ -1,5 +1,6 @@
 package app.futured.academyproject.ui.screens.website
 
+import android.annotation.SuppressLint
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -23,6 +24,7 @@ import app.futured.academyproject.tools.arch.onEvent
 @Composable
 fun WebsiteScreen(
     navigation: NavigationDestinations,
+    modifier: Modifier = Modifier,
     viewModel: WebsiteViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
@@ -34,6 +36,7 @@ fun WebsiteScreen(
         Website.Content(
             this,
             viewState.url,
+            modifier,
         )
     }
 }
@@ -44,6 +47,7 @@ object Website {
         fun navigateBack() = Unit
     }
 
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun Content(
@@ -56,9 +60,11 @@ object Website {
                 TopAppBar(
                     title = { Text(text = (url ?: "Website")) },
                     navigationIcon = {
-                        IconButton(onClick = {
-                            actions.navigateBack()
-                        }) {
+                        IconButton(
+                            onClick = {
+                                actions.navigateBack()
+                            },
+                        ) {
                             Icon(Icons.Filled.ArrowBack, contentDescription = null)
                         }
                     },
@@ -74,18 +80,22 @@ object Website {
 }
 
 @Composable
-fun WebViewPage(url: String) {
-    AndroidView(factory = {
-        WebView(it).apply {
-            layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-            webViewClient = WebViewClient()
-            loadUrl(url)
-        }
-    }, update = {
-        it.loadUrl(url)
-    }, modifier = Modifier
-        .systemBarsPadding())
+fun WebViewPage(url: String, modifier: Modifier = Modifier,) {
+    AndroidView(
+        factory = {
+            WebView(it).apply {
+                layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                )
+                webViewClient = WebViewClient()
+                loadUrl(url)
+            }
+        },
+        update = {
+            it.loadUrl(url)
+        },
+        modifier = modifier
+            .systemBarsPadding(),
+    )
 }

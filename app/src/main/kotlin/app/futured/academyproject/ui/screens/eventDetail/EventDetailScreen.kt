@@ -1,6 +1,5 @@
 package app.futured.academyproject.ui.screens.eventDetail
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -34,7 +33,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.academyproject.R
 import app.futured.academyproject.data.model.local.Event
@@ -58,6 +59,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 @Composable
 fun EventDetailScreen(
     navigation: NavigationDestinations,
+    modifier: Modifier = Modifier,
     viewModel: EventDetailViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
@@ -73,6 +75,7 @@ fun EventDetailScreen(
         EventDetail.Content(
             this,
             viewState.event,
+            modifier,
         )
     }
 }
@@ -96,7 +99,13 @@ object EventDetail {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = (event?.name ?: "Culture Place Detail")) },
+                    title = {
+                        Text(
+                            text = stringResource(R.string.event_detail),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    },
                     navigationIcon = {
                         IconButton(onClick = { actions.navigateBack() }) {
                             Icon(Icons.Filled.ArrowBack, contentDescription = null)
@@ -113,12 +122,15 @@ object EventDetail {
     }
 }
 
-@SuppressLint("ComposeModifierMissing")
 @Composable
-fun TabLayout(event: Event, contentPadding: PaddingValues, actions: EventDetail.Actions) {
+fun TabLayout(
+    event: Event, contentPadding: PaddingValues,
+    actions: EventDetail.Actions,
+    modifier: Modifier = Modifier
+) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(contentPadding),
     ) {
@@ -149,52 +161,59 @@ fun TabLayout(event: Event, contentPadding: PaddingValues, actions: EventDetail.
 }
 
 @Composable
-fun InfoTab(event: Event, actions: EventDetail.Actions) {
+fun InfoTab(
+    event: Event,
+    actions: EventDetail.Actions,
+    modifier: Modifier = Modifier
+) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .verticalScroll(rememberScrollState())
             .fillMaxSize(),
     ) {
-        if(event.category != null) {
-            RowTitleValue(title = "Category:", value = event.category)
+        RowTitleValue(title = stringResource(R.string.name_title), value = event.name)
+        if (event.category != null) {
+            RowTitleValue(title = stringResource(R.string.category_title), value = event.category)
         }
-        if(event.webUrl != null) {
+        if (event.webUrl != null) {
             //Todo: make also composable with clickable url
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(text = "Website:", fontWeight = FontWeight.Bold)
-                Text(
-                    text = event.webUrl, Modifier
-                        .clickable {
-                            actions.navigateToWebsite(event.webUrl)
-                        }
-                )
-            }
+//            Row(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(vertical = Grid.d2, horizontal = Grid.d4),
+//                verticalAlignment = Alignment.CenterVertically,
+//                horizontalArrangement = Arrangement.SpaceBetween,
+//            ) {
+//                Text(text = stringResource(R.string.website_title), fontWeight = FontWeight.Bold)
+//                Text(
+//                    text = event.webUrl,
+//                    Modifier
+//                        .clickable {
+//                            actions.navigateToWebsite(event.webUrl)
+//                        },
+//                )
+//            }
+            RowTitleValue(title = stringResource(R.string.website_title), value = event.webUrl)
         }
-        if(event.email != null) {
-            RowTitleValue(title = "Email:", value = event.email)
+        if (event.email != null) {
+            RowTitleValue(title = stringResource(R.string.email_title), value = event.email)
         }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = Grid.d2, horizontal = Grid.d4),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
         ) {
             Card(
-                colors = CardDefaults.cardColors()
+                colors = CardDefaults.cardColors(),
             ) {
                 Image(
                     painter = rememberAsyncImagePainter(
                         ImageRequest.Builder(LocalContext.current)
                             .data(event.image1Url)
-                            .placeholder(R.drawable.no_image)
-                            .error(R.drawable.no_image)
+                            .placeholder(R.drawable.no_image_placeholder)
+                            .error(R.drawable.no_image_placeholder)
                             .crossfade(true)
                             .build(),
                     ),
@@ -209,18 +228,21 @@ fun InfoTab(event: Event, actions: EventDetail.Actions) {
 }
 
 @Composable
-fun MapTab(event: Event) {
+fun MapTab(
+    event: Event,
+    modifier: Modifier = Modifier
+) {
     val eventPosition = LatLng(event.latitude!!, event.longitude!!)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(eventPosition, 15f)
     }
     GoogleMap(
-        modifier = Modifier.fillMaxSize(),
-        cameraPositionState = cameraPositionState
+        modifier = modifier.fillMaxSize(),
+        cameraPositionState = cameraPositionState,
     ) {
         Marker(
             state = MarkerState(position = eventPosition),
-            title = event.name
+            title = event.name,
         )
     }
 }

@@ -31,8 +31,8 @@ class GetTouristPlacesUseCase @Inject constructor(
                     accessibilityId = null,
                     openFrom = null,
                     openTo = null,
-                    image1Url = item.properties.image
-                )
+                    image1Url = item.properties.image,
+                ),
             )
         }
         return placesList

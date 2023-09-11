@@ -13,6 +13,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import app.futured.academyproject.R
@@ -22,8 +23,14 @@ import kotlinx.coroutines.launch
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior, drawerState: DrawerState, scope: CoroutineScope) {
+fun TopAppBar(
+    scrollBehavior: TopAppBarScrollBehavior,
+    drawerState: DrawerState,
+    scope: CoroutineScope,
+    modifier: Modifier = Modifier,
+) {
     LargeTopAppBar(
+        modifier = modifier,
         title = {
             Text(
                 stringResource(R.string.app_name),
@@ -32,11 +39,13 @@ fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior, drawerState: DrawerState,
             )
         },
         navigationIcon = {
-            IconButton(onClick = {
-                scope.launch {
-                    drawerState.open()
-                }
-            }) {
+            IconButton(
+                onClick = {
+                    scope.launch {
+                        drawerState.open()
+                    }
+                },
+            ) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
                     contentDescription = null,

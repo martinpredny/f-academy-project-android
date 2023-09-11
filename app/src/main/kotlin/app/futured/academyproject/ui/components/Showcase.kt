@@ -10,7 +10,10 @@ import app.futured.academyproject.ui.theme.AppTheme
  * Preview surface wrapper
  */
 @Composable
-fun Showcase(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+fun Showcase(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
     AppTheme {
         Surface(color = MaterialTheme.colorScheme.background, modifier = modifier) {
             content()

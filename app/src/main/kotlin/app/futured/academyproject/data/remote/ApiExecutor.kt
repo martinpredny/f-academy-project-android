@@ -66,10 +66,12 @@ abstract class ApiExecutor(private val context: Context, private val json: Json)
                 getString(R.string.error_unauthorized),
                 null,
             )
+
             ApiException.SERVER_ERROR -> throw ApiExceptionUnknown(
                 getString(R.string.error_general_server_error),
                 null,
             )
+
             else -> throw ApiExceptionUnknown(
                 getString(R.string.error_general_server_error),
                 null,

@@ -13,11 +13,11 @@ interface ApiService {
 
     @GET
     suspend fun getAllTouristPlaces(
-        @Url url: String
+        @Url url: String,
     ): TouristPlaces
 
     @GET
     suspend fun getAllEvents(
-        @Url url: String
+        @Url url: String,
     ): Events
 }

@@ -1,4 +1,4 @@
-package app.futured.academyproject.ui.screens.events
+package app.futured.academyproject.ui.screens.event
 
 import app.futured.arkitekt.core.event.Event
 

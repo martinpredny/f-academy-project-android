@@ -1,6 +1,7 @@
-package app.futured.academyproject.data.persistence.db
+package app.futured.academyproject.injection.modules
 
 import android.content.Context
+import app.futured.academyproject.data.persistence.db.AppDatabase
 import app.futured.academyproject.data.persistence.db.culture.CulturalPlaceDao
 import app.futured.academyproject.data.persistence.db.culture.CulturalPlacesRepository
 import app.futured.academyproject.data.persistence.db.culture.CulturalPlacesRepositoryImpl
@@ -23,10 +24,12 @@ object RepositoryModule {
     fun provideCulturalPlacesRepository(dao: CulturalPlaceDao): CulturalPlacesRepository {
         return CulturalPlacesRepositoryImpl(dao)
     }
+
     @Provides
     fun provideTouristPlacesRepository(dao: TouristPlaceDao): TouristPlacesRepository {
         return TouristPlacesRepositoryImpl(dao)
     }
+
     @Provides
     fun provideEventRepository(dao: EventDao): EventsRepository {
         return EventsRepositoryImpl(dao)
@@ -41,14 +44,17 @@ object DatabaseModule {
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
         return AppDatabase.getDatabase(context)
     }
+
     @Provides
     fun provideCulturalPlaceDao(appDatabase: AppDatabase): CulturalPlaceDao {
         return appDatabase.culturalPlaceDao()
     }
+
     @Provides
     fun provideTouristPlaceDao(appDatabase: AppDatabase): TouristPlaceDao {
         return appDatabase.touristPlaceDao()
     }
+
     @Provides
     fun provideEventDao(appDatabase: AppDatabase): EventDao {
         return appDatabase.eventDao()

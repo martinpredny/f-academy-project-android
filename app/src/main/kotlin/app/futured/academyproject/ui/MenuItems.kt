@@ -48,19 +48,19 @@ val drawerItems = listOf(
         title = "Discover",
         selectedIcon = Icons.Filled.Public,
         unselectedIcon = Icons.Outlined.Public,
-        route = "Culture"
+        route = "Culture",
     ),
     DrawerNavigationItem(
         title = "About",
         selectedIcon = Icons.Filled.Info,
         unselectedIcon = Icons.Outlined.Info,
-        route = "About"
+        route = "About",
     ),
     DrawerNavigationItem(
         title = "Log In",
         selectedIcon = Icons.Filled.Login,
         unselectedIcon = Icons.Outlined.Login,
-        route = "Login"
+        route = "Login",
     ),
 )
 
@@ -68,11 +68,11 @@ val tabItems = listOf(
     TabItem(
         title = "Info",
         selectedIcon = Icons.Filled.Info,
-        unselectedIcon = Icons.Outlined.Info
+        unselectedIcon = Icons.Outlined.Info,
     ),
     TabItem(
         title = "Show On Map",
         selectedIcon = Icons.Filled.Map,
-        unselectedIcon = Icons.Outlined.Map
-    )
+        unselectedIcon = Icons.Outlined.Map,
+    ),
 )

@@ -32,7 +32,11 @@ import coil.request.ImageRequest
 import kotlinx.collections.immutable.PersistentList
 
 @Composable
-fun CulturalPlaceCard(culturalPlace: CulturalPlace, onClick: (Int) -> Unit, modifier: Modifier = Modifier) {
+fun CulturalPlaceCard(
+    culturalPlace: CulturalPlace,
+    onClick: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
@@ -49,8 +53,8 @@ fun CulturalPlaceCard(culturalPlace: CulturalPlace, onClick: (Int) -> Unit, modi
                 painter = rememberAsyncImagePainter(
                     ImageRequest.Builder(LocalContext.current)
                         .data(culturalPlace.image1Url)
-                        .placeholder(R.drawable.no_image)
-                        .error(R.drawable.no_image)
+                        .placeholder(R.drawable.no_image_placeholder)
+                        .error(R.drawable.no_image_placeholder)
                         .crossfade(true)
                         .build(),
                 ),
@@ -88,6 +92,7 @@ fun CulturalPlaceCard(culturalPlace: CulturalPlace, onClick: (Int) -> Unit, modi
 
 @Preview
 @Composable
-private fun CullturalPlaceCardPreview(@PreviewParameter(CulturalPlacesProvider::class) culturalPlaces: PersistentList<CulturalPlace>) = Showcase {
-    CulturalPlaceCard(culturalPlace = culturalPlaces.first(), onClick = {})
-}
+private fun CullturalPlaceCardPreview(@PreviewParameter(CulturalPlacesProvider::class) culturalPlaces: PersistentList<CulturalPlace>) =
+    Showcase {
+        CulturalPlaceCard(culturalPlace = culturalPlaces.first(), onClick = {})
+    }

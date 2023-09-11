@@ -1,4 +1,4 @@
-package app.futured.academyproject.ui.screens.events
+package app.futured.academyproject.ui.screens.event
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,8 +12,6 @@ import javax.inject.Inject
 
 @ViewModelScoped
 class EventsViewState @Inject constructor() : ViewState {
-
     var events: PersistentList<Event> by mutableStateOf(persistentListOf())
-
     var error: Throwable? by mutableStateOf(null)
 }

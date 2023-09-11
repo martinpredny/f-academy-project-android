@@ -12,8 +12,6 @@ import javax.inject.Inject
 
 @ViewModelScoped
 class CultureViewState @Inject constructor() : ViewState {
-
     var places: PersistentList<CulturalPlace> by mutableStateOf(persistentListOf())
-
     var error: Throwable? by mutableStateOf(null)
 }

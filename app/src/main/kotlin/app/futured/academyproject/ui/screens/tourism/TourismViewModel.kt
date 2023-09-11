@@ -17,7 +17,7 @@ class TourismViewModel @Inject constructor(
     override val viewState: TourismViewState,
     private val getTouristPlacesUseCase: GetTouristPlacesUseCase,
     private val touristPlacesStore: TouristPlacesStore,
-    private val touristPlacesRepository: TouristPlacesRepository
+    private val touristPlacesRepository: TouristPlacesRepository,
 ) : BaseViewModel<TourismViewState>(), Tourism.Actions {
 
     init {
@@ -49,7 +49,7 @@ class TourismViewModel @Inject constructor(
                     val cachedPlaces = withContext(Dispatchers.IO) {
                         touristPlacesRepository.getAllTouristPlaces()
                     }
-                    if(cachedPlaces.isEmpty()) {
+                    if (cachedPlaces.isEmpty()) {
                         viewState.error = error
                     } else {
                         viewState.places = viewState.places.run {

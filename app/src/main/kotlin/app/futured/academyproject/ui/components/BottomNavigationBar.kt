@@ -12,20 +12,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import app.futured.academyproject.data.model.local.BottomNavigationItem
 import app.futured.academyproject.navigation.NavigationDestinations
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun BottomNavigationBar(
+    //todo: fix warning
     items: List<BottomNavigationItem>,
-    navigation: NavigationDestinations
+    navigation: NavigationDestinations,
+    modifier: Modifier = Modifier,
 ) {
     var selectedItemIndex by rememberSaveable {
         mutableIntStateOf(0)
     }
 
-    selectedItemIndex = when(navigation.getNavController().currentDestination?.route) {
+    selectedItemIndex = when (navigation.getNavController().currentDestination?.route) {
         "Culture" -> 0
         "Tourism" -> 1
         "Events" -> 2
@@ -35,6 +38,7 @@ fun BottomNavigationBar(
     NavigationBar {
         items.forEachIndexed { index, item ->
             NavigationBarItem(
+                modifier = modifier,
                 selected = selectedItemIndex == index,
                 onClick = {
                     selectedItemIndex = index

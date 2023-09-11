@@ -1,6 +1,5 @@
 package app.futured.academyproject.ui.screens.cultureDetail
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -34,7 +33,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.academyproject.R
 import app.futured.academyproject.data.model.local.CulturalPlace
@@ -58,6 +59,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 @Composable
 fun CultureDetailScreen(
     navigation: NavigationDestinations,
+    modifier: Modifier = Modifier,
     viewModel: CultureDetailViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
@@ -73,6 +75,7 @@ fun CultureDetailScreen(
         CultureDetail.Content(
             this,
             viewState.culturalPlace,
+            modifier,
         )
     }
 }
@@ -96,7 +99,13 @@ object CultureDetail {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = (culturalPlace?.name ?: "Culture Place Detail")) },
+                    title = {
+                        Text(
+                            text = stringResource(R.string.cultural_place_detail),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    },
                     navigationIcon = {
                         IconButton(onClick = { actions.navigateBack() }) {
                             Icon(Icons.Filled.ArrowBack, contentDescription = null)
@@ -114,13 +123,17 @@ object CultureDetail {
     }
 }
 
-@SuppressLint("ComposeModifierMissing")
 @Composable
-fun TabLayout(culturalPlace: CulturalPlace, contentPadding: PaddingValues, actions: CultureDetail.Actions) {
+fun TabLayout(
+    culturalPlace: CulturalPlace,
+    contentPadding: PaddingValues,
+    actions: CultureDetail.Actions,
+    modifier: Modifier = Modifier,
+) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(contentPadding),
     ) {
@@ -151,45 +164,52 @@ fun TabLayout(culturalPlace: CulturalPlace, contentPadding: PaddingValues, actio
 }
 
 @Composable
-fun InfoTab(culturalPlace: CulturalPlace, actions: CultureDetail.Actions) {
+fun InfoTab(
+    culturalPlace: CulturalPlace,
+    actions: CultureDetail.Actions,
+    modifier: Modifier = Modifier
+) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .verticalScroll(rememberScrollState())
             .fillMaxSize(),
     ) {
-        RowTitleValue(title = "Type", value = culturalPlace.type)
+        RowTitleValue(title = stringResource(R.string.name_title), value = culturalPlace.name)
+        RowTitleValue(title = stringResource(R.string.type_title), value = culturalPlace.type)
         if (culturalPlace.street != null) {
-            RowTitleValue(title = "Street:", value = culturalPlace.street)
+            RowTitleValue(title = stringResource(R.string.street_title), value = culturalPlace.street)
         }
         if (culturalPlace.streetNumber != null) {
-            RowTitleValue(title = "Street Number:", value = culturalPlace.streetNumber)
+            RowTitleValue(title = stringResource(R.string.street_number_title), value = culturalPlace.streetNumber)
         }
         if (culturalPlace.webUrl != null) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-                Text(text = "Website:", fontWeight = FontWeight.Bold)
-                Text(
-                    text = culturalPlace.webUrl,
-                    Modifier
-                        .clickable {
-                            actions.navigateToWebsite(culturalPlace.webUrl)
-                        },
-                )
-            }
+            //todo: make url clickable
+//            Row(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(vertical = Grid.d2, horizontal = Grid.d4),
+//                verticalAlignment = Alignment.CenterVertically,
+//                horizontalArrangement = Arrangement.SpaceBetween,
+//            ) {
+//                Text(text = stringResource(R.string.website_title), fontWeight = FontWeight.Bold)
+//                Text(
+//                    text = culturalPlace.webUrl,
+//                    Modifier
+//                        .clickable {
+//                            actions.navigateToWebsite(culturalPlace.webUrl)
+//                        },
+//                )
+//            }
+            RowTitleValue(title = stringResource(R.string.website_title), value = culturalPlace.webUrl)
         }
         if (culturalPlace.email != null) {
-            RowTitleValue(title = "Email:", value = culturalPlace.email)
+            RowTitleValue(title = stringResource(R.string.email_title), value = culturalPlace.email)
         }
         if (culturalPlace.phone != null) {
-            RowTitleValue(title = "Phone:", value = culturalPlace.phone)
+            RowTitleValue(title = stringResource(R.string.phone_title), value = culturalPlace.phone)
         }
         if (culturalPlace.brnoPass != null) {
-            RowTitleValue(title = "Accepts Brno Pass:", value = acceptsBrnoPass(culturalPlace.brnoPass))
+            RowTitleValue(title = stringResource(R.string.accepts_brno_pass_title), value = acceptsBrnoPass(culturalPlace.brnoPass))
         }
         Row(
             modifier = Modifier
@@ -204,8 +224,8 @@ fun InfoTab(culturalPlace: CulturalPlace, actions: CultureDetail.Actions) {
                 Image(
                     painter = rememberAsyncImagePainter(
                         ImageRequest.Builder(LocalContext.current)
-                            .placeholder(R.drawable.no_image)
-                            .error(R.drawable.no_image)
+                            .placeholder(R.drawable.no_image_placeholder)
+                            .error(R.drawable.no_image_placeholder)
                             .data(culturalPlace.image1Url)
                             .crossfade(true)
                             .build(),
@@ -221,19 +241,22 @@ fun InfoTab(culturalPlace: CulturalPlace, actions: CultureDetail.Actions) {
 }
 
 @Composable
-fun MapTab(culturalPlace: CulturalPlace) {
+fun MapTab(
+    culturalPlace: CulturalPlace,
+    modifier: Modifier = Modifier
+) {
     val placePosition = LatLng(culturalPlace.latitude!!, culturalPlace.longitude!!)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(placePosition, 15f)
     }
     GoogleMap(
-        modifier = Modifier.fillMaxSize(),
-        cameraPositionState = cameraPositionState
+        modifier = modifier.fillMaxSize(),
+        cameraPositionState = cameraPositionState,
     ) {
         Marker(
             state = MarkerState(position = placePosition),
             title = culturalPlace.name,
-            snippet = culturalPlace.street + " " + culturalPlace.streetNumber
+            snippet = culturalPlace.street + " " + culturalPlace.streetNumber,
         )
     }
 }
