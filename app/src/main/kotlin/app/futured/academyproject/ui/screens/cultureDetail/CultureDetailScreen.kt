@@ -1,6 +1,5 @@
 package app.futured.academyproject.ui.screens.cultureDetail
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -58,7 +57,8 @@ import com.google.maps.android.compose.rememberCameraPositionState
 @Composable
 fun CultureDetailScreen(
     navigation: NavigationDestinations,
-    viewModel: CultureDetailViewModel = hiltViewModel(),
+    modifier: Modifier = Modifier,
+    viewModel: CultureDetailViewModel = hiltViewModel()
 ) {
     with(viewModel) {
         EventsEffect {
@@ -73,6 +73,7 @@ fun CultureDetailScreen(
         CultureDetail.Content(
             this,
             viewState.culturalPlace,
+            modifier
         )
     }
 }
@@ -114,13 +115,12 @@ object CultureDetail {
     }
 }
 
-@SuppressLint("ComposeModifierMissing")
 @Composable
-fun TabLayout(culturalPlace: CulturalPlace, contentPadding: PaddingValues, actions: CultureDetail.Actions) {
+fun TabLayout(culturalPlace: CulturalPlace, contentPadding: PaddingValues, actions: CultureDetail.Actions, modifier: Modifier = Modifier,) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(contentPadding),
     ) {
@@ -151,9 +151,9 @@ fun TabLayout(culturalPlace: CulturalPlace, contentPadding: PaddingValues, actio
 }
 
 @Composable
-fun InfoTab(culturalPlace: CulturalPlace, actions: CultureDetail.Actions) {
+fun InfoTab(culturalPlace: CulturalPlace, actions: CultureDetail.Actions, modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .verticalScroll(rememberScrollState())
             .fillMaxSize(),
     ) {
@@ -221,13 +221,13 @@ fun InfoTab(culturalPlace: CulturalPlace, actions: CultureDetail.Actions) {
 }
 
 @Composable
-fun MapTab(culturalPlace: CulturalPlace) {
+fun MapTab(culturalPlace: CulturalPlace, modifier: Modifier = Modifier) {
     val placePosition = LatLng(culturalPlace.latitude!!, culturalPlace.longitude!!)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(placePosition, 15f)
     }
     GoogleMap(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         cameraPositionState = cameraPositionState
     ) {
         Marker(

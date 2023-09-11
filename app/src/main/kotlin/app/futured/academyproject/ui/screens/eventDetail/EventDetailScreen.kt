@@ -1,6 +1,5 @@
 package app.futured.academyproject.ui.screens.eventDetail
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -58,7 +57,8 @@ import com.google.maps.android.compose.rememberCameraPositionState
 @Composable
 fun EventDetailScreen(
     navigation: NavigationDestinations,
-    viewModel: EventDetailViewModel = hiltViewModel(),
+    modifier: Modifier = Modifier,
+    viewModel: EventDetailViewModel = hiltViewModel()
 ) {
     with(viewModel) {
         EventsEffect {
@@ -73,6 +73,7 @@ fun EventDetailScreen(
         EventDetail.Content(
             this,
             viewState.event,
+            modifier
         )
     }
 }
@@ -113,12 +114,11 @@ object EventDetail {
     }
 }
 
-@SuppressLint("ComposeModifierMissing")
 @Composable
-fun TabLayout(event: Event, contentPadding: PaddingValues, actions: EventDetail.Actions) {
+fun TabLayout(event: Event, contentPadding: PaddingValues, actions: EventDetail.Actions, modifier: Modifier = Modifier) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(contentPadding),
     ) {
@@ -149,9 +149,9 @@ fun TabLayout(event: Event, contentPadding: PaddingValues, actions: EventDetail.
 }
 
 @Composable
-fun InfoTab(event: Event, actions: EventDetail.Actions) {
+fun InfoTab(event: Event, actions: EventDetail.Actions, modifier: Modifier = Modifier,) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .verticalScroll(rememberScrollState())
             .fillMaxSize(),
     ) {
@@ -209,13 +209,13 @@ fun InfoTab(event: Event, actions: EventDetail.Actions) {
 }
 
 @Composable
-fun MapTab(event: Event) {
+fun MapTab(event: Event, modifier: Modifier = Modifier) {
     val eventPosition = LatLng(event.latitude!!, event.longitude!!)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(eventPosition, 15f)
     }
     GoogleMap(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         cameraPositionState = cameraPositionState
     ) {
         Marker(

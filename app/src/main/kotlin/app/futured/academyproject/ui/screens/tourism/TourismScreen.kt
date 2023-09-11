@@ -26,6 +26,7 @@ import kotlinx.collections.immutable.persistentListOf
 fun TourismScreen(
     navigation: NavigationDestinations,
     paddings: PaddingValues,
+    modifier: Modifier = Modifier,
     viewModel: TourismViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
@@ -39,7 +40,8 @@ fun TourismScreen(
             viewModel,
             viewState.places,
             viewState.error,
-            paddings
+            paddings,
+            modifier
         )
     }
 }
@@ -77,7 +79,7 @@ object Tourism {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     contentPadding = paddings,
                     verticalArrangement = Arrangement.spacedBy(Grid.d1),
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxSize(),
                 ) {
                     items(touristPlaces) { place ->

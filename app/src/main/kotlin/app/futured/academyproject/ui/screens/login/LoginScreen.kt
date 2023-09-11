@@ -23,9 +23,11 @@ import app.futured.academyproject.navigation.NavigationDestinations
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-    navigation: NavigationDestinations
+    navigation: NavigationDestinations,
+    modifier: Modifier = Modifier
 ) {
     Scaffold(
+        modifier = modifier,
         topBar = {
             TopAppBar(
                 title = { Text(text = stringResource(R.string.log_in)) },

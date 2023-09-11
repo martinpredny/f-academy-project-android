@@ -64,7 +64,7 @@ fun MainScreen(
     }
 
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -118,7 +118,7 @@ fun MainScreen(
             drawerState = drawerState
         ) {
             Scaffold(
-                modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                 topBar = {
                     if (shouldShowBottomAndTopBar) {
                         TopAppBar(scrollBehavior, drawerState, scope)

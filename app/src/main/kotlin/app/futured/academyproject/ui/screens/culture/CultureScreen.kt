@@ -28,7 +28,8 @@ import kotlinx.collections.immutable.persistentListOf
 fun CultureScreen(
     navigation: NavigationDestinations,
     paddings: PaddingValues,
-    viewModel: CultureViewModel = hiltViewModel(),
+    modifier: Modifier = Modifier,
+    viewModel: CultureViewModel = hiltViewModel()
 ) {
     with(viewModel) {
         EventsEffect {
@@ -41,7 +42,8 @@ fun CultureScreen(
             viewModel,
             viewState.places,
             viewState.error,
-            paddings
+            paddings,
+            modifier
         )
     }
 }
@@ -79,7 +81,7 @@ object Culture {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     contentPadding = paddings,
                     verticalArrangement = Arrangement.spacedBy(Grid.d1),
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxSize(),
                 ) {
                     items(culturalPlaces) { place ->

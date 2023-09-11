@@ -23,7 +23,8 @@ import kotlinx.collections.immutable.PersistentList
 fun EventsScreen(
     navigation: NavigationDestinations,
     paddings: PaddingValues,
-    viewModel: EventsViewModel = hiltViewModel(),
+    modifier: Modifier = Modifier,
+    viewModel: EventsViewModel = hiltViewModel()
 ) {
     with(viewModel) {
         EventsEffect {
@@ -36,7 +37,8 @@ fun EventsScreen(
             viewModel,
             viewState.events,
             viewState.error,
-            paddings
+            paddings,
+            modifier
         )
     }
 }
@@ -72,7 +74,7 @@ object Events {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     contentPadding = paddings,
                     verticalArrangement = Arrangement.spacedBy(Grid.d1),
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxSize(),
                 ) {
                     items(events) { event ->

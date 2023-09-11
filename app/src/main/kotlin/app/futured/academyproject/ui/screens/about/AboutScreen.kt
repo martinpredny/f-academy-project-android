@@ -1,6 +1,5 @@
 package app.futured.academyproject.ui.screens.about
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -28,13 +27,14 @@ import app.futured.academyproject.R
 import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.ui.theme.Grid
 
-@SuppressLint("ComposeModifierMissing")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AboutScreen(
-    navigation: NavigationDestinations
+    navigation: NavigationDestinations,
+    modifier: Modifier = Modifier
 ) {
     Scaffold(
+        modifier = modifier,
         topBar = {
             TopAppBar(
                 title = { Text(text = stringResource(R.string.app_info)) },

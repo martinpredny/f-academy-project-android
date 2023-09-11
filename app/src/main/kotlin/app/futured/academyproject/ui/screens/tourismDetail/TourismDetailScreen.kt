@@ -1,6 +1,5 @@
 package app.futured.academyproject.ui.screens.tourismDetail
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -56,6 +55,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 @Composable
 fun TourismDetailScreen(
     navigation: NavigationDestinations,
+    modifier: Modifier = Modifier,
     viewModel: TourismDetailViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
@@ -68,6 +68,7 @@ fun TourismDetailScreen(
         TourismDetail.Content(
             this,
             viewState.touristPlace,
+            modifier
         )
     }
 }
@@ -107,13 +108,12 @@ object TourismDetail {
     }
 }
 
-@SuppressLint("ComposeModifierMissing")
 @Composable
-fun TabLayout(touristPlace: TouristPlace, contentPadding: PaddingValues, actions: TourismDetail.Actions) {
+fun TabLayout(touristPlace: TouristPlace, contentPadding: PaddingValues, actions: TourismDetail.Actions, modifier: Modifier = Modifier) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(contentPadding),
     ) {
@@ -144,9 +144,9 @@ fun TabLayout(touristPlace: TouristPlace, contentPadding: PaddingValues, actions
 }
 
 @Composable
-fun InfoTab(touristPlace: TouristPlace, actions: TourismDetail.Actions) {
+fun InfoTab(touristPlace: TouristPlace, actions: TourismDetail.Actions, modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .verticalScroll(rememberScrollState())
             .fillMaxSize(),
     ) {
@@ -192,13 +192,13 @@ fun InfoTab(touristPlace: TouristPlace, actions: TourismDetail.Actions) {
 }
 
 @Composable
-fun MapTab(touristPlace: TouristPlace) {
+fun MapTab(touristPlace: TouristPlace, modifier: Modifier = Modifier) {
     val placePosition = LatLng(touristPlace.latitude!!, touristPlace.longitude!!)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(placePosition, 15f)
     }
     GoogleMap(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         cameraPositionState = cameraPositionState
     ) {
         Marker(
