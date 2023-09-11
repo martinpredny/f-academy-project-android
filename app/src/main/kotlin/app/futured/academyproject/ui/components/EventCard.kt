@@ -33,7 +33,11 @@ import coil.request.ImageRequest
 import kotlinx.collections.immutable.PersistentList
 
 @Composable
-fun EventCard(event: Event, onClick: (Int) -> Unit, modifier: Modifier = Modifier) {
+fun EventCard(
+    event: Event,
+    onClick: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier

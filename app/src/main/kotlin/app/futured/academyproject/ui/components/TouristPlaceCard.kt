@@ -32,7 +32,11 @@ import coil.request.ImageRequest
 import kotlinx.collections.immutable.PersistentList
 
 @Composable
-fun TouristPlaceCard(touristPlace: TouristPlace, onClick: (Int) -> Unit, modifier: Modifier = Modifier) {
+fun TouristPlaceCard(
+    touristPlace: TouristPlace,
+    onClick: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier

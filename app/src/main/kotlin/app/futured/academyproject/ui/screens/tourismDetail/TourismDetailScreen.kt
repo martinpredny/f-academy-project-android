@@ -149,7 +149,11 @@ fun TabLayout(
 }
 
 @Composable
-fun InfoTab(touristPlace: TouristPlace, actions: TourismDetail.Actions, modifier: Modifier = Modifier) {
+fun InfoTab(
+    touristPlace: TouristPlace,
+    actions: TourismDetail.Actions,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
@@ -197,7 +201,10 @@ fun InfoTab(touristPlace: TouristPlace, actions: TourismDetail.Actions, modifier
 }
 
 @Composable
-fun MapTab(touristPlace: TouristPlace, modifier: Modifier = Modifier) {
+fun MapTab(
+    touristPlace: TouristPlace,
+    modifier: Modifier = Modifier
+) {
     val placePosition = LatLng(touristPlace.latitude!!, touristPlace.longitude!!)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(placePosition, 15f)

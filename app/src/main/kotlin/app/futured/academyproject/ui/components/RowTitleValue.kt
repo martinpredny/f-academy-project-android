@@ -13,7 +13,11 @@ import androidx.compose.ui.text.style.TextAlign
 import app.futured.academyproject.ui.theme.Grid
 
 @Composable
-fun RowTitleValue(title: String, value: String, modifier: Modifier = Modifier) {
+fun RowTitleValue(
+    title: String,
+    value: String,
+    modifier: Modifier = Modifier
+) {
     Row(
         modifier = modifier
             .padding(vertical = Grid.d2, horizontal = Grid.d4)

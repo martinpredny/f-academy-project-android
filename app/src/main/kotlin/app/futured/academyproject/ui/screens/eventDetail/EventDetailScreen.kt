@@ -115,7 +115,11 @@ object EventDetail {
 }
 
 @Composable
-fun TabLayout(event: Event, contentPadding: PaddingValues, actions: EventDetail.Actions, modifier: Modifier = Modifier) {
+fun TabLayout(
+    event: Event, contentPadding: PaddingValues,
+    actions: EventDetail.Actions,
+    modifier: Modifier = Modifier
+) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     Column(
         modifier = modifier
@@ -149,7 +153,11 @@ fun TabLayout(event: Event, contentPadding: PaddingValues, actions: EventDetail.
 }
 
 @Composable
-fun InfoTab(event: Event, actions: EventDetail.Actions, modifier: Modifier = Modifier) {
+fun InfoTab(
+    event: Event,
+    actions: EventDetail.Actions,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
@@ -210,7 +218,10 @@ fun InfoTab(event: Event, actions: EventDetail.Actions, modifier: Modifier = Mod
 }
 
 @Composable
-fun MapTab(event: Event, modifier: Modifier = Modifier) {
+fun MapTab(
+    event: Event,
+    modifier: Modifier = Modifier
+) {
     val eventPosition = LatLng(event.latitude!!, event.longitude!!)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(eventPosition, 15f)
