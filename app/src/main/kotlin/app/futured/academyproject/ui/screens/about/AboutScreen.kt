@@ -20,6 +20,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -58,8 +59,10 @@ fun AboutScreen(
                     style = MaterialTheme.typography.headlineMedium,
                     modifier = Modifier.padding(bottom = Grid.d2),
                 )
+                val context = LocalContext.current
+                val version = context.packageManager.getPackageInfo(context.packageName, 0).versionName
                 Text(
-                    text = stringResource(R.string.app_version),
+                    text = stringResource(R.string.app_version, version),
                     modifier = Modifier.padding(bottom = Grid.d2),
                 )
                 Text(
