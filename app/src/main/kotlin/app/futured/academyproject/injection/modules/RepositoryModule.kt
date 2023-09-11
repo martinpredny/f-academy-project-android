@@ -1,6 +1,7 @@
-package app.futured.academyproject.data.persistence.db
+package app.futured.academyproject.injection.modules
 
 import android.content.Context
+import app.futured.academyproject.data.persistence.db.AppDatabase
 import app.futured.academyproject.data.persistence.db.culture.CulturalPlaceDao
 import app.futured.academyproject.data.persistence.db.culture.CulturalPlacesRepository
 import app.futured.academyproject.data.persistence.db.culture.CulturalPlacesRepositoryImpl
