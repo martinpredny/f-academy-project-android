@@ -41,7 +41,7 @@ fun TourismScreen(
             viewState.places,
             viewState.error,
             paddings,
-            modifier
+            modifier,
         )
     }
 }
@@ -102,7 +102,7 @@ private fun TourismContentWithErrorPreview() {
             Tourism.PreviewActions,
             touristPlaces = persistentListOf(),
             error = IllegalStateException("Test"),
-            paddings = PaddingValues()
+            paddings = PaddingValues(),
         )
     }
 }
@@ -115,7 +115,7 @@ private fun TourismContentWithLoadingPreview() {
             Tourism.PreviewActions,
             touristPlaces = persistentListOf(),
             error = null,
-            paddings = PaddingValues()
+            paddings = PaddingValues(),
         )
     }
 }

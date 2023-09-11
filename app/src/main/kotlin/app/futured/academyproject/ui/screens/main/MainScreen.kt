@@ -65,7 +65,7 @@ fun MainScreen(
 
     Surface(
         modifier = modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
+        color = MaterialTheme.colorScheme.background,
     ) {
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         val scope = rememberCoroutineScope()
@@ -73,7 +73,7 @@ fun MainScreen(
             mutableIntStateOf(0)
         }
 
-        selectedItemIndex = when(navigation.getNavController().currentDestination?.route) {
+        selectedItemIndex = when (navigation.getNavController().currentDestination?.route) {
             "Culture" -> 0
             "Tourism" -> 0
             "Events" -> 0
@@ -106,16 +106,16 @@ fun MainScreen(
                                     imageVector = if (index == selectedItemIndex) {
                                         item.selectedIcon
                                     } else item.unselectedIcon,
-                                    contentDescription = item.title
+                                    contentDescription = item.title,
                                 )
                             },
                             modifier = Modifier
-                                .padding(NavigationDrawerItemDefaults.ItemPadding)
+                                .padding(NavigationDrawerItemDefaults.ItemPadding),
                         )
                     }
                 }
             },
-            drawerState = drawerState
+            drawerState = drawerState,
         ) {
             Scaffold(
                 modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),

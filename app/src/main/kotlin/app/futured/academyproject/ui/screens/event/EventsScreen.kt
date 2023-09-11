@@ -24,7 +24,7 @@ fun EventsScreen(
     navigation: NavigationDestinations,
     paddings: PaddingValues,
     modifier: Modifier = Modifier,
-    viewModel: EventsViewModel = hiltViewModel()
+    viewModel: EventsViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
         EventsEffect {
@@ -38,7 +38,7 @@ fun EventsScreen(
             viewState.events,
             viewState.error,
             paddings,
-            modifier
+            modifier,
         )
     }
 }

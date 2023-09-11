@@ -31,7 +31,7 @@ import app.futured.academyproject.ui.theme.Grid
 @Composable
 fun AboutScreen(
     navigation: NavigationDestinations,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
         modifier = modifier,
@@ -102,6 +102,6 @@ fun AboutScreen(
                     )
                 }
             }
-        }
+        },
     )
 }

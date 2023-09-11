@@ -17,7 +17,7 @@ class CultureViewModel @Inject constructor(
     override val viewState: CultureViewState,
     private val getCulturalPlacesUseCase: GetCulturalPlacesUseCase,
     private val culturalPlacesStore: CulturalPlacesStore,
-    private val culturalPlacesRepository: CulturalPlacesRepository
+    private val culturalPlacesRepository: CulturalPlacesRepository,
 ) : BaseViewModel<CultureViewState>(), Culture.Actions {
 
     init {
@@ -30,7 +30,7 @@ class CultureViewModel @Inject constructor(
         getCulturalPlacesUseCase.execute {
             onSuccess {
                 Timber.d("Cultural places: $it")
-                viewModelScope.launch{
+                viewModelScope.launch {
                     culturalPlacesRepository.deleteAll()
                     culturalPlacesRepository.insertCulturalPlaces(it)
                 }
@@ -49,7 +49,7 @@ class CultureViewModel @Inject constructor(
                     val cachedPlaces = withContext(Dispatchers.IO) {
                         culturalPlacesRepository.getAllCulturalPlaces()
                     }
-                    if(cachedPlaces.isEmpty()) {
+                    if (cachedPlaces.isEmpty()) {
                         viewState.error = error
                     } else {
                         viewState.places = viewState.places.run {

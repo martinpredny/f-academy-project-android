@@ -13,8 +13,14 @@ import androidx.compose.ui.text.style.TextAlign
 import app.futured.academyproject.ui.theme.Grid
 
 @Composable
-fun RowTitleValue(title: String, value: String, modifier: Modifier = Modifier){
-    Row(modifier = modifier.padding(vertical = Grid.d2, horizontal = Grid.d4).fillMaxWidth(), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.SpaceBetween) {
+fun RowTitleValue(title: String, value: String, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+            .padding(vertical = Grid.d2, horizontal = Grid.d4)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
         Text(text = title, fontWeight = FontWeight.Bold)
         Text(text = value, textAlign = TextAlign.End)
     }

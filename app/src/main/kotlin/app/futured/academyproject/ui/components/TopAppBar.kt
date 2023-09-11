@@ -23,7 +23,12 @@ import kotlinx.coroutines.launch
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior, drawerState: DrawerState, scope: CoroutineScope, modifier: Modifier = Modifier) {
+fun TopAppBar(
+    scrollBehavior: TopAppBarScrollBehavior,
+    drawerState: DrawerState,
+    scope: CoroutineScope,
+    modifier: Modifier = Modifier,
+) {
     LargeTopAppBar(
         modifier = modifier,
         title = {
@@ -34,11 +39,13 @@ fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior, drawerState: DrawerState,
             )
         },
         navigationIcon = {
-            IconButton(onClick = {
-                scope.launch {
-                    drawerState.open()
-                }
-            }) {
+            IconButton(
+                onClick = {
+                    scope.launch {
+                        drawerState.open()
+                    }
+                },
+            ) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
                     contentDescription = null,

@@ -29,7 +29,7 @@ fun CultureScreen(
     navigation: NavigationDestinations,
     paddings: PaddingValues,
     modifier: Modifier = Modifier,
-    viewModel: CultureViewModel = hiltViewModel()
+    viewModel: CultureViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
         EventsEffect {
@@ -43,7 +43,7 @@ fun CultureScreen(
             viewState.places,
             viewState.error,
             paddings,
-            modifier
+            modifier,
         )
     }
 }
@@ -104,7 +104,7 @@ private fun CultureContentPreview(@PreviewParameter(CulturalPlacesProvider::clas
             Culture.PreviewActions,
             places,
             error = null,
-            paddings = PaddingValues()
+            paddings = PaddingValues(),
         )
     }
 }
@@ -117,7 +117,7 @@ private fun CultureContentWithErrorPreview() {
             Culture.PreviewActions,
             culturalPlaces = persistentListOf(),
             error = IllegalStateException("Test"),
-            paddings = PaddingValues()
+            paddings = PaddingValues(),
         )
     }
 }
@@ -130,7 +130,7 @@ private fun CultureContentWithLoadingPreview() {
             Culture.PreviewActions,
             culturalPlaces = persistentListOf(),
             error = null,
-            paddings = PaddingValues()
+            paddings = PaddingValues(),
         )
     }
 }

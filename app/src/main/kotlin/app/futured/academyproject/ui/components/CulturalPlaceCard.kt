@@ -88,6 +88,7 @@ fun CulturalPlaceCard(culturalPlace: CulturalPlace, onClick: (Int) -> Unit, modi
 
 @Preview
 @Composable
-private fun CullturalPlaceCardPreview(@PreviewParameter(CulturalPlacesProvider::class) culturalPlaces: PersistentList<CulturalPlace>) = Showcase {
-    CulturalPlaceCard(culturalPlace = culturalPlaces.first(), onClick = {})
-}
+private fun CullturalPlaceCardPreview(@PreviewParameter(CulturalPlacesProvider::class) culturalPlaces: PersistentList<CulturalPlace>) =
+    Showcase {
+        CulturalPlaceCard(culturalPlace = culturalPlaces.first(), onClick = {})
+    }

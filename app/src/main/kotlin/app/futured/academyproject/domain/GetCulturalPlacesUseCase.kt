@@ -33,7 +33,7 @@ class GetCulturalPlacesUseCase @Inject constructor(
                     openFrom = item.cultureProperties.openFrom,
                     openTo = item.cultureProperties.openTo,
                     image1Url = item.cultureProperties.image1Url,
-                    brnoPass = item.cultureProperties.brnoPass
+                    brnoPass = item.cultureProperties.brnoPass,
                 ),
             )
         }

@@ -58,7 +58,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 fun CultureDetailScreen(
     navigation: NavigationDestinations,
     modifier: Modifier = Modifier,
-    viewModel: CultureDetailViewModel = hiltViewModel()
+    viewModel: CultureDetailViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
         EventsEffect {
@@ -73,7 +73,7 @@ fun CultureDetailScreen(
         CultureDetail.Content(
             this,
             viewState.culturalPlace,
-            modifier
+            modifier,
         )
     }
 }
@@ -116,7 +116,12 @@ object CultureDetail {
 }
 
 @Composable
-fun TabLayout(culturalPlace: CulturalPlace, contentPadding: PaddingValues, actions: CultureDetail.Actions, modifier: Modifier = Modifier,) {
+fun TabLayout(
+    culturalPlace: CulturalPlace,
+    contentPadding: PaddingValues,
+    actions: CultureDetail.Actions,
+    modifier: Modifier = Modifier,
+) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     Column(
@@ -228,12 +233,12 @@ fun MapTab(culturalPlace: CulturalPlace, modifier: Modifier = Modifier) {
     }
     GoogleMap(
         modifier = modifier.fillMaxSize(),
-        cameraPositionState = cameraPositionState
+        cameraPositionState = cameraPositionState,
     ) {
         Marker(
             state = MarkerState(position = placePosition),
             title = culturalPlace.name,
-            snippet = culturalPlace.street + " " + culturalPlace.streetNumber
+            snippet = culturalPlace.street + " " + culturalPlace.streetNumber,
         )
     }
 }

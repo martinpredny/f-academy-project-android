@@ -58,7 +58,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 fun EventDetailScreen(
     navigation: NavigationDestinations,
     modifier: Modifier = Modifier,
-    viewModel: EventDetailViewModel = hiltViewModel()
+    viewModel: EventDetailViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
         EventsEffect {
@@ -73,7 +73,7 @@ fun EventDetailScreen(
         EventDetail.Content(
             this,
             viewState.event,
-            modifier
+            modifier,
         )
     }
 }
@@ -149,34 +149,35 @@ fun TabLayout(event: Event, contentPadding: PaddingValues, actions: EventDetail.
 }
 
 @Composable
-fun InfoTab(event: Event, actions: EventDetail.Actions, modifier: Modifier = Modifier,) {
+fun InfoTab(event: Event, actions: EventDetail.Actions, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
             .fillMaxSize(),
     ) {
-        if(event.category != null) {
+        if (event.category != null) {
             RowTitleValue(title = "Category:", value = event.category)
         }
-        if(event.webUrl != null) {
+        if (event.webUrl != null) {
             //Todo: make also composable with clickable url
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = Grid.d2, horizontal = Grid.d4),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(text = "Website:", fontWeight = FontWeight.Bold)
                 Text(
-                    text = event.webUrl, Modifier
+                    text = event.webUrl,
+                    Modifier
                         .clickable {
                             actions.navigateToWebsite(event.webUrl)
-                        }
+                        },
                 )
             }
         }
-        if(event.email != null) {
+        if (event.email != null) {
             RowTitleValue(title = "Email:", value = event.email)
         }
         Row(
@@ -184,10 +185,10 @@ fun InfoTab(event: Event, actions: EventDetail.Actions, modifier: Modifier = Mod
                 .fillMaxWidth()
                 .padding(vertical = Grid.d2, horizontal = Grid.d4),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
         ) {
             Card(
-                colors = CardDefaults.cardColors()
+                colors = CardDefaults.cardColors(),
             ) {
                 Image(
                     painter = rememberAsyncImagePainter(
@@ -216,11 +217,11 @@ fun MapTab(event: Event, modifier: Modifier = Modifier) {
     }
     GoogleMap(
         modifier = modifier.fillMaxSize(),
-        cameraPositionState = cameraPositionState
+        cameraPositionState = cameraPositionState,
     ) {
         Marker(
             state = MarkerState(position = eventPosition),
-            title = event.name
+            title = event.name,
         )
     }
 }

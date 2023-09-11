@@ -18,5 +18,5 @@ data class Event(
     val text: String? = null,
     val ticketsUrl: String? = null,
     val startDate: Long? = null,
-    val endDate: Long? = null
+    val endDate: Long? = null,
 )

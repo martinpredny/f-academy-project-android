@@ -68,7 +68,7 @@ fun TourismDetailScreen(
         TourismDetail.Content(
             this,
             viewState.touristPlace,
-            modifier
+            modifier,
         )
     }
 }
@@ -109,7 +109,12 @@ object TourismDetail {
 }
 
 @Composable
-fun TabLayout(touristPlace: TouristPlace, contentPadding: PaddingValues, actions: TourismDetail.Actions, modifier: Modifier = Modifier) {
+fun TabLayout(
+    touristPlace: TouristPlace,
+    contentPadding: PaddingValues,
+    actions: TourismDetail.Actions,
+    modifier: Modifier = Modifier,
+) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     Column(
@@ -150,16 +155,16 @@ fun InfoTab(touristPlace: TouristPlace, actions: TourismDetail.Actions, modifier
             .verticalScroll(rememberScrollState())
             .fillMaxSize(),
     ) {
-        if(touristPlace.street != null) {
+        if (touristPlace.street != null) {
             RowTitleValue(title = "Street:", value = touristPlace.street)
         }
-        if(touristPlace.webUrl != null) {
+        if (touristPlace.webUrl != null) {
             RowTitleValue(title = "Website:", value = touristPlace.webUrl)
         }
-        if(touristPlace.email != null) {
+        if (touristPlace.email != null) {
             RowTitleValue(title = "Email:", value = touristPlace.email)
         }
-        if(touristPlace.phone != null) {
+        if (touristPlace.phone != null) {
             RowTitleValue(title = "Phone:", value = touristPlace.phone)
         }
         Row(
@@ -167,10 +172,10 @@ fun InfoTab(touristPlace: TouristPlace, actions: TourismDetail.Actions, modifier
                 .fillMaxWidth()
                 .padding(vertical = Grid.d2, horizontal = Grid.d4),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
         ) {
             Card(
-                colors = CardDefaults.cardColors()
+                colors = CardDefaults.cardColors(),
             ) {
                 Image(
                     painter = rememberAsyncImagePainter(
@@ -199,12 +204,12 @@ fun MapTab(touristPlace: TouristPlace, modifier: Modifier = Modifier) {
     }
     GoogleMap(
         modifier = modifier.fillMaxSize(),
-        cameraPositionState = cameraPositionState
+        cameraPositionState = cameraPositionState,
     ) {
         Marker(
             state = MarkerState(position = placePosition),
             title = touristPlace.name,
-            snippet = touristPlace.street
+            snippet = touristPlace.street,
         )
     }
 }

@@ -26,5 +26,5 @@ data class EventProperties(
     @SerialName("date_to") val dateTo: Long?,
     @SerialName("first_image") val firstImage: String?,
     @SerialName("ObjectId") val objectId: Int?,
-    @SerialName("GlobalID") val globalId: String?
+    @SerialName("GlobalID") val globalId: String?,
 )

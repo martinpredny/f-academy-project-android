@@ -21,7 +21,7 @@ import app.futured.academyproject.ui.screens.website.WebsiteScreen
 fun NavGraph(
     navController: NavHostController,
     navigation: NavigationDestinations,
-    paddings: PaddingValues
+    paddings: PaddingValues,
 ) {
     NavHost(
         navController = navController,

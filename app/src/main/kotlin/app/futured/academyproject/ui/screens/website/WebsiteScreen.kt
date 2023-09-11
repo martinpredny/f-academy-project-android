@@ -36,7 +36,7 @@ fun WebsiteScreen(
         Website.Content(
             this,
             viewState.url,
-            modifier
+            modifier,
         )
     }
 }
@@ -60,9 +60,11 @@ object Website {
                 TopAppBar(
                     title = { Text(text = (url ?: "Website")) },
                     navigationIcon = {
-                        IconButton(onClick = {
-                            actions.navigateBack()
-                        }) {
+                        IconButton(
+                            onClick = {
+                                actions.navigateBack()
+                            },
+                        ) {
                             Icon(Icons.Filled.ArrowBack, contentDescription = null)
                         }
                     },
@@ -78,18 +80,22 @@ object Website {
 }
 
 @Composable
-fun WebViewPage(url: String) {
-    AndroidView(factory = {
-        WebView(it).apply {
-            layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-            webViewClient = WebViewClient()
-            loadUrl(url)
-        }
-    }, update = {
-        it.loadUrl(url)
-    }, modifier = Modifier
-        .systemBarsPadding())
+fun WebViewPage(url: String, modifier: Modifier = Modifier,) {
+    AndroidView(
+        factory = {
+            WebView(it).apply {
+                layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                )
+                webViewClient = WebViewClient()
+                loadUrl(url)
+            }
+        },
+        update = {
+            it.loadUrl(url)
+        },
+        modifier = modifier
+            .systemBarsPadding(),
+    )
 }

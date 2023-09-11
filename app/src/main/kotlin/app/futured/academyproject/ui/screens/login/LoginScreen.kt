@@ -24,7 +24,7 @@ import app.futured.academyproject.navigation.NavigationDestinations
 @Composable
 fun LoginScreen(
     navigation: NavigationDestinations,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
         modifier = modifier,
@@ -51,6 +51,6 @@ fun LoginScreen(
                     fontSize = 30.sp,
                 )
             }
-        }
+        },
     )
 }

@@ -22,13 +22,13 @@ fun BottomNavigationBar(
     //todo: fix warning
     items: List<BottomNavigationItem>,
     navigation: NavigationDestinations,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var selectedItemIndex by rememberSaveable {
         mutableIntStateOf(0)
     }
 
-    selectedItemIndex = when(navigation.getNavController().currentDestination?.route) {
+    selectedItemIndex = when (navigation.getNavController().currentDestination?.route) {
         "Culture" -> 0
         "Tourism" -> 1
         "Events" -> 2

@@ -90,6 +90,7 @@ fun TouristPlaceCard(touristPlace: TouristPlace, onClick: (Int) -> Unit, modifie
 
 @Preview
 @Composable
-private fun TouristPlaceCardPreview(@PreviewParameter(CulturalPlacesProvider::class) touristPlaces: PersistentList<TouristPlace>) = Showcase {
-    TouristPlaceCard(touristPlace = touristPlaces.first(), onClick = {})
-}
+private fun TouristPlaceCardPreview(@PreviewParameter(CulturalPlacesProvider::class) touristPlaces: PersistentList<TouristPlace>) =
+    Showcase {
+        TouristPlaceCard(touristPlace = touristPlaces.first(), onClick = {})
+    }
