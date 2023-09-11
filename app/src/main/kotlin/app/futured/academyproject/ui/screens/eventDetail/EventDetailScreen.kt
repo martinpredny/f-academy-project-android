@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.academyproject.R
@@ -97,7 +98,7 @@ object EventDetail {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = (event?.name ?: "Culture Place Detail")) },
+                    title = { Text(text = (event?.name ?: stringResource(R.string.event_detail))) },
                     navigationIcon = {
                         IconButton(onClick = { actions.navigateBack() }) {
                             Icon(Icons.Filled.ArrowBack, contentDescription = null)
@@ -164,7 +165,7 @@ fun InfoTab(
             .fillMaxSize(),
     ) {
         if (event.category != null) {
-            RowTitleValue(title = "Category:", value = event.category)
+            RowTitleValue(title = stringResource(R.string.category_title), value = event.category)
         }
         if (event.webUrl != null) {
             //Todo: make also composable with clickable url
@@ -175,7 +176,7 @@ fun InfoTab(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Text(text = "Website:", fontWeight = FontWeight.Bold)
+                Text(text = stringResource(R.string.website_title), fontWeight = FontWeight.Bold)
                 Text(
                     text = event.webUrl,
                     Modifier
@@ -186,7 +187,7 @@ fun InfoTab(
             }
         }
         if (event.email != null) {
-            RowTitleValue(title = "Email:", value = event.email)
+            RowTitleValue(title = stringResource(R.string.email_title), value = event.email)
         }
         Row(
             modifier = Modifier

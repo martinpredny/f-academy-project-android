@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.academyproject.R
@@ -97,7 +98,7 @@ object CultureDetail {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = (culturalPlace?.name ?: "Culture Place Detail")) },
+                    title = { Text(text = (culturalPlace?.name ?: stringResource(R.string.culture_place_detail))) },
                     navigationIcon = {
                         IconButton(onClick = { actions.navigateBack() }) {
                             Icon(Icons.Filled.ArrowBack, contentDescription = null)
@@ -166,12 +167,12 @@ fun InfoTab(
             .verticalScroll(rememberScrollState())
             .fillMaxSize(),
     ) {
-        RowTitleValue(title = "Type", value = culturalPlace.type)
+        RowTitleValue(title = stringResource(R.string.type_title), value = culturalPlace.type)
         if (culturalPlace.street != null) {
-            RowTitleValue(title = "Street:", value = culturalPlace.street)
+            RowTitleValue(title = stringResource(R.string.street_title), value = culturalPlace.street)
         }
         if (culturalPlace.streetNumber != null) {
-            RowTitleValue(title = "Street Number:", value = culturalPlace.streetNumber)
+            RowTitleValue(title = stringResource(R.string.street_number_title), value = culturalPlace.streetNumber)
         }
         if (culturalPlace.webUrl != null) {
             Row(
@@ -181,7 +182,7 @@ fun InfoTab(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Text(text = "Website:", fontWeight = FontWeight.Bold)
+                Text(text = stringResource(R.string.website_title), fontWeight = FontWeight.Bold)
                 Text(
                     text = culturalPlace.webUrl,
                     Modifier
@@ -192,13 +193,13 @@ fun InfoTab(
             }
         }
         if (culturalPlace.email != null) {
-            RowTitleValue(title = "Email:", value = culturalPlace.email)
+            RowTitleValue(title = stringResource(R.string.email_title), value = culturalPlace.email)
         }
         if (culturalPlace.phone != null) {
-            RowTitleValue(title = "Phone:", value = culturalPlace.phone)
+            RowTitleValue(title = stringResource(R.string.phone_title), value = culturalPlace.phone)
         }
         if (culturalPlace.brnoPass != null) {
-            RowTitleValue(title = "Accepts Brno Pass:", value = acceptsBrnoPass(culturalPlace.brnoPass))
+            RowTitleValue(title = stringResource(R.string.accepts_brno_pass_title), value = acceptsBrnoPass(culturalPlace.brnoPass))
         }
         Row(
             modifier = Modifier

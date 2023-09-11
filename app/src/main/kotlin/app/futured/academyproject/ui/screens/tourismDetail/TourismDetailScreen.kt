@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.academyproject.R
 import app.futured.academyproject.data.model.local.TouristPlace
@@ -91,7 +92,7 @@ object TourismDetail {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = (touristPlace?.name ?: "Tourist Place Detail")) },
+                    title = { Text(text = (touristPlace?.name ?: stringResource(R.string.tourist_place_detail))) },
                     navigationIcon = {
                         IconButton(onClick = { actions.navigateBack() }) {
                             Icon(Icons.Filled.ArrowBack, contentDescription = null)
@@ -160,16 +161,16 @@ fun InfoTab(
             .fillMaxSize(),
     ) {
         if (touristPlace.street != null) {
-            RowTitleValue(title = "Street:", value = touristPlace.street)
+            RowTitleValue(title = stringResource(R.string.street_title), value = touristPlace.street)
         }
         if (touristPlace.webUrl != null) {
-            RowTitleValue(title = "Website:", value = touristPlace.webUrl)
+            RowTitleValue(title = stringResource(R.string.website_title), value = touristPlace.webUrl)
         }
         if (touristPlace.email != null) {
-            RowTitleValue(title = "Email:", value = touristPlace.email)
+            RowTitleValue(title = stringResource(R.string.email_title), value = touristPlace.email)
         }
         if (touristPlace.phone != null) {
-            RowTitleValue(title = "Phone:", value = touristPlace.phone)
+            RowTitleValue(title = stringResource(R.string.phone_title), value = touristPlace.phone)
         }
         Row(
             modifier = Modifier
