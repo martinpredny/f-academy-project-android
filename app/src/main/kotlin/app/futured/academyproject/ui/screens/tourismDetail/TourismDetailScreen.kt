@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.academyproject.R
 import app.futured.academyproject.data.model.local.TouristPlace
@@ -92,7 +93,13 @@ object TourismDetail {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = (touristPlace?.name ?: stringResource(R.string.tourist_place_detail))) },
+                    title = {
+                        Text(
+                            text = stringResource(R.string.tourist_place_detail),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    },
                     navigationIcon = {
                         IconButton(onClick = { actions.navigateBack() }) {
                             Icon(Icons.Filled.ArrowBack, contentDescription = null)
@@ -160,6 +167,7 @@ fun InfoTab(
             .verticalScroll(rememberScrollState())
             .fillMaxSize(),
     ) {
+        RowTitleValue(title = stringResource(R.string.name_title), value = touristPlace.name)
         if (touristPlace.street != null) {
             RowTitleValue(title = stringResource(R.string.street_title), value = touristPlace.street)
         }

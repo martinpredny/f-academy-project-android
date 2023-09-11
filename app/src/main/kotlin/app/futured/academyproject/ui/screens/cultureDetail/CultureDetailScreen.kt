@@ -35,6 +35,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.academyproject.R
 import app.futured.academyproject.data.model.local.CulturalPlace
@@ -98,7 +99,13 @@ object CultureDetail {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = (culturalPlace?.name ?: stringResource(R.string.culture_place_detail))) },
+                    title = {
+                        Text(
+                            text = stringResource(R.string.cultural_place_detail),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    },
                     navigationIcon = {
                         IconButton(onClick = { actions.navigateBack() }) {
                             Icon(Icons.Filled.ArrowBack, contentDescription = null)
@@ -167,6 +174,7 @@ fun InfoTab(
             .verticalScroll(rememberScrollState())
             .fillMaxSize(),
     ) {
+        RowTitleValue(title = stringResource(R.string.name_title), value = culturalPlace.name)
         RowTitleValue(title = stringResource(R.string.type_title), value = culturalPlace.type)
         if (culturalPlace.street != null) {
             RowTitleValue(title = stringResource(R.string.street_title), value = culturalPlace.street)
@@ -175,22 +183,24 @@ fun InfoTab(
             RowTitleValue(title = stringResource(R.string.street_number_title), value = culturalPlace.streetNumber)
         }
         if (culturalPlace.webUrl != null) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-                Text(text = stringResource(R.string.website_title), fontWeight = FontWeight.Bold)
-                Text(
-                    text = culturalPlace.webUrl,
-                    Modifier
-                        .clickable {
-                            actions.navigateToWebsite(culturalPlace.webUrl)
-                        },
-                )
-            }
+            //todo: make url clickable
+//            Row(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(vertical = Grid.d2, horizontal = Grid.d4),
+//                verticalAlignment = Alignment.CenterVertically,
+//                horizontalArrangement = Arrangement.SpaceBetween,
+//            ) {
+//                Text(text = stringResource(R.string.website_title), fontWeight = FontWeight.Bold)
+//                Text(
+//                    text = culturalPlace.webUrl,
+//                    Modifier
+//                        .clickable {
+//                            actions.navigateToWebsite(culturalPlace.webUrl)
+//                        },
+//                )
+//            }
+            RowTitleValue(title = stringResource(R.string.website_title), value = culturalPlace.webUrl)
         }
         if (culturalPlace.email != null) {
             RowTitleValue(title = stringResource(R.string.email_title), value = culturalPlace.email)

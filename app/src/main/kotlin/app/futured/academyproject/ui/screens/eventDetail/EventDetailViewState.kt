@@ -14,8 +14,6 @@ import javax.inject.Inject
 class EventDetailViewState @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewState {
-
     val eventId = savedStateHandle.get<Int>(PLACE_ID) ?: throw IllegalArgumentException("Missing eventId argument")
-
     var event by mutableStateOf<Event?>(null)
 }

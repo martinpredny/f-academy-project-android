@@ -14,8 +14,6 @@ import javax.inject.Inject
 class CultureDetailViewState @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewState {
-
     val placeId = savedStateHandle.get<Int>(PLACE_ID) ?: throw IllegalArgumentException("Missing placeId argument")
-
     var culturalPlace by mutableStateOf<CulturalPlace?>(null)
 }

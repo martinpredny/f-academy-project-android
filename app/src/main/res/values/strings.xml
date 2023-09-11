@@ -19,9 +19,10 @@
     <string name="show_on_map_title">Show On Map</string>
 
     <!-- Detail screens -->
-    <string name="culture_place_detail">Culture Place Detail</string>
+    <string name="cultural_place_detail">Cultural Place Detail</string>
     <string name="tourist_place_detail">Tourist Place Detail</string>
     <string name="event_detail">Event Detail</string>
+    <string name="name_title">Name:</string>
     <string name="category_title">Category:</string>
     <string name="type_title">Type:</string>
     <string name="street_title">Street:</string>

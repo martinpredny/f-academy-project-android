@@ -35,6 +35,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.academyproject.R
 import app.futured.academyproject.data.model.local.Event
@@ -98,7 +99,13 @@ object EventDetail {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = (event?.name ?: stringResource(R.string.event_detail))) },
+                    title = {
+                        Text(
+                            text = stringResource(R.string.event_detail),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    },
                     navigationIcon = {
                         IconButton(onClick = { actions.navigateBack() }) {
                             Icon(Icons.Filled.ArrowBack, contentDescription = null)
@@ -164,27 +171,29 @@ fun InfoTab(
             .verticalScroll(rememberScrollState())
             .fillMaxSize(),
     ) {
+        RowTitleValue(title = stringResource(R.string.name_title), value = event.name)
         if (event.category != null) {
             RowTitleValue(title = stringResource(R.string.category_title), value = event.category)
         }
         if (event.webUrl != null) {
             //Todo: make also composable with clickable url
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = Grid.d2, horizontal = Grid.d4),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-                Text(text = stringResource(R.string.website_title), fontWeight = FontWeight.Bold)
-                Text(
-                    text = event.webUrl,
-                    Modifier
-                        .clickable {
-                            actions.navigateToWebsite(event.webUrl)
-                        },
-                )
-            }
+//            Row(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(vertical = Grid.d2, horizontal = Grid.d4),
+//                verticalAlignment = Alignment.CenterVertically,
+//                horizontalArrangement = Arrangement.SpaceBetween,
+//            ) {
+//                Text(text = stringResource(R.string.website_title), fontWeight = FontWeight.Bold)
+//                Text(
+//                    text = event.webUrl,
+//                    Modifier
+//                        .clickable {
+//                            actions.navigateToWebsite(event.webUrl)
+//                        },
+//                )
+//            }
+            RowTitleValue(title = stringResource(R.string.website_title), value = event.webUrl)
         }
         if (event.email != null) {
             RowTitleValue(title = stringResource(R.string.email_title), value = event.email)

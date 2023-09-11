@@ -12,8 +12,6 @@ import javax.inject.Inject
 
 @ViewModelScoped
 class EventsViewState @Inject constructor() : ViewState {
-
     var events: PersistentList<Event> by mutableStateOf(persistentListOf())
-
     var error: Throwable? by mutableStateOf(null)
 }
