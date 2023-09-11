@@ -12,15 +12,10 @@ data class TouristPlace(
     val name: String,
     val note: String? = null,
     val webUrl: String? = null,
-    val program: String? = null,
     val street: String? = null,
     val streetNumber: String? = null,
     val email: String? = null,
     val phone: String? = null,
-    val nameEN: String? = null,
-    val noteEN: String? = null,
-    val accessibilityId: String? = null,
-    val openFrom: String? = null,
-    val openTo: String? = null,
     val image1Url: String? = null,
+    val text: String? = null
 )
