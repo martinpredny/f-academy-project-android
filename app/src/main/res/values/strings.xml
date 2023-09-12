@@ -44,6 +44,7 @@
     <string name="contact_futured">Contact Futured:</string>
     <string name="futured_email">Email: your@futured.app</string>
     <string name="futured_website">Website: https://www.futured.app/</string>
+    <string name="futured_website_url">https://www.futured.app/</string>
     <string name="app_info">App Info</string>
 
     <!-- Login screen -->

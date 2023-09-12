@@ -221,4 +221,7 @@ dependencies {
     //Google Maps
     implementation(Dependencies.Maps.mapsCompose)
     implementation (Dependencies.Maps.playServicesMaps)
+
+    //Chrome tabs
+    implementation("androidx.browser:browser:1.6.0")
 }

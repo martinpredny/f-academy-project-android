@@ -1,6 +1,7 @@
 package app.futured.academyproject.ui.screens.about
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -26,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import app.futured.academyproject.R
 import app.futured.academyproject.navigation.NavigationDestinations
+import app.futured.academyproject.tools.utils.openUrl
 import app.futured.academyproject.ui.theme.Grid
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,6 +36,7 @@ fun AboutScreen(
     navigation: NavigationDestinations,
     modifier: Modifier = Modifier,
 ) {
+    val url = stringResource(R.string.futured_website_url)
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -90,7 +93,11 @@ fun AboutScreen(
                 )
                 Text(
                     text = stringResource(R.string.futured_website),
-                    modifier = Modifier.padding(bottom = Grid.d4),
+                    modifier = Modifier
+                        .clickable {
+                            context.openUrl(url)
+                        }
+                        .padding(bottom = Grid.d4),
                 )
                 Card(
                     colors = CardDefaults.cardColors(),

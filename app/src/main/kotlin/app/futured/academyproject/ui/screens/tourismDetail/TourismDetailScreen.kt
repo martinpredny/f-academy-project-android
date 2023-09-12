@@ -41,6 +41,7 @@ import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
 import app.futured.academyproject.tools.compose.ScreenPreviews
 import app.futured.academyproject.ui.components.RowTitleValue
+import app.futured.academyproject.ui.components.RowTitleValueWebsite
 import app.futured.academyproject.ui.components.Showcase
 import app.futured.academyproject.ui.tabItems
 import app.futured.academyproject.ui.theme.Grid
@@ -161,6 +162,7 @@ fun InfoTab(
     actions: TourismDetail.Actions,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
@@ -171,7 +173,7 @@ fun InfoTab(
             RowTitleValue(title = stringResource(R.string.street_title), value = touristPlace.street)
         }
         if (touristPlace.webUrl != null) {
-            RowTitleValue(title = stringResource(R.string.website_title), value = touristPlace.webUrl)
+            RowTitleValueWebsite(title = stringResource(R.string.website_title), value = touristPlace.webUrl, context = context)
         }
         if (touristPlace.email != null) {
             RowTitleValue(title = stringResource(R.string.email_title), value = touristPlace.email)

@@ -42,6 +42,7 @@ import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
 import app.futured.academyproject.tools.compose.ScreenPreviews
 import app.futured.academyproject.ui.components.RowTitleValue
+import app.futured.academyproject.ui.components.RowTitleValueWebsite
 import app.futured.academyproject.ui.components.Showcase
 import app.futured.academyproject.ui.tabItems
 import app.futured.academyproject.ui.theme.Grid
@@ -167,6 +168,7 @@ fun InfoTab(
     actions: CultureDetail.Actions,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
@@ -181,24 +183,7 @@ fun InfoTab(
             RowTitleValue(title = stringResource(R.string.street_number_title), value = culturalPlace.streetNumber)
         }
         if (culturalPlace.webUrl != null) {
-            //todo: make url clickable
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(vertical = Grid.d2, horizontal = Grid.d4),
-//                verticalAlignment = Alignment.CenterVertically,
-//                horizontalArrangement = Arrangement.SpaceBetween,
-//            ) {
-//                Text(text = stringResource(R.string.website_title), fontWeight = FontWeight.Bold)
-//                Text(
-//                    text = culturalPlace.webUrl,
-//                    Modifier
-//                        .clickable {
-//                            actions.navigateToWebsite(culturalPlace.webUrl)
-//                        },
-//                )
-//            }
-            RowTitleValue(title = stringResource(R.string.website_title), value = culturalPlace.webUrl)
+            RowTitleValueWebsite(title = stringResource(R.string.website_title), value = culturalPlace.webUrl, context = context)
         }
         if (culturalPlace.email != null) {
             RowTitleValue(title = stringResource(R.string.email_title), value = culturalPlace.email)
