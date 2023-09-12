@@ -41,6 +41,7 @@ import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
 import app.futured.academyproject.tools.compose.ScreenPreviews
 import app.futured.academyproject.ui.components.RowTitleValue
+import app.futured.academyproject.ui.components.RowTitleValueEmail
 import app.futured.academyproject.ui.components.RowTitleValueWebsite
 import app.futured.academyproject.ui.components.Showcase
 import app.futured.academyproject.ui.tabItems
@@ -178,10 +179,10 @@ fun InfoTab(
             RowTitleValue(title = stringResource(R.string.category_title), value = event.category)
         }
         if (event.webUrl != null) {
-            RowTitleValueWebsite(title = stringResource(R.string.website_title), value = event.webUrl, context = context)
+            RowTitleValueWebsite(title = stringResource(R.string.website_title), url = event.webUrl, context = context)
         }
         if (event.email != null) {
-            RowTitleValue(title = stringResource(R.string.email_title), value = event.email)
+            RowTitleValueEmail(title = stringResource(R.string.email_title), email = event.email, context = context)
         }
         if (event.startDate != null) {
             val date = Date(event.startDate)

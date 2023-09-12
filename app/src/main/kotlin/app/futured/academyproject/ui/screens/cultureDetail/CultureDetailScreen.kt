@@ -42,6 +42,8 @@ import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
 import app.futured.academyproject.tools.compose.ScreenPreviews
 import app.futured.academyproject.ui.components.RowTitleValue
+import app.futured.academyproject.ui.components.RowTitleValueEmail
+import app.futured.academyproject.ui.components.RowTitleValuePhone
 import app.futured.academyproject.ui.components.RowTitleValueWebsite
 import app.futured.academyproject.ui.components.Showcase
 import app.futured.academyproject.ui.tabItems
@@ -183,13 +185,13 @@ fun InfoTab(
             RowTitleValue(title = stringResource(R.string.street_number_title), value = culturalPlace.streetNumber)
         }
         if (culturalPlace.webUrl != null) {
-            RowTitleValueWebsite(title = stringResource(R.string.website_title), value = culturalPlace.webUrl, context = context)
+            RowTitleValueWebsite(title = stringResource(R.string.website_title), url = culturalPlace.webUrl, context = context)
         }
         if (culturalPlace.email != null) {
-            RowTitleValue(title = stringResource(R.string.email_title), value = culturalPlace.email)
+            RowTitleValueEmail(title = stringResource(R.string.email_title), email = culturalPlace.email, context = context)
         }
         if (culturalPlace.phone != null) {
-            RowTitleValue(title = stringResource(R.string.phone_title), value = culturalPlace.phone)
+            RowTitleValuePhone(title = stringResource(R.string.phone_title), phoneNumber = culturalPlace.phone, context = context)
         }
         if (culturalPlace.brnoPass != null) {
             RowTitleValue(title = stringResource(R.string.accepts_brno_pass_title), value = acceptsBrnoPass(culturalPlace.brnoPass))

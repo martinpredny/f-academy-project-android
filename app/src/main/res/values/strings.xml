@@ -41,10 +41,12 @@
     <string name="app_description">Discover cultural places, tourist attractions, and events in Brno with the Visit Brno app. App was developed as a part of assignment during the Futured Summer Dev Academy (2023).</string>
     <string name="contact_developer">Contact Developer:</string>
     <string name="developer_email">Email: mato.predny@gmail.com</string>
+    <string name="developer_email_value">mato.predny@gmail.com</string>
     <string name="contact_futured">Contact Futured:</string>
     <string name="futured_email">Email: your@futured.app</string>
+    <string name="futured_email_value">your@futured.app</string>
     <string name="futured_website">Website: https://www.futured.app/</string>
-    <string name="futured_website_url">https://www.futured.app/</string>
+    <string name="futured_website_value">https://www.futured.app/</string>
     <string name="app_info">App Info</string>
 
     <!-- Login screen -->

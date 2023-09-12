@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import app.futured.academyproject.R
 import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.tools.utils.openUrl
+import app.futured.academyproject.tools.utils.sendMail
 import app.futured.academyproject.ui.theme.Grid
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,7 +37,9 @@ fun AboutScreen(
     navigation: NavigationDestinations,
     modifier: Modifier = Modifier,
 ) {
-    val url = stringResource(R.string.futured_website_url)
+    val url = stringResource(R.string.futured_website_value)
+    val developerMail = stringResource(R.string.developer_email_value)
+    val futuredMail = stringResource(R.string.futured_email_value)
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -80,7 +83,11 @@ fun AboutScreen(
                 )
                 Text(
                     text = stringResource(R.string.developer_email),
-                    modifier = Modifier.padding(bottom = Grid.d2),
+                    modifier = Modifier
+                        .clickable {
+                            context.sendMail(developerMail)
+                        }
+                        .padding(bottom = Grid.d4),
                 )
                 Text(
                     text = stringResource(R.string.contact_futured),
@@ -89,7 +96,11 @@ fun AboutScreen(
                 )
                 Text(
                     text = stringResource(R.string.futured_email),
-                    modifier = Modifier.padding(bottom = Grid.d2),
+                    modifier = Modifier
+                        .clickable {
+                            context.sendMail(futuredMail)
+                        }
+                        .padding(bottom = Grid.d4),
                 )
                 Text(
                     text = stringResource(R.string.futured_website),
