@@ -13,7 +13,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import app.futured.academyproject.data.model.local.BottomNavigationItem
+import app.futured.academyproject.data.model.local.menus.BottomNavigationItem
 import app.futured.academyproject.navigation.NavigationDestinations
 
 @Composable
@@ -48,25 +48,14 @@ fun BottomNavigationBar(
                     Text(text = item.title)
                 },
                 icon = {
-                    BadgedBox(
-                        badge = {
-                            if (item.badgeCount != null) {
-                                Badge {
-                                    Text(text = item.badgeCount.toString())
-                                }
-                            } else if (item.hasNews) {
-                                Badge()
-                            }
+                    Icon(
+                        imageVector = if (index == selectedItemIndex) {
+                            item.selectedIcon
+                        } else {
+                            item.unselectedIcon
                         },
+                        contentDescription = item.title,
                     )
-                    {
-                        Icon(
-                            imageVector = if (index == selectedItemIndex) {
-                                item.selectedIcon
-                            } else item.unselectedIcon,
-                            contentDescription = item.title,
-                        )
-                    }
                 },
             )
         }

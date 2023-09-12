@@ -48,7 +48,7 @@ fun TouristPlaceCard(
             Image(
                 painter = rememberAsyncImagePainter(
                     ImageRequest.Builder(LocalContext.current)
-                        .data(touristPlace.image1Url)
+                        .data(touristPlace.imageUrl)
                         .placeholder(R.drawable.no_image_placeholder)
                         .error(R.drawable.no_image_placeholder)
                         .crossfade(true)

@@ -20,12 +20,12 @@ class GetEventsUseCase @Inject constructor(
             eventsList.add(
                 Event(
                     id = item.properties.id,
-                    longitude = item.geometry?.coordinates?.get(0),
-                    latitude = item.geometry?.coordinates?.get(1),
+                    longitude = item.geometryDto?.coordinates?.get(0),
+                    latitude = item.geometryDto?.coordinates?.get(1),
                     name = Html.fromHtml(item.properties.name, Html.FROM_HTML_MODE_LEGACY).toString(),
                     webUrl = item.properties.url,
                     email = item.properties.organizerEmail,
-                    image1Url = item.properties.firstImage,
+                    imageUrl = item.properties.firstImage,
                     tickets = item.properties.tickets,
                     category = item.properties.categories,
                     text = Html.fromHtml(item.properties.text ?: "", Html.FROM_HTML_MODE_LEGACY).toString(),

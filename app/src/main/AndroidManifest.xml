@@ -12,6 +12,7 @@
         android:theme="@style/Theme.App"
         android:supportsRtl="true">
 
+        <!-- This value should be encoded, for the purpose of testing I pushed it into repo -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDdI3Uvz72eRYi51P6adfnItVAtT4vo8Qg" />

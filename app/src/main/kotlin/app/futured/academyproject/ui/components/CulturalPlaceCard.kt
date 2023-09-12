@@ -52,7 +52,7 @@ fun CulturalPlaceCard(
             Image(
                 painter = rememberAsyncImagePainter(
                     ImageRequest.Builder(LocalContext.current)
-                        .data(culturalPlace.image1Url)
+                        .data(culturalPlace.imageUrl)
                         .placeholder(R.drawable.no_image_placeholder)
                         .error(R.drawable.no_image_placeholder)
                         .crossfade(true)

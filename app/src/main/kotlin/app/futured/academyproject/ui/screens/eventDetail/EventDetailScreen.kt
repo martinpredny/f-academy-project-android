@@ -215,9 +215,9 @@ fun InfoTab(
             Image(
                 painter = rememberAsyncImagePainter(
                     ImageRequest.Builder(LocalContext.current)
-                        .data(event.image1Url)
-                        .placeholder(R.drawable.no_image_placeholder)
-                        .error(R.drawable.no_image_placeholder)
+                        .data(event.imageUrl)
+                        .placeholder(R.drawable.no_image_detail_placeholder)
+                        .error(R.drawable.no_image_detail_placeholder)
                         .crossfade(true)
                         .build(),
                 ),
@@ -225,9 +225,9 @@ fun InfoTab(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp),
+                    .height(220.dp),
             )
-            if (event.text != null) {
+            if (!event.text.isNullOrBlank()) {
                 Text(text = event.text, modifier = Modifier.padding(Grid.d2), textAlign = TextAlign.Center)
             }
         }

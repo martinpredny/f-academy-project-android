@@ -12,28 +12,28 @@ class GetCulturalPlacesUseCase @Inject constructor(
     override suspend fun build(args: Unit): List<CulturalPlace> {
         val places = apiManager.getCulturalPlaces()
         val placesList = mutableListOf<CulturalPlace>()
-        for (item in places.cultureFeatures) {
+        for (item in places.cultureFeatureDtos) {
             placesList.add(
                 CulturalPlace(
-                    id = item.cultureProperties.ogcFid,
-                    longitude = item.geometry?.coordinates?.get(0),
-                    latitude = item.geometry?.coordinates?.get(1),
-                    name = item.cultureProperties.name,
-                    type = item.cultureProperties.type,
-                    note = item.cultureProperties.note,
-                    webUrl = item.cultureProperties.webUrl,
-                    program = item.cultureProperties.program,
-                    street = item.cultureProperties.street,
-                    streetNumber = item.cultureProperties.streetNumber,
-                    email = item.cultureProperties.email,
-                    phone = item.cultureProperties.phone,
-                    nameEN = item.cultureProperties.nameEN,
-                    noteEN = item.cultureProperties.noteEN,
-                    accessibilityId = item.cultureProperties.accessibilityId,
-                    openFrom = item.cultureProperties.openFrom,
-                    openTo = item.cultureProperties.openTo,
-                    image1Url = item.cultureProperties.image1Url,
-                    brnoPass = item.cultureProperties.brnoPass,
+                    id = item.culturePropertiesDto.ogcFid,
+                    longitude = item.geometryDto?.coordinates?.get(0),
+                    latitude = item.geometryDto?.coordinates?.get(1),
+                    name = item.culturePropertiesDto.name,
+                    type = item.culturePropertiesDto.type,
+                    note = item.culturePropertiesDto.note,
+                    webUrl = item.culturePropertiesDto.webUrl,
+                    program = item.culturePropertiesDto.program,
+                    street = item.culturePropertiesDto.street,
+                    streetNumber = item.culturePropertiesDto.streetNumber,
+                    email = item.culturePropertiesDto.email,
+                    phone = item.culturePropertiesDto.phone,
+                    nameEN = item.culturePropertiesDto.nameEN,
+                    noteEN = item.culturePropertiesDto.noteEN,
+                    accessibilityId = item.culturePropertiesDto.accessibilityId,
+                    openFrom = item.culturePropertiesDto.openFrom,
+                    openTo = item.culturePropertiesDto.openTo,
+                    imageUrl = item.culturePropertiesDto.image1Url,
+                    brnoPass = item.culturePropertiesDto.brnoPass,
                 ),
             )
         }

@@ -4,7 +4,21 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TourismProperties(
+data class TouristPlacesDto(
+    @SerialName("type") val type: String,
+    @SerialName("features") val features: List<TourismFeatureDto>,
+)
+
+@Serializable
+data class TourismFeatureDto(
+    @SerialName("id") val id: Int,
+    @SerialName("type") val type: String,
+    @SerialName("geometry") val geometryDto: GeometryDto? = null,
+    @SerialName("properties") val properties: TourismPropertiesDto,
+)
+
+@Serializable
+data class TourismPropertiesDto(
     @SerialName("name") val name: String,
     @SerialName("text") val text: String,
     @SerialName("image") val image: String?,

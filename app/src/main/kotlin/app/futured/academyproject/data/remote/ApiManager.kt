@@ -2,9 +2,9 @@
 
 package app.futured.academyproject.data.remote
 
-import app.futured.academyproject.data.model.api.CulturalPlaces
-import app.futured.academyproject.data.model.api.Events
-import app.futured.academyproject.data.model.api.TouristPlaces
+import app.futured.academyproject.data.model.api.CulturalPlacesDto
+import app.futured.academyproject.data.model.api.EventsDto
+import app.futured.academyproject.data.model.api.TouristPlacesDto
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,7 +13,7 @@ class ApiManager @Inject constructor(
     private val apiService: ApiService,
 ) {
 
-    suspend fun getCulturalPlaces(): CulturalPlaces {
+    suspend fun getCulturalPlaces(): CulturalPlacesDto {
         try {
             return apiService.getAllCulturalPlaces()
         } catch (e: Exception) {
@@ -21,7 +21,7 @@ class ApiManager @Inject constructor(
         }
     }
 
-    suspend fun getTouristPlaces(): TouristPlaces {
+    suspend fun getTouristPlaces(): TouristPlacesDto {
         try {
             return apiService.getAllTouristPlaces("https://services6.arcgis.com/fUWVlHWZNxUvTUh8/arcgis/rest/services/PLACES/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson")
         } catch (e: Exception) {
@@ -29,7 +29,7 @@ class ApiManager @Inject constructor(
         }
     }
 
-    suspend fun getEvents(): Events {
+    suspend fun getEvents(): EventsDto {
         try {
             return apiService.getAllEvents("https://services6.arcgis.com/fUWVlHWZNxUvTUh8/arcgis/rest/services/Events/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson")
         } catch (e: Exception) {

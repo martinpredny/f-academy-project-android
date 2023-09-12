@@ -26,7 +26,7 @@ class CulturalPlacesProvider : PreviewParameterProvider<PersistentList<CulturalP
                 accessibilityId = null,
                 openFrom = null,
                 openTo = null,
-                image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180659&RECORD_ID=17641&AGENDA_IDENT=GEO_ASSETS",
+                imageUrl = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180659&RECORD_ID=17641&AGENDA_IDENT=GEO_ASSETS",
             ),
             CulturalPlace(
                 id = 17521,
@@ -46,7 +46,7 @@ class CulturalPlacesProvider : PreviewParameterProvider<PersistentList<CulturalP
                 accessibilityId = null,
                 openFrom = null,
                 openTo = null,
-                image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180660&RECORD_ID=17521&AGENDA_IDENT=GEO_ASSETS",
+                imageUrl = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180660&RECORD_ID=17521&AGENDA_IDENT=GEO_ASSETS",
             ),
             CulturalPlace(
                 id = 17614,
@@ -66,7 +66,7 @@ class CulturalPlacesProvider : PreviewParameterProvider<PersistentList<CulturalP
                 accessibilityId = null,
                 openFrom = null,
                 openTo = null,
-                image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180661&RECORD_ID=17614&AGENDA_IDENT=GEO_ASSETS",
+                imageUrl = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180661&RECORD_ID=17614&AGENDA_IDENT=GEO_ASSETS",
             ),
             CulturalPlace(
                 id = 17593,
@@ -86,7 +86,7 @@ class CulturalPlacesProvider : PreviewParameterProvider<PersistentList<CulturalP
                 accessibilityId = null,
                 openFrom = null,
                 openTo = null,
-                image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180662&RECORD_ID=17593&AGENDA_IDENT=GEO_ASSETS",
+                imageUrl = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180662&RECORD_ID=17593&AGENDA_IDENT=GEO_ASSETS",
             ),
             CulturalPlace(
                 id = 17612,
@@ -106,7 +106,7 @@ class CulturalPlacesProvider : PreviewParameterProvider<PersistentList<CulturalP
                 accessibilityId = null,
                 openFrom = null,
                 openTo = null,
-                image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180663&RECORD_ID=17612&AGENDA_IDENT=GEO_ASSETS",
+                imageUrl = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180663&RECORD_ID=17612&AGENDA_IDENT=GEO_ASSETS",
             ),
             CulturalPlace(
                 id = 17587,
@@ -126,7 +126,7 @@ class CulturalPlacesProvider : PreviewParameterProvider<PersistentList<CulturalP
                 accessibilityId = null,
                 openFrom = null,
                 openTo = null,
-                image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180664&RECORD_ID=17587&AGENDA_IDENT=GEO_ASSETS",
+                imageUrl = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180664&RECORD_ID=17587&AGENDA_IDENT=GEO_ASSETS",
             ),
             CulturalPlace(
                 id = 17625,
@@ -146,7 +146,7 @@ class CulturalPlacesProvider : PreviewParameterProvider<PersistentList<CulturalP
                 accessibilityId = "1",
                 openFrom = null,
                 openTo = null,
-                image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180657&RECORD_ID=17625&AGENDA_IDENT=GEO_ASSETS",
+                imageUrl = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180657&RECORD_ID=17625&AGENDA_IDENT=GEO_ASSETS",
             ),
             CulturalPlace(
                 id = 17543,
@@ -166,7 +166,7 @@ class CulturalPlacesProvider : PreviewParameterProvider<PersistentList<CulturalP
                 accessibilityId = "2",
                 openFrom = null,
                 openTo = null,
-                image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180655&RECORD_ID=17543&AGENDA_IDENT=GEO_ASSETS",
+                imageUrl = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180655&RECORD_ID=17543&AGENDA_IDENT=GEO_ASSETS",
             ),
             CulturalPlace(
                 id = 17607,
@@ -186,7 +186,7 @@ class CulturalPlacesProvider : PreviewParameterProvider<PersistentList<CulturalP
                 accessibilityId = null,
                 openFrom = null,
                 openTo = null,
-                image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180666&RECORD_ID=17607&AGENDA_IDENT=GEO_ASSETS",
+                imageUrl = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180666&RECORD_ID=17607&AGENDA_IDENT=GEO_ASSETS",
             ),
             CulturalPlace(
                 id = 17673,
@@ -206,7 +206,7 @@ class CulturalPlacesProvider : PreviewParameterProvider<PersistentList<CulturalP
                 accessibilityId = null,
                 openFrom = null,
                 openTo = null,
-                image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180668&RECORD_ID=17673&AGENDA_IDENT=GEO_ASSETS",
+                imageUrl = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180668&RECORD_ID=17673&AGENDA_IDENT=GEO_ASSETS",
             ),
             CulturalPlace(
                 id = 17650,
@@ -226,7 +226,7 @@ class CulturalPlacesProvider : PreviewParameterProvider<PersistentList<CulturalP
                 accessibilityId = null,
                 openFrom = null,
                 openTo = null,
-                image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180670&RECORD_ID=17650&AGENDA_IDENT=GEO_ASSETS",
+                imageUrl = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180670&RECORD_ID=17650&AGENDA_IDENT=GEO_ASSETS",
             ),
             CulturalPlace(
                 id = 21422,
@@ -248,7 +248,7 @@ class CulturalPlacesProvider : PreviewParameterProvider<PersistentList<CulturalP
                 accessibilityId = null,
                 openFrom = null,
                 openTo = null,
-                image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=189872&RECORD_ID=21422&AGENDA_IDENT=GEO_ASSETS",
+                imageUrl = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=189872&RECORD_ID=21422&AGENDA_IDENT=GEO_ASSETS",
             ),
             CulturalPlace(
                 id = 17558,
@@ -268,7 +268,7 @@ class CulturalPlacesProvider : PreviewParameterProvider<PersistentList<CulturalP
                 accessibilityId = null,
                 openFrom = null,
                 openTo = null,
-                image1Url = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180674&RECORD_ID=17558&AGENDA_IDENT=GEO_ASSETS",
+                imageUrl = "https://gis.brno.cz/ost/filebox/ug_file.php?FILE_ID=180674&RECORD_ID=17558&AGENDA_IDENT=GEO_ASSETS",
             ),
         ),
     )

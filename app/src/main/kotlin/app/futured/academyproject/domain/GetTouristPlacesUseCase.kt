@@ -20,8 +20,8 @@ class GetTouristPlacesUseCase @Inject constructor(
             placesList.add(
                 TouristPlace(
                     id = item.id,
-                    longitude = item.geometry?.coordinates?.get(0),
-                    latitude = item.geometry?.coordinates?.get(1),
+                    longitude = item.geometryDto?.coordinates?.get(0),
+                    latitude = item.geometryDto?.coordinates?.get(1),
                     name = Html.fromHtml(item.properties.name, Html.FROM_HTML_MODE_LEGACY).toString(),
                     note = item.properties.text,
                     webUrl = item.properties.contactWebsite,
@@ -29,7 +29,7 @@ class GetTouristPlacesUseCase @Inject constructor(
                     streetNumber = item.properties.addressStreetNumber,
                     email = item.properties.contactEmail,
                     phone = item.properties.contactPhone?.replace("&nbsp;", ""),
-                    image1Url = item.properties.image,
+                    imageUrl = item.properties.image,
                     text = Html.fromHtml(item.properties.text, Html.FROM_HTML_MODE_LEGACY).toString(),
                 ),
             )
