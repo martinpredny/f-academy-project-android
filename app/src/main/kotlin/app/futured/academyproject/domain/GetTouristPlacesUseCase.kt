@@ -30,7 +30,7 @@ class GetTouristPlacesUseCase @Inject constructor(
                     email = item.properties.contactEmail,
                     phone = item.properties.contactPhone?.replace("&nbsp;", ""),
                     image1Url = item.properties.image,
-                    text = Html.fromHtml(item.properties.text, Html.FROM_HTML_MODE_LEGACY).toString()
+                    text = Html.fromHtml(item.properties.text, Html.FROM_HTML_MODE_LEGACY).toString(),
                 ),
             )
         }

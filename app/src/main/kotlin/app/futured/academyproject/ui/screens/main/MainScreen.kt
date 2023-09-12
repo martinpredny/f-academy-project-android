@@ -92,7 +92,7 @@ fun MainScreen(
             drawerContent = {
                 ModalDrawerSheet(
                     modifier = Modifier
-                    .windowInsetsPadding(WindowInsets.displayCutout),
+                        .windowInsetsPadding(WindowInsets.displayCutout),
                 ) {
                     Spacer(modifier = Modifier.height(Grid.d4))
                     drawerItems.forEachIndexed { index, drawerItem ->

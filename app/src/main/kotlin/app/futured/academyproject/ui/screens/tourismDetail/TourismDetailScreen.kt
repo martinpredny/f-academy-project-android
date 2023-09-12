@@ -159,7 +159,7 @@ fun TabLayout(
 fun InfoTab(
     touristPlace: TouristPlace,
     actions: TourismDetail.Actions,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
@@ -181,23 +181,23 @@ fun InfoTab(
         }
         Card(
             colors = CardDefaults.cardColors(),
-            modifier = Modifier.padding(Grid.d4)
+            modifier = Modifier.padding(Grid.d4),
         ) {
-                Image(
-                    painter = rememberAsyncImagePainter(
-                        ImageRequest.Builder(LocalContext.current)
-                            .data(touristPlace.image1Url)
-                            .placeholder(R.drawable.no_image_placeholder)
-                            .error(R.drawable.no_image_placeholder)
-                            .crossfade(true)
-                            .build(),
-                    ),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp)
-                )
+            Image(
+                painter = rememberAsyncImagePainter(
+                    ImageRequest.Builder(LocalContext.current)
+                        .data(touristPlace.image1Url)
+                        .placeholder(R.drawable.no_image_placeholder)
+                        .error(R.drawable.no_image_placeholder)
+                        .crossfade(true)
+                        .build(),
+                ),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+            )
             if(touristPlace.text != null) {
                 Text(text = touristPlace.text, modifier = Modifier.padding(Grid.d2), textAlign = TextAlign.Center)
             }
@@ -208,7 +208,7 @@ fun InfoTab(
 @Composable
 fun MapTab(
     touristPlace: TouristPlace,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val placePosition = LatLng(touristPlace.latitude!!, touristPlace.longitude!!)
     val cameraPositionState = rememberCameraPositionState {

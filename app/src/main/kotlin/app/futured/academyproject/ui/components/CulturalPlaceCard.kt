@@ -35,7 +35,7 @@ import kotlinx.collections.immutable.PersistentList
 fun CulturalPlaceCard(
     culturalPlace: CulturalPlace,
     onClick: (placeId: Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,

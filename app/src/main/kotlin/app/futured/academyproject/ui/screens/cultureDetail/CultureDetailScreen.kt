@@ -165,7 +165,7 @@ fun TabLayout(
 fun InfoTab(
     culturalPlace: CulturalPlace,
     actions: CultureDetail.Actions,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
@@ -241,7 +241,7 @@ fun InfoTab(
 @Composable
 fun MapTab(
     culturalPlace: CulturalPlace,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val placePosition = LatLng(culturalPlace.latitude!!, culturalPlace.longitude!!)
     val cameraPositionState = rememberCameraPositionState {

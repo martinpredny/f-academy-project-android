@@ -12,7 +12,7 @@ import app.futured.academyproject.ui.theme.AppTheme
 @Composable
 fun Showcase(
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     AppTheme {
         Surface(color = MaterialTheme.colorScheme.background, modifier = modifier) {

@@ -17,5 +17,5 @@ data class TouristPlace(
     val email: String? = null,
     val phone: String? = null,
     val image1Url: String? = null,
-    val text: String? = null
+    val text: String? = null,
 )

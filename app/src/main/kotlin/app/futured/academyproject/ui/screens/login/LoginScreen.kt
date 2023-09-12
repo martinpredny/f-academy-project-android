@@ -35,7 +35,7 @@ fun LoginScreen(
                     IconButton(onClick = { navigation.popBackStack() }) {
                         Icon(
                             Icons.Filled.ArrowBack,
-                            contentDescription = null
+                            contentDescription = null,
                         )
                     }
                 },

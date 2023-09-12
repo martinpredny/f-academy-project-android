@@ -31,7 +31,7 @@ import coil.request.ImageRequest
 fun TouristPlaceCard(
     touristPlace: TouristPlace,
     onClick: (placeId: Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,

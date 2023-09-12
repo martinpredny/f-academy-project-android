@@ -16,7 +16,7 @@ import app.futured.academyproject.ui.theme.Grid
 fun RowTitleValue(
     title: String,
     value: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier

@@ -126,7 +126,7 @@ object EventDetail {
 fun TabLayout(
     event: Event, contentPadding: PaddingValues,
     actions: EventDetail.Actions,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     Column(
@@ -164,7 +164,7 @@ fun TabLayout(
 fun InfoTab(
     event: Event,
     actions: EventDetail.Actions,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
@@ -210,7 +210,7 @@ fun InfoTab(
         }
         Card(
             colors = CardDefaults.cardColors(),
-            modifier = Modifier.padding(Grid.d4)
+            modifier = Modifier.padding(Grid.d4),
         ) {
             Image(
                 painter = rememberAsyncImagePainter(
@@ -225,9 +225,9 @@ fun InfoTab(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp)
+                    .height(200.dp),
             )
-            if(event.text != null) {
+            if (event.text != null) {
                 Text(text = event.text, modifier = Modifier.padding(Grid.d2), textAlign = TextAlign.Center)
             }
         }
@@ -237,7 +237,7 @@ fun InfoTab(
 @Composable
 fun MapTab(
     event: Event,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val eventPosition = LatLng(event.latitude!!, event.longitude!!)
     val cameraPositionState = rememberCameraPositionState {

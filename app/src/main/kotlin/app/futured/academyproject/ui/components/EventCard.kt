@@ -31,7 +31,7 @@ import coil.request.ImageRequest
 fun EventCard(
     event: Event,
     onClick: (eventId: Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
