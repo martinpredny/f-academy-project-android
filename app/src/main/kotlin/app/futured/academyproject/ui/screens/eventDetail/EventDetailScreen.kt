@@ -41,6 +41,8 @@ import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
 import app.futured.academyproject.tools.compose.ScreenPreviews
 import app.futured.academyproject.ui.components.RowTitleValue
+import app.futured.academyproject.ui.components.RowTitleValueEmail
+import app.futured.academyproject.ui.components.RowTitleValueWebsite
 import app.futured.academyproject.ui.components.Showcase
 import app.futured.academyproject.ui.tabItems
 import app.futured.academyproject.ui.theme.Grid
@@ -166,6 +168,7 @@ fun InfoTab(
     actions: EventDetail.Actions,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
@@ -176,27 +179,10 @@ fun InfoTab(
             RowTitleValue(title = stringResource(R.string.category_title), value = event.category)
         }
         if (event.webUrl != null) {
-            //Todo: make also composable with clickable url
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(vertical = Grid.d2, horizontal = Grid.d4),
-//                verticalAlignment = Alignment.CenterVertically,
-//                horizontalArrangement = Arrangement.SpaceBetween,
-//            ) {
-//                Text(text = stringResource(R.string.website_title), fontWeight = FontWeight.Bold)
-//                Text(
-//                    text = event.webUrl,
-//                    Modifier
-//                        .clickable {
-//                            actions.navigateToWebsite(event.webUrl)
-//                        },
-//                )
-//            }
-            RowTitleValue(title = stringResource(R.string.website_title), value = event.webUrl)
+            RowTitleValueWebsite(title = stringResource(R.string.website_title), url = event.webUrl, context = context)
         }
         if (event.email != null) {
-            RowTitleValue(title = stringResource(R.string.email_title), value = event.email)
+            RowTitleValueEmail(title = stringResource(R.string.email_title), email = event.email, context = context)
         }
         if (event.startDate != null) {
             val date = Date(event.startDate)

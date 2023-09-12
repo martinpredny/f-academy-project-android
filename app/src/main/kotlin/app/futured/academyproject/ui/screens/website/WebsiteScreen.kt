@@ -21,6 +21,7 @@ import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
 
+//Note: this implementation using web-view screen is not used, switched to chrome tabs implementation
 @Composable
 fun WebsiteScreen(
     navigation: NavigationDestinations,

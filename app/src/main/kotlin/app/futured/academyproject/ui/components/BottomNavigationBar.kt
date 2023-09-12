@@ -12,6 +12,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import app.futured.academyproject.data.model.local.menus.BottomNavigationItem
+import app.futured.academyproject.navigation.DestinationRoutes.CULTURE
+import app.futured.academyproject.navigation.DestinationRoutes.EVENTS
+import app.futured.academyproject.navigation.DestinationRoutes.TOURISM
 import app.futured.academyproject.navigation.NavigationDestinations
 
 @Composable
@@ -27,9 +30,9 @@ fun BottomNavigationBar(
     }
 
     selectedItemIndex = when (navigation.getNavController().currentDestination?.route) {
-        "Culture" -> 0
-        "Tourism" -> 1
-        "Events" -> 2
+        CULTURE -> 0
+        TOURISM -> 1
+        EVENTS -> 2
         else -> 0
     }
 
