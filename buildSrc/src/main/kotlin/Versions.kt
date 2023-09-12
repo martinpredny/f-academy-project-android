@@ -67,4 +67,7 @@ object Versions {
     // maps
     const val mapsCompose = "2.2.0"
     const val playServicesMaps = "18.1.0"
+
+    // chrome tabs
+    const val browser = "1.6.0"
 }
