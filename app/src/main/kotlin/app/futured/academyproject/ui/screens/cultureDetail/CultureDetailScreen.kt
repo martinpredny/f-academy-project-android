@@ -65,8 +65,8 @@ fun CultureDetailScreen(
             onEvent<NavigateBackEvent> {
                 navigation.popBackStack()
             }
-            onEvent<NavigateToWebsiteEvent> {
-                navigation.navigateToWebsite(url = it.url)
+            onEvent<NavigateToWebsiteEvent> { event ->
+                navigation.navigateToWebsite(url = event.url)
             }
         }
 

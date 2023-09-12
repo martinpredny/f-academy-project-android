@@ -18,11 +18,11 @@ class TourismDetailViewModel @Inject constructor(
 
     private fun loadPlace() {
         getTouristPlaceUseCase.execute(GetTouristPlaceUseCase.Args(viewState.placeId)) {
-            onSuccess {
-                viewState.touristPlace = it
+            onSuccess { touristPlace ->
+                viewState.touristPlace = touristPlace
             }
-            onError {
-                Timber.e(it)
+            onError { error ->
+                Timber.e(error)
             }
         }
     }

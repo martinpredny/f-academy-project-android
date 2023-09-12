@@ -33,8 +33,8 @@ fun CultureScreen(
 ) {
     with(viewModel) {
         EventsEffect {
-            onEvent<NavigateToCultureDetailEvent> {
-                navigation.navigateToCultureDetailScreen(placeId = it.placeId)
+            onEvent<NavigateToCultureDetailEvent> { event ->
+                navigation.navigateToCultureDetailScreen(placeId = event.placeId)
             }
         }
 

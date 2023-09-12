@@ -18,11 +18,11 @@ class CultureDetailViewModel @Inject constructor(
 
     private fun loadPlace() {
         getCulturalPlaceUseCase.execute(GetCulturalPlaceUseCase.Args(viewState.placeId)) {
-            onSuccess {
-                viewState.culturalPlace = it
+            onSuccess { culturalPlace ->
+                viewState.culturalPlace = culturalPlace
             }
-            onError {
-                Timber.e(it)
+            onError { error ->
+                Timber.e(error)
             }
         }
     }

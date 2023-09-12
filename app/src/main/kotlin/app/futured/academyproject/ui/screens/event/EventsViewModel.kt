@@ -28,19 +28,19 @@ class EventsViewModel @Inject constructor(
         viewState.error = null
 
         getEventsUseCase.execute {
-            onSuccess {
-                Timber.d("Events: $it")
+            onSuccess { events ->
+                Timber.d("Events: $events")
                 viewModelScope.launch {
                     eventsRepository.deleteAll()
-                    eventsRepository.insertEvents(it)
+                    eventsRepository.insertEvents(events)
                 }
 
                 viewState.events = viewState.events.run {
                     clear()
-                    addAll(it)
+                    addAll(events)
                 }
                 viewModelScope.launch {
-                    eventsStore.setEvents(it)
+                    eventsStore.setEvents(events)
                 }
             }
             onError { error ->

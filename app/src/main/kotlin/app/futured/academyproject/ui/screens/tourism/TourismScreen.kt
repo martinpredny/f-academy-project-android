@@ -31,8 +31,8 @@ fun TourismScreen(
 ) {
     with(viewModel) {
         EventsEffect {
-            onEvent<NavigateToTourismDetailEvent> {
-                navigation.navigateToTourismDetailScreen(placeId = it.placeId)
+            onEvent<NavigateToTourismDetailEvent> { event ->
+                navigation.navigateToTourismDetailScreen(placeId = event.placeId)
             }
         }
 

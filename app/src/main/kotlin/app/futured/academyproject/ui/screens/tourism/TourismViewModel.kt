@@ -28,19 +28,19 @@ class TourismViewModel @Inject constructor(
         viewState.error = null
 
         getTouristPlacesUseCase.execute {
-            onSuccess {
-                Timber.d("Tourism places: $it")
+            onSuccess { touristPlaces ->
+                Timber.d("Tourism places: $touristPlaces")
                 viewModelScope.launch {
                     touristPlacesRepository.deleteAll()
-                    touristPlacesRepository.insertTouristPlaces(it)
+                    touristPlacesRepository.insertTouristPlaces(touristPlaces)
                 }
 
                 viewState.places = viewState.places.run {
                     clear()
-                    addAll(it)
+                    addAll(touristPlaces)
                 }
                 viewModelScope.launch {
-                    touristPlacesStore.setPlaces(it)
+                    touristPlacesStore.setPlaces(touristPlaces)
                 }
             }
             onError { error ->

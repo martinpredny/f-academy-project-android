@@ -34,7 +34,7 @@ import kotlinx.collections.immutable.PersistentList
 @Composable
 fun CulturalPlaceCard(
     culturalPlace: CulturalPlace,
-    onClick: (Int) -> Unit,
+    onClick: (placeId: Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -92,7 +92,7 @@ fun CulturalPlaceCard(
 
 @Preview
 @Composable
-private fun CullturalPlaceCardPreview(@PreviewParameter(CulturalPlacesProvider::class) culturalPlaces: PersistentList<CulturalPlace>) =
+private fun CulturalPlaceCardPreview(@PreviewParameter(CulturalPlacesProvider::class) culturalPlaces: PersistentList<CulturalPlace>) =
     Showcase {
         CulturalPlaceCard(culturalPlace = culturalPlaces.first(), onClick = {})
     }

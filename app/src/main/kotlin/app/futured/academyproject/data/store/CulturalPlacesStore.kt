@@ -20,7 +20,9 @@ class CulturalPlacesStore @Inject constructor() {
 
     fun getPlacesFlow() = culturalPlaces.asStateFlow()
 
-    fun getPlace(placeId: Int) = culturalPlaces.value?.find { it.id == placeId }
+    fun getPlace(placeId: Int) = culturalPlaces.value?.find { culturalPlace ->
+        culturalPlace.id == placeId
+    }
 
     suspend fun clear() {
         culturalPlaces.emit(null)

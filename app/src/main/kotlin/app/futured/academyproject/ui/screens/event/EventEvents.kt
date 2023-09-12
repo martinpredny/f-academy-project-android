@@ -4,4 +4,4 @@ import app.futured.arkitekt.core.event.Event
 
 sealed class EventEvents : Event<EventsViewState>()
 
-data class NavigateToEventDetailEvent(val eventIt: Int) : EventEvents()
+data class NavigateToEventDetailEvent(val eventId: Int) : EventEvents()

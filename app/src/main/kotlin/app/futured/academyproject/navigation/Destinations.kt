@@ -16,16 +16,28 @@ import app.futured.academyproject.tools.Constants.Args.URL
 typealias DestinationArgumentKey = String
 typealias DestinationArgumentValue = String
 
+object DestinationRoutes {
+    const val CULTURE = "Culture"
+    const val TOURISM = "Tourism"
+    const val EVENTS = "Events"
+    const val CULTURE_DETAIL = "CultureDetail/{$PLACE_ID}"
+    const val TOURISM_DETAIL = "TourismDetail/{$PLACE_ID}"
+    const val EVENT_DETAIL = "EventDetail/{$PLACE_ID}"
+    const val WEBSITE = "Website/{$URL}"
+    const val ABOUT = "About"
+    const val LOGIN = "Login"
+}
+
 sealed class Destination(
     val route: String,
     val arguments: List<NamedNavArgument> = emptyList(),
     val deepLinks: List<NavDeepLink> = emptyList(),
 ) {
-    object Culture : Destination(route = "Culture")
-    object Tourism : Destination(route = "Tourism")
-    object Events : Destination(route = "Events")
+    object Culture : Destination(route = DestinationRoutes.CULTURE)
+    object Tourism : Destination(route = DestinationRoutes.TOURISM)
+    object Events : Destination(route = DestinationRoutes.EVENTS)
     object CultureDetail : Destination(
-        route = "CultureDetail/{$PLACE_ID}",
+        route = DestinationRoutes.CULTURE_DETAIL,
         arguments = listOf(
             navArgument(PLACE_ID) {
                 type = NavType.IntType
@@ -37,7 +49,7 @@ sealed class Destination(
     }
 
     object TourismDetail : Destination(
-        route = "TourismDetail/{$PLACE_ID}",
+        route = DestinationRoutes.TOURISM_DETAIL,
         arguments = listOf(
             navArgument(PLACE_ID) {
                 type = NavType.IntType
@@ -49,7 +61,7 @@ sealed class Destination(
     }
 
     object EventDetail : Destination(
-        route = "EventDetail/{$PLACE_ID}",
+        route = DestinationRoutes.EVENT_DETAIL,
         arguments = listOf(
             navArgument(PLACE_ID) {
                 type = NavType.IntType
@@ -61,7 +73,7 @@ sealed class Destination(
     }
 
     object Website : Destination(
-        route = "Website/{$URL}",
+        route = DestinationRoutes.WEBSITE,
         arguments = listOf(
             navArgument(URL) {
                 type = NavType.StringType
@@ -72,8 +84,8 @@ sealed class Destination(
             .withArgument(URL, url)
     }
 
-    object About : Destination(route = "About")
-    object LogIn : Destination(route = "Login")
+    object About : Destination(route = DestinationRoutes.ABOUT)
+    object LogIn : Destination(route = DestinationRoutes.LOGIN)
 }
 
 /**
