@@ -2,10 +2,10 @@
     <string name="app_name">Visit Brno</string>
 
     <!-- Error states -->
-    <string name="error_connection">Zkontrolujte prosím jestli jste připojeni k internetu. Protože možná nejste.</string>
-    <string name="error_parse">Něco se pokazilo. Zkuste to později.</string>
-    <string name="error_general_server_error">Něco se pokazilo a ne na vašem přijímači. Zkuste to později.</string>
-    <string name="error_unauthorized">Nejste přihlášení a to byste měli.</string>
+    <string name="error_connection"> Please check if you are connected to the internet.</string>
+    <string name="error_parse">Something went wrong. Please try again later.</string>
+    <string name="error_general_server_error">Server error. Please try again later.</string>
+    <string name="error_unauthorized">You are not logged in.</string>
 
     <!-- Menu items -->
     <string name="culture_title">Culture</string>

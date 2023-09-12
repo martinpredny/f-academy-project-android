@@ -21,22 +21,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import app.futured.academyproject.R
-import app.futured.academyproject.data.model.local.CulturalPlace
 import app.futured.academyproject.data.model.local.Event
-import app.futured.academyproject.tools.preview.CulturalPlacesProvider
 import app.futured.academyproject.ui.theme.Grid
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import kotlinx.collections.immutable.PersistentList
 
 @Composable
 fun EventCard(
     event: Event,
-    onClick: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    onClick: (eventId: Int) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -53,7 +48,7 @@ fun EventCard(
             Image(
                 painter = rememberAsyncImagePainter(
                     ImageRequest.Builder(LocalContext.current)
-                        .data(event.image1Url)
+                        .data(event.imageUrl)
                         .placeholder(R.drawable.no_image_placeholder)
                         .error(R.drawable.no_image_placeholder)
                         .crossfade(true)
@@ -80,9 +75,9 @@ fun EventCard(
                 overflow = TextOverflow.Ellipsis,
             )
             Spacer(modifier = Modifier.height(Grid.d1))
-            event.category?.let {
+            event.category?.let { category ->
                 Text(
-                    text = it,
+                    text = category,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
@@ -92,10 +87,3 @@ fun EventCard(
         }
     }
 }
-
-@Preview
-@Composable
-private fun CulturalPlaceCardPreview(@PreviewParameter(CulturalPlacesProvider::class) culturalPlaces: PersistentList<CulturalPlace>) =
-    Showcase {
-        CulturalPlaceCard(culturalPlace = culturalPlaces.first(), onClick = {})
-    }

@@ -19,7 +19,9 @@ class TouristPlacesStore @Inject constructor() {
 
     fun getPlacesFlow() = touristPlaces.asStateFlow()
 
-    fun getPlace(placeId: Int) = touristPlaces.value?.find { it.id == placeId }
+    fun getPlace(placeId: Int) = touristPlaces.value?.find { touristPlace ->
+        touristPlace.id == placeId
+    }
 
     suspend fun clear() {
         touristPlaces.emit(null)

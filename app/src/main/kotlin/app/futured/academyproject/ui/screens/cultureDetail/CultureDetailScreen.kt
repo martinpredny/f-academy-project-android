@@ -65,8 +65,8 @@ fun CultureDetailScreen(
             onEvent<NavigateBackEvent> {
                 navigation.popBackStack()
             }
-            onEvent<NavigateToWebsiteEvent> {
-                navigation.navigateToWebsite(url = it.url)
+            onEvent<NavigateToWebsiteEvent> { event ->
+                navigation.navigateToWebsite(url = event.url)
             }
         }
 
@@ -165,7 +165,7 @@ fun TabLayout(
 fun InfoTab(
     culturalPlace: CulturalPlace,
     actions: CultureDetail.Actions,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
@@ -224,7 +224,7 @@ fun InfoTab(
                         ImageRequest.Builder(LocalContext.current)
                             .placeholder(R.drawable.no_image_placeholder)
                             .error(R.drawable.no_image_placeholder)
-                            .data(culturalPlace.image1Url)
+                            .data(culturalPlace.imageUrl)
                             .crossfade(true)
                             .build(),
                     ),
@@ -241,7 +241,7 @@ fun InfoTab(
 @Composable
 fun MapTab(
     culturalPlace: CulturalPlace,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val placePosition = LatLng(culturalPlace.latitude!!, culturalPlace.longitude!!)
     val cameraPositionState = rememberCameraPositionState {

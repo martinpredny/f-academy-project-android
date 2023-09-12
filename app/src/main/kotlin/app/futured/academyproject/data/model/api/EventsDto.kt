@@ -4,7 +4,21 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class EventProperties(
+data class EventsDto(
+    @SerialName("type") val type: String,
+    @SerialName("features") val features: List<EventFeatureDto>,
+)
+
+@Serializable
+data class EventFeatureDto(
+    @SerialName("id") val id: Int,
+    @SerialName("type") val type: String,
+    @SerialName("geometry") val geometryDto: GeometryDto? = null,
+    @SerialName("properties") val properties: EventPropertiesDto,
+)
+
+@Serializable
+data class EventPropertiesDto(
     @SerialName("ID") val id: Int,
     @SerialName("name") val name: String,
     @SerialName("text") val text: String?,

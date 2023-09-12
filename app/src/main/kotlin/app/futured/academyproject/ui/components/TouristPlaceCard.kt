@@ -21,21 +21,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import app.futured.academyproject.R
 import app.futured.academyproject.data.model.local.TouristPlace
-import app.futured.academyproject.tools.preview.CulturalPlacesProvider
 import app.futured.academyproject.ui.theme.Grid
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import kotlinx.collections.immutable.PersistentList
 
 @Composable
 fun TouristPlaceCard(
     touristPlace: TouristPlace,
-    onClick: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    onClick: (placeId: Int) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -52,7 +48,7 @@ fun TouristPlaceCard(
             Image(
                 painter = rememberAsyncImagePainter(
                     ImageRequest.Builder(LocalContext.current)
-                        .data(touristPlace.image1Url)
+                        .data(touristPlace.imageUrl)
                         .placeholder(R.drawable.no_image_placeholder)
                         .error(R.drawable.no_image_placeholder)
                         .crossfade(true)
@@ -79,9 +75,9 @@ fun TouristPlaceCard(
                 overflow = TextOverflow.Ellipsis,
             )
             Spacer(modifier = Modifier.height(Grid.d1))
-            touristPlace.street?.let {
+            touristPlace.street?.let { street ->
                 Text(
-                    text = it,
+                    text = street,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
@@ -91,10 +87,3 @@ fun TouristPlaceCard(
         }
     }
 }
-
-@Preview
-@Composable
-private fun TouristPlaceCardPreview(@PreviewParameter(CulturalPlacesProvider::class) touristPlaces: PersistentList<TouristPlace>) =
-    Showcase {
-        TouristPlaceCard(touristPlace = touristPlaces.first(), onClick = {})
-    }

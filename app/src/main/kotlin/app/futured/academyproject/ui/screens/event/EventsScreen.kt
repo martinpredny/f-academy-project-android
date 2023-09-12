@@ -28,8 +28,8 @@ fun EventsScreen(
 ) {
     with(viewModel) {
         EventsEffect {
-            onEvent<NavigateToEventDetailEvent> {
-                navigation.navigateToEventDetailScreen(eventId = it.eventIt)
+            onEvent<NavigateToEventDetailEvent> { event ->
+                navigation.navigateToEventDetailScreen(eventId = event.eventId)
             }
         }
 

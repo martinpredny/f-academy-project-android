@@ -18,11 +18,11 @@ class EventDetailViewModel @Inject constructor(
 
     private fun loadEvent() {
         getEventUseCase.execute(GetEventUseCase.Args(viewState.eventId)) {
-            onSuccess {
-                viewState.event = it
+            onSuccess { event ->
+                viewState.event = event
             }
-            onError {
-                Timber.e(it)
+            onError { error ->
+                Timber.e(error)
             }
         }
     }

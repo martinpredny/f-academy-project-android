@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CulturalPlaces(
+data class GeometryDto(
     @SerialName("type") val type: String,
-    @SerialName("features") val cultureFeatures: List<CultureFeature>,
+    @SerialName("coordinates") val coordinates: List<Double>,
 )

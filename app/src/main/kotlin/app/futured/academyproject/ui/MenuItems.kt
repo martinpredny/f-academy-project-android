@@ -15,31 +15,25 @@ import androidx.compose.material.icons.outlined.Login
 import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material.icons.outlined.Public
 import androidx.compose.material.icons.outlined.Tour
-import app.futured.academyproject.data.model.local.BottomNavigationItem
-import app.futured.academyproject.data.model.local.DrawerNavigationItem
-import app.futured.academyproject.data.model.local.TabItem
+import app.futured.academyproject.data.model.local.menus.BottomNavigationItem
+import app.futured.academyproject.data.model.local.menus.DrawerNavigationItem
+import app.futured.academyproject.data.model.local.menus.TabItem
 
 val bottomNavBarItems = listOf(
     BottomNavigationItem(
         title = "Culture",
         selectedIcon = Icons.Filled.AccountBalance,
         unselectedIcon = Icons.Outlined.AccountBalance,
-        hasNews = false,
-        badgeCount = null,
     ),
     BottomNavigationItem(
         title = "Tourism",
         selectedIcon = Icons.Filled.Tour,
         unselectedIcon = Icons.Outlined.Tour,
-        hasNews = false,
-        badgeCount = null,
     ),
     BottomNavigationItem(
         title = "Events",
         selectedIcon = Icons.Filled.Event,
         unselectedIcon = Icons.Outlined.Event,
-        hasNews = false,
-        badgeCount = null,
     ),
 )
 

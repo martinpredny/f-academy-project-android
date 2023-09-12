@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -16,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.sp
 import app.futured.academyproject.R
 import app.futured.academyproject.navigation.NavigationDestinations
 
@@ -33,7 +33,10 @@ fun LoginScreen(
                 title = { Text(text = stringResource(R.string.log_in)) },
                 navigationIcon = {
                     IconButton(onClick = { navigation.popBackStack() }) {
-                        Icon(Icons.Filled.ArrowBack, contentDescription = null)
+                        Icon(
+                            Icons.Filled.ArrowBack,
+                            contentDescription = null,
+                        )
                     }
                 },
             )
@@ -48,7 +51,7 @@ fun LoginScreen(
             ) {
                 Text(
                     text = stringResource(R.string.log_in_info),
-                    fontSize = 30.sp,
+                    style = MaterialTheme.typography.headlineSmall,
                 )
             }
         },

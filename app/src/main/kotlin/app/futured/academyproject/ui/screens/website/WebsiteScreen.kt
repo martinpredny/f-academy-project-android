@@ -80,7 +80,7 @@ object Website {
 }
 
 @Composable
-fun WebViewPage(url: String, modifier: Modifier = Modifier,) {
+fun WebViewPage(url: String, modifier: Modifier = Modifier) {
     AndroidView(
         factory = {
             WebView(it).apply {

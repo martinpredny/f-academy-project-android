@@ -1,4 +1,4 @@
-package app.futured.academyproject.data.model.local
+package app.futured.academyproject.data.model.local.menus
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

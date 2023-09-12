@@ -67,8 +67,8 @@ fun EventDetailScreen(
             onEvent<NavigateBackEvent> {
                 navigation.popBackStack()
             }
-            onEvent<NavigateToWebsiteEvent> {
-                navigation.navigateToWebsite(url = it.url)
+            onEvent<NavigateToWebsiteEvent> { event ->
+                navigation.navigateToWebsite(url = event.url)
             }
         }
 
@@ -126,7 +126,7 @@ object EventDetail {
 fun TabLayout(
     event: Event, contentPadding: PaddingValues,
     actions: EventDetail.Actions,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     Column(
@@ -164,7 +164,7 @@ fun TabLayout(
 fun InfoTab(
     event: Event,
     actions: EventDetail.Actions,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
@@ -210,14 +210,14 @@ fun InfoTab(
         }
         Card(
             colors = CardDefaults.cardColors(),
-            modifier = Modifier.padding(Grid.d4)
+            modifier = Modifier.padding(Grid.d4),
         ) {
             Image(
                 painter = rememberAsyncImagePainter(
                     ImageRequest.Builder(LocalContext.current)
-                        .data(event.image1Url)
-                        .placeholder(R.drawable.no_image_placeholder)
-                        .error(R.drawable.no_image_placeholder)
+                        .data(event.imageUrl)
+                        .placeholder(R.drawable.no_image_detail_placeholder)
+                        .error(R.drawable.no_image_detail_placeholder)
                         .crossfade(true)
                         .build(),
                 ),
@@ -225,9 +225,9 @@ fun InfoTab(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp)
+                    .height(220.dp),
             )
-            if(event.text != null) {
+            if (!event.text.isNullOrBlank()) {
                 Text(text = event.text, modifier = Modifier.padding(Grid.d2), textAlign = TextAlign.Center)
             }
         }
@@ -237,7 +237,7 @@ fun InfoTab(
 @Composable
 fun MapTab(
     event: Event,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val eventPosition = LatLng(event.latitude!!, event.longitude!!)
     val cameraPositionState = rememberCameraPositionState {

@@ -28,19 +28,19 @@ class CultureViewModel @Inject constructor(
         viewState.error = null
 
         getCulturalPlacesUseCase.execute {
-            onSuccess {
-                Timber.d("Cultural places: $it")
+            onSuccess { culturalPlaces ->
+                Timber.d("Cultural places: $culturalPlaces")
                 viewModelScope.launch {
                     culturalPlacesRepository.deleteAll()
-                    culturalPlacesRepository.insertCulturalPlaces(it)
+                    culturalPlacesRepository.insertCulturalPlaces(culturalPlaces)
                 }
 
                 viewState.places = viewState.places.run {
                     clear()
-                    addAll(it)
+                    addAll(culturalPlaces)
                 }
                 viewModelScope.launch {
-                    culturalPlacesStore.setPlaces(it)
+                    culturalPlacesStore.setPlaces(culturalPlaces)
                 }
             }
             onError { error ->

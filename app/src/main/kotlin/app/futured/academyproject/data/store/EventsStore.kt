@@ -19,7 +19,9 @@ class EventsStore @Inject constructor() {
 
     fun getEventsFlow() = events.asStateFlow()
 
-    fun getEvent(eventId: Int) = events.value?.find { it.id == eventId }
+    fun getEvent(eventId: Int) = events.value?.find { event ->
+        event.id == eventId
+    }
 
     suspend fun clear() {
         events.emit(null)

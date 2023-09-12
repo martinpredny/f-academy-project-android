@@ -4,7 +4,21 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CultureProperties(
+data class CulturalPlacesDto(
+    @SerialName("type") val type: String,
+    @SerialName("features") val cultureFeatureDtos: List<CultureFeatureDto>,
+)
+
+@Serializable
+data class CultureFeatureDto(
+    @SerialName("id") val id: String? = null,
+    @SerialName("type") val type: String,
+    @SerialName("geometry") val geometryDto: GeometryDto? = null,
+    @SerialName("properties") val culturePropertiesDto: CulturePropertiesDto,
+)
+
+@Serializable
+data class CulturePropertiesDto(
     @SerialName("ogc_fid") val ogcFid: Int,
     @SerialName("nazev") val name: String,
     @SerialName("druh") val type: String,

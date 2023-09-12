@@ -34,8 +34,8 @@ import kotlinx.collections.immutable.PersistentList
 @Composable
 fun CulturalPlaceCard(
     culturalPlace: CulturalPlace,
-    onClick: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    onClick: (placeId: Int) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -52,7 +52,7 @@ fun CulturalPlaceCard(
             Image(
                 painter = rememberAsyncImagePainter(
                     ImageRequest.Builder(LocalContext.current)
-                        .data(culturalPlace.image1Url)
+                        .data(culturalPlace.imageUrl)
                         .placeholder(R.drawable.no_image_placeholder)
                         .error(R.drawable.no_image_placeholder)
                         .crossfade(true)
@@ -92,7 +92,7 @@ fun CulturalPlaceCard(
 
 @Preview
 @Composable
-private fun CullturalPlaceCardPreview(@PreviewParameter(CulturalPlacesProvider::class) culturalPlaces: PersistentList<CulturalPlace>) =
+private fun CulturalPlaceCardPreview(@PreviewParameter(CulturalPlacesProvider::class) culturalPlaces: PersistentList<CulturalPlace>) =
     Showcase {
         CulturalPlaceCard(culturalPlace = culturalPlaces.first(), onClick = {})
     }

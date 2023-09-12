@@ -12,7 +12,7 @@ data class Event(
     val name: String,
     val webUrl: String? = null,
     val email: String? = null,
-    val image1Url: String? = null,
+    val imageUrl: String? = null,
     val tickets: String? = null,
     val category: String? = null,
     val text: String? = null,

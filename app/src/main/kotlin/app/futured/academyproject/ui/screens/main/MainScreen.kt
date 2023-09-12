@@ -34,6 +34,11 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import app.futured.academyproject.navigation.DestinationRoutes.ABOUT
+import app.futured.academyproject.navigation.DestinationRoutes.CULTURE
+import app.futured.academyproject.navigation.DestinationRoutes.EVENTS
+import app.futured.academyproject.navigation.DestinationRoutes.LOGIN
+import app.futured.academyproject.navigation.DestinationRoutes.TOURISM
 import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.navigation.NavigationDestinationsImpl
 import app.futured.academyproject.ui.NavGraph
@@ -57,9 +62,9 @@ fun MainScreen(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
     shouldShowBottomAndTopBar = when (navBackStackEntry?.destination?.route) {
-        "Culture" -> true
-        "Tourism" -> true
-        "Events" -> true
+        CULTURE -> true
+        TOURISM -> true
+        EVENTS -> true
         else -> false
     }
 
@@ -74,28 +79,30 @@ fun MainScreen(
         }
 
         selectedItemIndex = when (navigation.getNavController().currentDestination?.route) {
-            "Culture" -> 0
-            "Tourism" -> 0
-            "Events" -> 0
-            "About" -> 1
+            CULTURE -> 0
+            TOURISM -> 0
+            EVENTS -> 0
+            ABOUT -> 1
+            LOGIN -> 2
             else -> 0
         }
 
         ModalNavigationDrawer(
-            modifier = Modifier
-                .windowInsetsPadding(WindowInsets.displayCutout),
             gesturesEnabled = shouldShowBottomAndTopBar,
             drawerContent = {
-                ModalDrawerSheet {
+                ModalDrawerSheet(
+                    modifier = Modifier
+                        .windowInsetsPadding(WindowInsets.displayCutout),
+                ) {
                     Spacer(modifier = Modifier.height(Grid.d4))
-                    drawerItems.forEachIndexed { index, item ->
+                    drawerItems.forEachIndexed { index, drawerItem ->
                         NavigationDrawerItem(
                             label = {
-                                Text(text = item.title)
+                                Text(text = drawerItem.title)
                             },
                             selected = index == selectedItemIndex,
                             onClick = {
-                                navigation.getNavController().navigate(item.route)
+                                navigation.getNavController().navigate(drawerItem.route)
                                 selectedItemIndex = index
                                 scope.launch {
                                     drawerState.close()
@@ -104,9 +111,9 @@ fun MainScreen(
                             icon = {
                                 Icon(
                                     imageVector = if (index == selectedItemIndex) {
-                                        item.selectedIcon
-                                    } else item.unselectedIcon,
-                                    contentDescription = item.title,
+                                        drawerItem.selectedIcon
+                                    } else drawerItem.unselectedIcon,
+                                    contentDescription = drawerItem.title,
                                 )
                             },
                             modifier = Modifier
@@ -124,8 +131,8 @@ fun MainScreen(
                         TopAppBar(scrollBehavior, drawerState, scope)
                     }
                 },
-                content = {
-                    NavGraph(navController, navigation, it)
+                content = { paddingValues ->
+                    NavGraph(navController, navigation, paddingValues)
                 },
                 bottomBar = {
                     if (shouldShowBottomAndTopBar) {
