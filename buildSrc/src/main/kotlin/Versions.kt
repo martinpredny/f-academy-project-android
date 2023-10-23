@@ -64,6 +64,11 @@ object Versions {
     // room
     const val room = "2.5.2"
 
+    // firebase
+    const val auth = "21.1.0"
+    const val crashlytics = "18.4.0"
+    const val analytics = "21.3.0"
+
     // maps
     const val mapsCompose = "2.2.0"
     const val playServicesMaps = "18.1.0"

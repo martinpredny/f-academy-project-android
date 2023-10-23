@@ -157,9 +157,9 @@ dependencies {
     implementation(Dependencies.Support.activityKtx)
     implementation(Dependencies.Support.lifecycleCompiler)
     implementation(Dependencies.Support.preference)
-    implementation("com.google.firebase:firebase-auth-ktx:21.1.0")
-    implementation("com.google.firebase:firebase-crashlytics-ktx:18.4.0")
-    implementation("com.google.firebase:firebase-analytics-ktx:21.3.0")
+    implementation(Dependencies.Firebase.auth)
+    implementation(Dependencies.Firebase.crashlytics)
+    implementation(Dependencies.Firebase.analytics)
     coreLibraryDesugaring(Dependencies.Support.desugarLibs)
 
     // Compose

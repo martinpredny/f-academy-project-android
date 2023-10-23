@@ -81,6 +81,12 @@ object Dependencies {
         const val composeLint = "com.slack.lint.compose:compose-lint-checks:${Versions.composeLint}"
     }
 
+    object Firebase {
+        const val auth = "com.google.firebase:firebase-auth-ktx:${Versions.auth}"
+        const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx:${Versions.crashlytics}"
+        const val analytics = "com.google.firebase:firebase-analytics-ktx:${Versions.analytics}"
+    }
+
     object Room {
         const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
         const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
