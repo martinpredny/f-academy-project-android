@@ -30,11 +30,6 @@ class TourismViewModel @Inject constructor(
         getTouristPlacesUseCase.execute {
             onSuccess { touristPlaces ->
                 Timber.d("Tourism places: $touristPlaces")
-                viewModelScope.launch {
-                    touristPlacesRepository.deleteAll()
-                    touristPlacesRepository.insertTouristPlaces(touristPlaces)
-                }
-
                 viewState.places = viewState.places.run {
                     clear()
                     addAll(touristPlaces)

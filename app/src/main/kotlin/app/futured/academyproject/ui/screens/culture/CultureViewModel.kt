@@ -30,11 +30,6 @@ class CultureViewModel @Inject constructor(
         getCulturalPlacesUseCase.execute {
             onSuccess { culturalPlaces ->
                 Timber.d("Cultural places: $culturalPlaces")
-                viewModelScope.launch {
-                    culturalPlacesRepository.deleteAll()
-                    culturalPlacesRepository.insertCulturalPlaces(culturalPlaces)
-                }
-
                 viewState.places = viewState.places.run {
                     clear()
                     addAll(culturalPlaces)

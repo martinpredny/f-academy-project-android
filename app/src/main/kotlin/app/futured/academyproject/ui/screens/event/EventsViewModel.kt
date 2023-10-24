@@ -30,11 +30,6 @@ class EventsViewModel @Inject constructor(
         getEventsUseCase.execute {
             onSuccess { events ->
                 Timber.d("Events: $events")
-                viewModelScope.launch {
-                    eventsRepository.deleteAll()
-                    eventsRepository.insertEvents(events)
-                }
-
                 viewState.events = viewState.events.run {
                     clear()
                     addAll(events)
