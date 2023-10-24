@@ -16,11 +16,12 @@ import androidx.compose.ui.unit.dp
 import app.futured.academyproject.ui.theme.Grid
 
 @Composable
-fun ErrorComposable(
+fun ErrorState(
     onTryAgain: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(24.dp),
         contentAlignment = Alignment.Center,

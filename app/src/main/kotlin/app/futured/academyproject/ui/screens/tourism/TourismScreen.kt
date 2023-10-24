@@ -14,8 +14,8 @@ import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
 import app.futured.academyproject.tools.compose.ScreenPreviews
-import app.futured.academyproject.ui.components.ErrorComposable
-import app.futured.academyproject.ui.components.LoadingComposable
+import app.futured.academyproject.ui.components.ErrorState
+import app.futured.academyproject.ui.components.LoadingState
 import app.futured.academyproject.ui.components.Showcase
 import app.futured.academyproject.ui.components.TouristPlaceCard
 import app.futured.academyproject.ui.theme.Grid
@@ -67,11 +67,11 @@ object Tourism {
     ) {
         when {
             error != null -> {
-                ErrorComposable(onTryAgain = actions::tryAgain)
+                ErrorState(onTryAgain = actions::tryAgain)
             }
 
             touristPlaces.isEmpty() -> {
-                LoadingComposable()
+                LoadingState()
             }
 
             touristPlaces.isNotEmpty() -> {

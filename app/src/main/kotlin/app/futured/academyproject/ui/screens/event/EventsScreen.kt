@@ -13,9 +13,9 @@ import app.futured.academyproject.data.model.local.Event
 import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
-import app.futured.academyproject.ui.components.ErrorComposable
+import app.futured.academyproject.ui.components.ErrorState
 import app.futured.academyproject.ui.components.EventCard
-import app.futured.academyproject.ui.components.LoadingComposable
+import app.futured.academyproject.ui.components.LoadingState
 import app.futured.academyproject.ui.theme.Grid
 import kotlinx.collections.immutable.PersistentList
 
@@ -62,11 +62,11 @@ object Events {
     ) {
         when {
             error != null -> {
-                ErrorComposable(onTryAgain = actions::tryAgain)
+                ErrorState(onTryAgain = actions::tryAgain)
             }
 
             events.isEmpty() -> {
-                LoadingComposable()
+                LoadingState()
             }
 
             events.isNotEmpty() -> {
