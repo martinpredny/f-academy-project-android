@@ -27,7 +27,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,7 +45,6 @@ import app.futured.academyproject.tools.compose.ScreenPreviews
 import app.futured.academyproject.ui.components.RowTitleValue
 import app.futured.academyproject.ui.components.RowTitleValueEmail
 import app.futured.academyproject.ui.components.RowTitleValuePhone
-import app.futured.academyproject.ui.components.RowTitleValueWebsite
 import app.futured.academyproject.ui.components.Showcase
 import app.futured.academyproject.ui.components.WebsiteSection
 import app.futured.academyproject.ui.tabItems
@@ -132,7 +131,7 @@ fun TabLayout(
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
-    var selectedTabIndex by remember { mutableIntStateOf(0) }
+    var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
 
     Column(
         modifier = modifier
