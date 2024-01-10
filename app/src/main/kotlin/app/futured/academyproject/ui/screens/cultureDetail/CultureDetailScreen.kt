@@ -1,5 +1,6 @@
 package app.futured.academyproject.ui.screens.cultureDetail
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -46,6 +47,7 @@ import app.futured.academyproject.ui.components.RowTitleValueEmail
 import app.futured.academyproject.ui.components.RowTitleValuePhone
 import app.futured.academyproject.ui.components.RowTitleValueWebsite
 import app.futured.academyproject.ui.components.Showcase
+import app.futured.academyproject.ui.components.WebsiteSection
 import app.futured.academyproject.ui.tabItems
 import app.futured.academyproject.ui.theme.Grid
 import coil.compose.rememberAsyncImagePainter
@@ -117,7 +119,7 @@ object CultureDetail {
             modifier = modifier,
         ) { contentPadding ->
             culturalPlace?.let { place ->
-                TabLayout(culturalPlace = place, contentPadding = contentPadding, actions = actions)
+                TabLayout(culturalPlace = place, contentPadding = contentPadding)
             }
 
         }
@@ -128,7 +130,6 @@ object CultureDetail {
 fun TabLayout(
     culturalPlace: CulturalPlace,
     contentPadding: PaddingValues,
-    actions: CultureDetail.Actions,
     modifier: Modifier = Modifier,
 ) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
@@ -158,7 +159,7 @@ fun TabLayout(
             }
         }
         when (selectedTabIndex) {
-            0 -> InfoTab(culturalPlace = culturalPlace, actions = actions)
+            0 -> InfoTab(culturalPlace = culturalPlace)
             1 -> MapTab(culturalPlace = culturalPlace)
         }
     }
@@ -167,60 +168,78 @@ fun TabLayout(
 @Composable
 fun InfoTab(
     culturalPlace: CulturalPlace,
-    actions: CultureDetail.Actions,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
+
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
             .fillMaxSize(),
     ) {
-        RowTitleValue(title = stringResource(R.string.name_title), value = culturalPlace.name)
-        RowTitleValue(title = stringResource(R.string.type_title), value = culturalPlace.type)
-        if (culturalPlace.street != null) {
-            RowTitleValue(title = stringResource(R.string.street_title), value = culturalPlace.street)
-        }
-        if (culturalPlace.streetNumber != null) {
-            RowTitleValue(title = stringResource(R.string.street_number_title), value = culturalPlace.streetNumber)
-        }
-        if (culturalPlace.webUrl != null) {
-            RowTitleValueWebsite(title = stringResource(R.string.website_title), url = culturalPlace.webUrl, context = context)
-        }
-        if (culturalPlace.email != null) {
-            RowTitleValueEmail(title = stringResource(R.string.email_title), email = culturalPlace.email, context = context)
-        }
-        if (culturalPlace.phone != null) {
-            RowTitleValuePhone(title = stringResource(R.string.phone_title), phoneNumber = culturalPlace.phone, context = context)
-        }
-        if (culturalPlace.brnoPass != null) {
-            RowTitleValue(title = stringResource(R.string.accepts_brno_pass_title), value = acceptsBrnoPass(culturalPlace.brnoPass))
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = Grid.d2, horizontal = Grid.d4),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
+        BasicInfoSection(culturalPlace)
+        culturalPlace.webUrl?.let { WebsiteSection(it, context) }
+        ContactInfoSection(culturalPlace.email, culturalPlace.phone, context)
+        BrnoPassSection(culturalPlace.brnoPass)
+        ImageSection(culturalPlace.imageUrl)
+    }
+}
+
+@Composable
+fun BasicInfoSection(
+    culturalPlace: CulturalPlace
+) {
+    RowTitleValue(title = stringResource(R.string.name_title), value = culturalPlace.name)
+    RowTitleValue(title = stringResource(R.string.type_title), value = culturalPlace.type)
+    culturalPlace.street?.let { RowTitleValue(title = stringResource(R.string.street_title), value = it) }
+    culturalPlace.streetNumber?.let { RowTitleValue(title = stringResource(R.string.street_number_title), value = it) }
+}
+
+@Composable
+fun ContactInfoSection(
+    email: String?,
+    phone: String?,
+    context: Context
+) {
+    email?.let { RowTitleValueEmail(title = stringResource(R.string.email_title), email = it, context = context) }
+    phone?.let { RowTitleValuePhone(title = stringResource(R.string.phone_title), phoneNumber = it, context = context) }
+}
+
+@Composable
+fun BrnoPassSection(
+    brnoPass: String?
+) {
+    brnoPass?.let { RowTitleValue(title = stringResource(R.string.accepts_brno_pass_title), value = acceptsBrnoPass(it)) }
+}
+
+@Composable
+fun ImageSection(
+    imageUrl: String?,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = Grid.d2, horizontal = Grid.d4),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+    ) {
+        Card(
+            colors = CardDefaults.cardColors(),
         ) {
-            Card(
-                colors = CardDefaults.cardColors(),
-            ) {
-                Image(
-                    painter = rememberAsyncImagePainter(
-                        ImageRequest.Builder(LocalContext.current)
-                            .placeholder(R.drawable.no_image_placeholder)
-                            .error(R.drawable.no_image_placeholder)
-                            .data(culturalPlace.imageUrl)
-                            .crossfade(true)
-                            .build(),
-                    ),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .aspectRatio(1f),
-                )
-            }
+            Image(
+                painter = rememberAsyncImagePainter(
+                    ImageRequest.Builder(LocalContext.current)
+                        .placeholder(R.drawable.no_image_placeholder)
+                        .error(R.drawable.no_image_placeholder)
+                        .data(imageUrl)
+                        .crossfade(true)
+                        .build(),
+                ),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.aspectRatio(1f),
+            )
         }
     }
 }
