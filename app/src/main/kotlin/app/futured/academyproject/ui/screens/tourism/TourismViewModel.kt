@@ -1,6 +1,7 @@
 package app.futured.academyproject.ui.screens.tourism
 
 import androidx.lifecycle.viewModelScope
+import app.futured.academyproject.data.persistence.Persistence
 import app.futured.academyproject.data.persistence.db.tourism.TouristPlacesRepository
 import app.futured.academyproject.data.store.TouristPlacesStore
 import app.futured.academyproject.domain.GetTouristPlacesUseCase
@@ -19,10 +20,15 @@ class TourismViewModel @Inject constructor(
     private val getTouristPlacesUseCase: GetTouristPlacesUseCase,
     private val touristPlacesStore: TouristPlacesStore,
     private val touristPlacesRepository: TouristPlacesRepository,
+    private val persistence: Persistence
 ) : BaseViewModel<TourismViewState>(), Tourism.Actions {
 
     init {
-        loadTourismPlaces()
+        if (!persistence.tourismLoadedSinceStartup) {
+            loadTourismPlaces()
+        } else {
+            loadTourismPLacesFromDb()
+        }
     }
 
     private fun loadTourismPlaces() {
@@ -30,6 +36,7 @@ class TourismViewModel @Inject constructor(
 
         getTouristPlacesUseCase.execute {
             onSuccess { touristPlaces ->
+                persistence.tourismLoadedSinceStartup = true
                 Timber.d("Tourism places: $touristPlaces")
                 viewState.setState(TourismState.Success(touristPlaces.toPersistentList()))
                 viewModelScope.launch {
@@ -38,17 +45,21 @@ class TourismViewModel @Inject constructor(
             }
             onError { error ->
                 Timber.e(error)
-                viewModelScope.launch {
-                    val cachedPlaces = withContext(Dispatchers.IO) {
-                        touristPlacesRepository.getAllTouristPlaces()
-                    }
-                    if (cachedPlaces.isNotEmpty()) {
-                        viewState.setState(TourismState.Success(cachedPlaces.toPersistentList()))
-                        touristPlacesStore.setPlaces(cachedPlaces)
-                    } else {
-                        viewState.setState(TourismState.Error(error))
-                    }
-                }
+
+            }
+        }
+    }
+
+    private fun loadTourismPLacesFromDb(throwable: Throwable? = null) {
+        viewModelScope.launch {
+            val cachedPlaces = withContext(Dispatchers.IO) {
+                touristPlacesRepository.getAllTouristPlaces()
+            }
+            if (cachedPlaces.isNotEmpty()) {
+                viewState.setState(TourismState.Success(cachedPlaces.toPersistentList()))
+                touristPlacesStore.setPlaces(cachedPlaces)
+            } else {
+                viewState.setState(TourismState.Error(throwable ?: Throwable("No tourism places stored in the DB")))
             }
         }
     }

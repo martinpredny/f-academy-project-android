@@ -1,6 +1,7 @@
 package app.futured.academyproject.ui.screens.culture
 
 import androidx.lifecycle.viewModelScope
+import app.futured.academyproject.data.persistence.Persistence
 import app.futured.academyproject.data.persistence.db.culture.CulturalPlacesRepository
 import app.futured.academyproject.data.store.CulturalPlacesStore
 import app.futured.academyproject.domain.GetCulturalPlacesUseCase
@@ -19,10 +20,15 @@ class CultureViewModel @Inject constructor(
     private val getCulturalPlacesUseCase: GetCulturalPlacesUseCase,
     private val culturalPlacesStore: CulturalPlacesStore,
     private val culturalPlacesRepository: CulturalPlacesRepository,
+    private val persistence: Persistence
 ) : BaseViewModel<CultureViewState>(), Culture.Actions {
 
     init {
-        loadCulturalPlaces()
+        if (!persistence.cultureLoadedSinceStartup) {
+            loadCulturalPlaces()
+        } else {
+            loadCulturalPlacesFromDb()
+        }
     }
 
     private fun loadCulturalPlaces() {
@@ -30,6 +36,7 @@ class CultureViewModel @Inject constructor(
 
         getCulturalPlacesUseCase.execute {
             onSuccess { culturalPlaces ->
+                persistence.cultureLoadedSinceStartup = true
                 Timber.d("Cultural places: $culturalPlaces")
                 viewState.setState(CultureState.Success(culturalPlaces.toPersistentList()))
                 viewModelScope.launch {
@@ -38,17 +45,21 @@ class CultureViewModel @Inject constructor(
             }
             onError { error ->
                 Timber.e(error)
-                viewModelScope.launch {
-                    val cachedPlaces = withContext(Dispatchers.IO) {
-                        culturalPlacesRepository.getAllCulturalPlaces()
-                    }
-                    if (cachedPlaces.isNotEmpty()) {
-                        viewState.setState(CultureState.Success(cachedPlaces.toPersistentList()))
-                        culturalPlacesStore.setPlaces(cachedPlaces)
-                    } else {
-                        viewState.setState(CultureState.Error(error))
-                    }
-                }
+                loadCulturalPlacesFromDb(error)
+            }
+        }
+    }
+
+    private fun loadCulturalPlacesFromDb(throwable: Throwable? = null) {
+        viewModelScope.launch {
+            val cachedPlaces = withContext(Dispatchers.IO) {
+                culturalPlacesRepository.getAllCulturalPlaces()
+            }
+            if (cachedPlaces.isNotEmpty()) {
+                viewState.setState(CultureState.Success(cachedPlaces.toPersistentList()))
+                culturalPlacesStore.setPlaces(cachedPlaces)
+            } else {
+                viewState.setState(CultureState.Error(throwable ?: Throwable("No cultural places stored in the DB")))
             }
         }
     }

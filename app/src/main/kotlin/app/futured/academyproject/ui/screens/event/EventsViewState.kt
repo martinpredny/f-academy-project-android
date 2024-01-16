@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @ViewModelScoped
 class EventsViewState @Inject constructor() : ViewState {
-    private var _state: EventsState by mutableStateOf(EventsState.Success(persistentListOf()))
+    private var _state: EventsState by mutableStateOf(EventsState.Loading)
 
     val events: PersistentList<Event>
         get() = when (val currentState = _state) {
