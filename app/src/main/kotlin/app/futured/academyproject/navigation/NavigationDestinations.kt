@@ -1,6 +1,11 @@
 package app.futured.academyproject.navigation
 
 import androidx.navigation.NavController
+import app.futured.academyproject.navigation.DestinationRoutes.ABOUT
+import app.futured.academyproject.navigation.DestinationRoutes.CULTURE
+import app.futured.academyproject.navigation.DestinationRoutes.EVENTS
+import app.futured.academyproject.navigation.DestinationRoutes.TOURISM
+import app.futured.academyproject.navigation.DestinationRoutes.LOGIN
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
@@ -29,7 +34,7 @@ class NavigationDestinationsImpl(private val navController: NavController) : Nav
     }
 
     override fun navigateToCulture() {
-        navController.navigate("Culture")
+        navController.navigate(CULTURE)
     }
 
     override fun navigateToCultureDetailScreen(placeId: Int) =
@@ -37,7 +42,7 @@ class NavigationDestinationsImpl(private val navController: NavController) : Nav
 
 
     override fun navigateToTourism() {
-        navController.navigate("Tourism")
+        navController.navigate(TOURISM)
     }
 
     override fun navigateToTourismDetailScreen(placeId: Int) {
@@ -45,7 +50,7 @@ class NavigationDestinationsImpl(private val navController: NavController) : Nav
     }
 
     override fun navigateToEvents() {
-        navController.navigate("Events")
+        navController.navigate(EVENTS)
     }
 
     override fun navigateToEventDetailScreen(eventId: Int) {
@@ -58,11 +63,11 @@ class NavigationDestinationsImpl(private val navController: NavController) : Nav
     }
 
     override fun navigateToAbout() {
-        navController.navigate("About")
+        navController.navigate(ABOUT)
     }
 
     override fun navigateToLogin() {
-        navController.navigate("Login")
+        navController.navigate(LOGIN)
     }
 
     override fun getNavController(): NavController {

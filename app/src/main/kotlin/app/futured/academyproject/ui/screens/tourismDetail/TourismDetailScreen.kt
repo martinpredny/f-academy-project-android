@@ -1,18 +1,15 @@
 package app.futured.academyproject.ui.screens.tourismDetail
 
-import androidx.compose.foundation.Image
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,15 +21,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.academyproject.R
 import app.futured.academyproject.data.model.local.TouristPlace
@@ -40,15 +34,13 @@ import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
 import app.futured.academyproject.tools.compose.ScreenPreviews
+import app.futured.academyproject.ui.components.ImageSection
 import app.futured.academyproject.ui.components.RowTitleValue
 import app.futured.academyproject.ui.components.RowTitleValueEmail
 import app.futured.academyproject.ui.components.RowTitleValuePhone
-import app.futured.academyproject.ui.components.RowTitleValueWebsite
 import app.futured.academyproject.ui.components.Showcase
+import app.futured.academyproject.ui.components.WebsiteSection
 import app.futured.academyproject.ui.tabItems
-import app.futured.academyproject.ui.theme.Grid
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
@@ -112,7 +104,7 @@ object TourismDetail {
             modifier = modifier,
         ) { contentPadding ->
             touristPlace?.let { touristPlace ->
-                TabLayout(touristPlace = touristPlace, contentPadding = contentPadding, actions = actions)
+                TabLayout(touristPlace = touristPlace, contentPadding = contentPadding)
             }
         }
     }
@@ -122,10 +114,9 @@ object TourismDetail {
 fun TabLayout(
     touristPlace: TouristPlace,
     contentPadding: PaddingValues,
-    actions: TourismDetail.Actions,
     modifier: Modifier = Modifier,
 ) {
-    var selectedTabIndex by remember { mutableIntStateOf(0) }
+    var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
 
     Column(
         modifier = modifier
@@ -152,7 +143,7 @@ fun TabLayout(
             }
         }
         when (selectedTabIndex) {
-            0 -> InfoTab(touristPlace = touristPlace, actions = actions)
+            0 -> InfoTab(touristPlace = touristPlace)
             1 -> MapTab(touristPlace = touristPlace)
         }
     }
@@ -161,7 +152,6 @@ fun TabLayout(
 @Composable
 fun InfoTab(
     touristPlace: TouristPlace,
-    actions: TourismDetail.Actions,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
@@ -170,42 +160,29 @@ fun InfoTab(
             .verticalScroll(rememberScrollState())
             .fillMaxSize(),
     ) {
-        RowTitleValue(title = stringResource(R.string.name_title), value = touristPlace.name)
-        if (touristPlace.street != null) {
-            RowTitleValue(title = stringResource(R.string.street_title), value = touristPlace.street)
-        }
-        if (touristPlace.webUrl != null) {
-            RowTitleValueWebsite(title = stringResource(R.string.website_title), url = touristPlace.webUrl, context = context)
-        }
-        if (touristPlace.email != null) {
-            RowTitleValueEmail(title = stringResource(R.string.email_title), email = touristPlace.email, context = context)
-        }
-        if (touristPlace.phone != null) {
-            RowTitleValuePhone(title = stringResource(R.string.phone_title), phoneNumber = touristPlace.phone, context = context)
-        }
-        Card(
-            colors = CardDefaults.cardColors(),
-            modifier = Modifier.padding(Grid.d4),
-        ) {
-            Image(
-                painter = rememberAsyncImagePainter(
-                    ImageRequest.Builder(LocalContext.current)
-                        .data(touristPlace.imageUrl)
-                        .placeholder(R.drawable.no_image_detail_placeholder)
-                        .error(R.drawable.no_image_detail_placeholder)
-                        .crossfade(true)
-                        .build(),
-                ),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp)
-            )
-            if(!touristPlace.text.isNullOrBlank()) {
-                Text(text = touristPlace.text, modifier = Modifier.padding(Grid.d2), textAlign = TextAlign.Center)
-            }
-        }
+        BasicInfoSection(touristPlace = touristPlace)
+        touristPlace.webUrl?.let { WebsiteSection(url = it, context = context) }
+        ContactInfoSection(touristPlace = touristPlace, context = context)
+        ImageSection(imageUrl = touristPlace.imageUrl, description = touristPlace.text)
+    }
+}
+
+@Composable
+private fun BasicInfoSection(touristPlace: TouristPlace) {
+    RowTitleValue(title = stringResource(R.string.name_title), value = touristPlace.name)
+    if (touristPlace.street != null) {
+        RowTitleValue(title = stringResource(R.string.street_title), value = touristPlace.street)
+    }
+}
+
+@Composable
+private fun ContactInfoSection(touristPlace: TouristPlace, context: Context) {
+
+    if (touristPlace.email != null) {
+        RowTitleValueEmail(title = stringResource(R.string.email_title), email = touristPlace.email, context = context)
+    }
+    if (touristPlace.phone != null) {
+        RowTitleValuePhone(title = stringResource(R.string.phone_title), phoneNumber = touristPlace.phone, context = context)
     }
 }
 

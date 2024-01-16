@@ -1,11 +1,13 @@
 package app.futured.academyproject.ui.screens.event
 
 import androidx.lifecycle.viewModelScope
+import app.futured.academyproject.data.persistence.Persistence
 import app.futured.academyproject.data.persistence.db.event.EventsRepository
 import app.futured.academyproject.data.store.EventsStore
 import app.futured.academyproject.domain.GetEventsUseCase
 import app.futured.academyproject.tools.arch.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -18,47 +20,46 @@ class EventsViewModel @Inject constructor(
     private val getEventsUseCase: GetEventsUseCase,
     private val eventsStore: EventsStore,
     private val eventsRepository: EventsRepository,
+    private val persistence: Persistence
 ) : BaseViewModel<EventsViewState>(), Events.Actions {
 
     init {
-        loadEvents()
+        if (!persistence.eventsLoadedSinceStartup) {
+            loadEvents()
+        } else {
+            loadEventsFromDb()
+        }
     }
 
     private fun loadEvents() {
-        viewState.error = null
+        viewState.setState(EventsState.Loading)
 
         getEventsUseCase.execute {
             onSuccess { events ->
+                persistence.eventsLoadedSinceStartup = true
                 Timber.d("Events: $events")
-                viewModelScope.launch {
-                    eventsRepository.deleteAll()
-                    eventsRepository.insertEvents(events)
-                }
-
-                viewState.events = viewState.events.run {
-                    clear()
-                    addAll(events)
-                }
+                viewState.setState(EventsState.Success(events.sortedBy { it.name }.toPersistentList()))
                 viewModelScope.launch {
                     eventsStore.setEvents(events)
                 }
             }
             onError { error ->
                 Timber.e(error)
-                viewModelScope.launch {
-                    val cachedEvents = withContext(Dispatchers.IO) {
-                        eventsRepository.getAllEvents()
-                    }
-                    if (cachedEvents.isEmpty()) {
-                        viewState.error = error
-                    } else {
-                        viewState.events = viewState.events.run {
-                            clear()
-                            addAll(cachedEvents)
-                        }
-                        eventsStore.setEvents(cachedEvents)
-                    }
-                }
+                loadEventsFromDb(error)
+            }
+        }
+    }
+
+    private fun loadEventsFromDb(throwable: Throwable? = null) {
+        viewModelScope.launch {
+            val cachedEvents = withContext(Dispatchers.IO) {
+                eventsRepository.getAllEvents()
+            }
+            if (cachedEvents.isNotEmpty()) {
+                viewState.setState(EventsState.Success(cachedEvents.toPersistentList()))
+                eventsStore.setEvents(cachedEvents)
+            } else {
+                viewState.setState(EventsState.Error(throwable ?: Throwable("No events stored in the DB")))
             }
         }
     }

@@ -9,18 +9,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import app.futured.academyproject.data.model.local.TouristPlace
 import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
 import app.futured.academyproject.tools.compose.ScreenPreviews
-import app.futured.academyproject.ui.components.ErrorComposable
-import app.futured.academyproject.ui.components.LoadingComposable
+import app.futured.academyproject.ui.components.ErrorState
+import app.futured.academyproject.ui.components.LoadingState
 import app.futured.academyproject.ui.components.Showcase
 import app.futured.academyproject.ui.components.TouristPlaceCard
 import app.futured.academyproject.ui.theme.Grid
-import kotlinx.collections.immutable.PersistentList
-import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun TourismScreen(
@@ -38,10 +35,9 @@ fun TourismScreen(
 
         Tourism.Content(
             viewModel,
-            viewState.places,
-            viewState.error,
+            viewState.getState(),
             paddings,
-            modifier,
+            modifier
         )
     }
 }
@@ -60,21 +56,18 @@ object Tourism {
     @Composable
     fun Content(
         actions: Actions,
-        touristPlaces: PersistentList<TouristPlace>,
-        error: Throwable?,
+        state: TourismState,
         paddings: PaddingValues,
         modifier: Modifier = Modifier,
     ) {
-        when {
-            error != null -> {
-                ErrorComposable(onTryAgain = actions::tryAgain)
+        when(state) {
+            is TourismState.Error -> {
+                ErrorState(onTryAgain = actions::tryAgain)
             }
-
-            touristPlaces.isEmpty() -> {
-                LoadingComposable()
+            is TourismState.Loading -> {
+                LoadingState()
             }
-
-            touristPlaces.isNotEmpty() -> {
+            is TourismState.Success -> {
                 LazyColumn(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     contentPadding = paddings,
@@ -82,7 +75,7 @@ object Tourism {
                     modifier = modifier
                         .fillMaxSize(),
                 ) {
-                    items(touristPlaces) { place ->
+                    items(state.places) { place ->
                         TouristPlaceCard(
                             touristPlace = place,
                             onClick = actions::navigateToTourismDetailScreen,
@@ -93,16 +86,14 @@ object Tourism {
         }
     }
 }
-
 @ScreenPreviews
 @Composable
 private fun TourismContentWithErrorPreview() {
     Showcase {
         Tourism.Content(
             Tourism.PreviewActions,
-            touristPlaces = persistentListOf(),
-            error = IllegalStateException("Test"),
             paddings = PaddingValues(),
+            state = TourismState.Loading
         )
     }
 }
@@ -113,10 +104,8 @@ private fun TourismContentWithLoadingPreview() {
     Showcase {
         Tourism.Content(
             Tourism.PreviewActions,
-            touristPlaces = persistentListOf(),
-            error = null,
             paddings = PaddingValues(),
+            state = TourismState.Loading
         )
     }
 }
-

@@ -43,7 +43,11 @@ fun BottomNavigationBar(
                 selected = selectedItemIndex == index,
                 onClick = {
                     selectedItemIndex = index
-                    navigation.getNavController().navigate(item.title)
+                    if (navigation.getNavController().currentDestination?.route != item.title) {
+                        navigation.getNavController().navigate(item.title) {
+                            popUpTo(CULTURE)
+                        }
+                    }
                 },
                 label = {
                     Text(text = item.title)

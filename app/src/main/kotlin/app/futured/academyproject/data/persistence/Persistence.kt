@@ -14,6 +14,10 @@ class Persistence @Inject constructor(
     val sharedPreferences: SharedPreferences,
 ) {
 
+    var cultureLoadedSinceStartup = false
+    var tourismLoadedSinceStartup = false
+    var eventsLoadedSinceStartup = false
+
     inline operator fun <reified T : Any> set(key: String, value: T) =
         sharedPreferences.edit { putString(key, json.encodeToString(serializer(), value)) }
 
