@@ -38,7 +38,7 @@ class CultureViewModel @Inject constructor(
             onSuccess { culturalPlaces ->
                 persistence.cultureLoadedSinceStartup = true
                 Timber.d("Cultural places: $culturalPlaces")
-                viewState.setState(CultureState.Success(culturalPlaces.toPersistentList()))
+                viewState.setState(CultureState.Success(culturalPlaces.sortedBy { it.name }.toPersistentList()))
                 viewModelScope.launch {
                     culturalPlacesStore.setPlaces(culturalPlaces)
                 }

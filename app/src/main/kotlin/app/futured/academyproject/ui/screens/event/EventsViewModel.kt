@@ -38,7 +38,7 @@ class EventsViewModel @Inject constructor(
             onSuccess { events ->
                 persistence.eventsLoadedSinceStartup = true
                 Timber.d("Events: $events")
-                viewState.setState(EventsState.Success(events.toPersistentList()))
+                viewState.setState(EventsState.Success(events.sortedBy { it.name }.toPersistentList()))
                 viewModelScope.launch {
                     eventsStore.setEvents(events)
                 }

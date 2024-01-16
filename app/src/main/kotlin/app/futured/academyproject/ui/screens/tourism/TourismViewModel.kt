@@ -38,7 +38,7 @@ class TourismViewModel @Inject constructor(
             onSuccess { touristPlaces ->
                 persistence.tourismLoadedSinceStartup = true
                 Timber.d("Tourism places: $touristPlaces")
-                viewState.setState(TourismState.Success(touristPlaces.toPersistentList()))
+                viewState.setState(TourismState.Success(touristPlaces.sortedBy { it.name }.toPersistentList()))
                 viewModelScope.launch {
                     touristPlacesStore.setPlaces(touristPlaces)
                 }
