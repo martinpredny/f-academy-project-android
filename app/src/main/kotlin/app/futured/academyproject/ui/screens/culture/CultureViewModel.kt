@@ -6,6 +6,7 @@ import app.futured.academyproject.data.store.CulturalPlacesStore
 import app.futured.academyproject.domain.GetCulturalPlacesUseCase
 import app.futured.academyproject.tools.arch.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,15 +26,12 @@ class CultureViewModel @Inject constructor(
     }
 
     private fun loadCulturalPlaces() {
-        viewState.error = null
+        viewState.setState(CultureState.Loading)
 
         getCulturalPlacesUseCase.execute {
             onSuccess { culturalPlaces ->
                 Timber.d("Cultural places: $culturalPlaces")
-                viewState.places = viewState.places.run {
-                    clear()
-                    addAll(culturalPlaces)
-                }
+                viewState.setState(CultureState.Success(culturalPlaces.toPersistentList()))
                 viewModelScope.launch {
                     culturalPlacesStore.setPlaces(culturalPlaces)
                 }
@@ -44,14 +42,11 @@ class CultureViewModel @Inject constructor(
                     val cachedPlaces = withContext(Dispatchers.IO) {
                         culturalPlacesRepository.getAllCulturalPlaces()
                     }
-                    if (cachedPlaces.isEmpty()) {
-                        viewState.error = error
-                    } else {
-                        viewState.places = viewState.places.run {
-                            clear()
-                            addAll(cachedPlaces)
-                        }
+                    if (cachedPlaces.isNotEmpty()) {
+                        viewState.setState(CultureState.Success(cachedPlaces.toPersistentList()))
                         culturalPlacesStore.setPlaces(cachedPlaces)
+                    } else {
+                        viewState.setState(CultureState.Error(error))
                     }
                 }
             }

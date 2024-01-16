@@ -40,8 +40,7 @@ fun CultureScreen(
 
         Culture.Content(
             viewModel,
-            viewState.places,
-            viewState.error,
+            viewState.getState(),
             paddings,
             modifier,
         )
@@ -62,21 +61,20 @@ object Culture {
     @Composable
     fun Content(
         actions: Actions,
-        culturalPlaces: PersistentList<CulturalPlace>,
-        error: Throwable?,
+        state: CultureState,
         paddings: PaddingValues,
         modifier: Modifier = Modifier,
     ) {
-        when {
-            error != null -> {
+        when(state) {
+            is CultureState.Error -> {
                 ErrorState(onTryAgain = actions::tryAgain)
             }
 
-            culturalPlaces.isEmpty() -> {
+            is CultureState.Loading -> {
                 LoadingState()
             }
 
-            culturalPlaces.isNotEmpty() -> {
+            is CultureState.Success -> {
                 LazyColumn(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     contentPadding = paddings,
@@ -84,7 +82,7 @@ object Culture {
                     modifier = modifier
                         .fillMaxSize(),
                 ) {
-                    items(culturalPlaces) { place ->
+                    items(state.places) { place ->
                         CulturalPlaceCard(
                             culturalPlace = place,
                             onClick = actions::navigateToDetailScreen,
@@ -102,8 +100,7 @@ private fun CultureContentPreview(@PreviewParameter(CulturalPlacesProvider::clas
     Showcase {
         Culture.Content(
             Culture.PreviewActions,
-            places,
-            error = null,
+            state = CultureState.Loading,
             paddings = PaddingValues(),
         )
     }
@@ -115,8 +112,7 @@ private fun CultureContentWithErrorPreview() {
     Showcase {
         Culture.Content(
             Culture.PreviewActions,
-            culturalPlaces = persistentListOf(),
-            error = IllegalStateException("Test"),
+            state = CultureState.Loading,
             paddings = PaddingValues(),
         )
     }
@@ -128,8 +124,7 @@ private fun CultureContentWithLoadingPreview() {
     Showcase {
         Culture.Content(
             Culture.PreviewActions,
-            culturalPlaces = persistentListOf(),
-            error = null,
+            state = CultureState.Loading,
             paddings = PaddingValues(),
         )
     }

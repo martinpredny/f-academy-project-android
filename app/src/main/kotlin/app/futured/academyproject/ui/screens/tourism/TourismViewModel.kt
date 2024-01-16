@@ -6,6 +6,7 @@ import app.futured.academyproject.data.store.TouristPlacesStore
 import app.futured.academyproject.domain.GetTouristPlacesUseCase
 import app.futured.academyproject.tools.arch.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,15 +26,12 @@ class TourismViewModel @Inject constructor(
     }
 
     private fun loadTourismPlaces() {
-        viewState.error = null
+        viewState.setState(TourismState.Loading)
 
         getTouristPlacesUseCase.execute {
             onSuccess { touristPlaces ->
                 Timber.d("Tourism places: $touristPlaces")
-                viewState.places = viewState.places.run {
-                    clear()
-                    addAll(touristPlaces)
-                }
+                viewState.setState(TourismState.Success(touristPlaces.toPersistentList()))
                 viewModelScope.launch {
                     touristPlacesStore.setPlaces(touristPlaces)
                 }
@@ -44,14 +42,11 @@ class TourismViewModel @Inject constructor(
                     val cachedPlaces = withContext(Dispatchers.IO) {
                         touristPlacesRepository.getAllTouristPlaces()
                     }
-                    if (cachedPlaces.isEmpty()) {
-                        viewState.error = error
-                    } else {
-                        viewState.places = viewState.places.run {
-                            clear()
-                            addAll(cachedPlaces)
-                        }
+                    if (cachedPlaces.isNotEmpty()) {
+                        viewState.setState(TourismState.Success(cachedPlaces.toPersistentList()))
                         touristPlacesStore.setPlaces(cachedPlaces)
+                    } else {
+                        viewState.setState(TourismState.Error(error))
                     }
                 }
             }

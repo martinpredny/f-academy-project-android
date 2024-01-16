@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import app.futured.academyproject.data.model.local.Event
 import app.futured.academyproject.navigation.NavigationDestinations
 import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
@@ -17,7 +16,6 @@ import app.futured.academyproject.ui.components.ErrorState
 import app.futured.academyproject.ui.components.EventCard
 import app.futured.academyproject.ui.components.LoadingState
 import app.futured.academyproject.ui.theme.Grid
-import kotlinx.collections.immutable.PersistentList
 
 @Composable
 fun EventsScreen(
@@ -35,8 +33,7 @@ fun EventsScreen(
 
         Events.Content(
             viewModel,
-            viewState.events,
-            viewState.error,
+            viewState.getState(),
             paddings,
             modifier,
         )
@@ -55,21 +52,20 @@ object Events {
     @Composable
     fun Content(
         actions: Actions,
-        events: PersistentList<Event>,
-        error: Throwable?,
+        state: EventsState,
         paddings: PaddingValues,
         modifier: Modifier = Modifier,
     ) {
-        when {
-            error != null -> {
+        when(state) {
+            is EventsState.Error -> {
                 ErrorState(onTryAgain = actions::tryAgain)
             }
 
-            events.isEmpty() -> {
+            is EventsState.Loading -> {
                 LoadingState()
             }
 
-            events.isNotEmpty() -> {
+            is EventsState.Success -> {
                 LazyColumn(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     contentPadding = paddings,
@@ -77,7 +73,7 @@ object Events {
                     modifier = modifier
                         .fillMaxSize(),
                 ) {
-                    items(events) { event ->
+                    items(state.events) { event ->
                         EventCard(
                             event = event,
                             onClick = actions::navigateToDetailScreen,

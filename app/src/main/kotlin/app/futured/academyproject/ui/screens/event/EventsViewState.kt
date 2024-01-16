@@ -12,6 +12,31 @@ import javax.inject.Inject
 
 @ViewModelScoped
 class EventsViewState @Inject constructor() : ViewState {
-    var events: PersistentList<Event> by mutableStateOf(persistentListOf())
-    var error: Throwable? by mutableStateOf(null)
+    private var _state: EventsState by mutableStateOf(EventsState.Success(persistentListOf()))
+
+    val events: PersistentList<Event>
+        get() = when (val currentState = _state) {
+            is EventsState.Success -> currentState.events
+            else -> persistentListOf()
+        }
+
+    val error: Throwable?
+        get() = when (val currentState = _state) {
+            is EventsState.Error -> currentState.error
+            else -> null
+        }
+
+    fun setState(newState: EventsState) {
+        _state = newState
+    }
+
+    fun getState() : EventsState {
+        return _state
+    }
+}
+
+sealed class EventsState {
+    data class Success(val events: PersistentList<Event>) : EventsState()
+    data class Error(val error: Throwable) : EventsState()
+    object Loading : EventsState()
 }

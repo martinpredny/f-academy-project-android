@@ -6,6 +6,7 @@ import app.futured.academyproject.data.store.EventsStore
 import app.futured.academyproject.domain.GetEventsUseCase
 import app.futured.academyproject.tools.arch.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,15 +26,12 @@ class EventsViewModel @Inject constructor(
     }
 
     private fun loadEvents() {
-        viewState.error = null
+        viewState.setState(EventsState.Loading)
 
         getEventsUseCase.execute {
             onSuccess { events ->
                 Timber.d("Events: $events")
-                viewState.events = viewState.events.run {
-                    clear()
-                    addAll(events)
-                }
+                viewState.setState(EventsState.Success(events.toPersistentList()))
                 viewModelScope.launch {
                     eventsStore.setEvents(events)
                 }
@@ -44,14 +42,11 @@ class EventsViewModel @Inject constructor(
                     val cachedEvents = withContext(Dispatchers.IO) {
                         eventsRepository.getAllEvents()
                     }
-                    if (cachedEvents.isEmpty()) {
-                        viewState.error = error
-                    } else {
-                        viewState.events = viewState.events.run {
-                            clear()
-                            addAll(cachedEvents)
-                        }
+                    if (cachedEvents.isNotEmpty()) {
+                        viewState.setState(EventsState.Success(cachedEvents.toPersistentList()))
                         eventsStore.setEvents(cachedEvents)
+                    } else {
+                        viewState.setState(EventsState.Error(error))
                     }
                 }
             }
